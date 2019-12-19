@@ -1,0 +1,58 @@
+{
+    "name": "Drupal",
+    "description": "<p>Drupal is content management software. It's used to make many of the websites and applications you use every day. Drupal has great standard features, like easy content authoring, reliable performance, and excellent security. But what sets it apart is its flexibility; modularity is one of its core principles. Its tools help you build the versatile, structured content that dynamic web experiences need.<\/p>",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/drupal-logo.png",
+    "tags": [
+        "api provider",
+        "api service provider",
+        "content",
+        "have api"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/drupal\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Drupal",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/drupal-logo.png",
+            "humanURL": "https:\/\/www.drupal.org\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/drupal-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "https:\/\/www.drupal.org\/news"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "https:\/\/www.drupal.org\/node\/feed"
+        },
+        {
+            "type": "Developers",
+            "url": "https:\/\/api.drupal.org\/api\/drupal"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/drupal"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/drupal"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/www.drupal.org\/"
+        }
+    ]
+}
