@@ -1,0 +1,391 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drupal.org/schemas/drupal/jsonapi-resource.json",
+  "title": "Drupal JSON:API Resource",
+  "description": "Schema representing a Drupal JSON:API resource object following the JSON:API 1.1 specification as implemented by the Drupal JSON:API module. Resource objects are returned from all /jsonapi/{entity_type}/{bundle} endpoints and encapsulate entity data including attributes (field values), relationships (entity references), and navigation links.",
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "jsonapi": {
+      "type": "object",
+      "description": "JSON:API version information included in all responses.",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "The JSON:API specification version in use.",
+          "example": "1.0"
+        },
+        "meta": {
+          "type": "object",
+          "description": "Non-standard meta-information about the JSON:API implementation."
+        }
+      }
+    },
+    "data": {
+      "oneOf": [
+        { "$ref": "#/$defs/ResourceObject" },
+        {
+          "type": "array",
+          "description": "An array of resource objects for collection responses.",
+          "items": { "$ref": "#/$defs/ResourceObject" }
+        }
+      ],
+      "description": "The primary data of the response. Either a single resource object or an array of resource objects."
+    },
+    "included": {
+      "type": "array",
+      "description": "An array of resource objects that are related to the primary data and included via the include query parameter.",
+      "items": { "$ref": "#/$defs/ResourceObject" }
+    },
+    "links": {
+      "$ref": "#/$defs/Links",
+      "description": "Links related to the primary data."
+    },
+    "meta": {
+      "type": "object",
+      "description": "Non-standard meta-information about the response, such as total result count for collections.",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Total number of resources matching the current filter across all pages.",
+          "minimum": 0
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "description": "An array of error objects. Present when the request resulted in one or more errors.",
+      "items": { "$ref": "#/$defs/Error" }
+    }
+  },
+  "$defs": {
+    "ResourceObject": {
+      "type": "object",
+      "description": "A JSON:API resource object representing a single Drupal entity with its type, UUID, attributes, and relationships.",
+      "required": ["type", "id"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The JSON:API resource type in the format {entity_type}--{bundle}, e.g. node--article, taxonomy_term--tags, user--user, file--file.",
+          "pattern": "^[a-z_]+--[a-z_]+$",
+          "examples": ["node--article", "node--page", "taxonomy_term--tags", "user--user", "file--file", "media--image"]
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The UUID of the Drupal entity. JSON:API always uses UUID as the resource identifier, not the numeric entity ID."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "The entity's field values excluding entity reference fields. Common attributes include title, status, created, changed, langcode, and content-type-specific fields.",
+          "properties": {
+            "drupal_internal__nid": {
+              "type": "integer",
+              "description": "The internal numeric node ID (informational only, not used as primary identifier)."
+            },
+            "drupal_internal__tid": {
+              "type": "integer",
+              "description": "The internal numeric taxonomy term ID (informational only)."
+            },
+            "drupal_internal__uid": {
+              "type": "integer",
+              "description": "The internal numeric user ID (informational only)."
+            },
+            "drupal_internal__fid": {
+              "type": "integer",
+              "description": "The internal numeric file ID (informational only)."
+            },
+            "langcode": {
+              "type": "string",
+              "description": "The language code for this resource translation."
+            },
+            "status": {
+              "type": "boolean",
+              "description": "Publication or active status of the entity."
+            },
+            "title": {
+              "type": "string",
+              "description": "Title or name of the entity."
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 UTC timestamp of entity creation."
+            },
+            "changed": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 UTC timestamp of last modification."
+            },
+            "promote": {
+              "type": "boolean",
+              "description": "For nodes, whether the entity is promoted to the front page."
+            },
+            "sticky": {
+              "type": "boolean",
+              "description": "For nodes, whether the entity is sticky at the top of lists."
+            },
+            "body": {
+              "$ref": "#/$defs/TextFieldValue",
+              "description": "Main body text field."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name field used for taxonomy terms and user accounts."
+            },
+            "description": {
+              "$ref": "#/$defs/TextFieldValue",
+              "description": "Description field for taxonomy terms and vocabularies."
+            },
+            "weight": {
+              "type": "integer",
+              "description": "Sort weight for taxonomy terms."
+            },
+            "path": {
+              "$ref": "#/$defs/PathAliasValue",
+              "description": "URL alias configuration for the entity."
+            },
+            "mail": {
+              "type": "string",
+              "format": "email",
+              "description": "Email address for user entities."
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename for file entities."
+            },
+            "uri": {
+              "$ref": "#/$defs/FileUriValue",
+              "description": "URI value for file entities."
+            },
+            "filemime": {
+              "type": "string",
+              "description": "MIME type for file entities."
+            },
+            "filesize": {
+              "type": "integer",
+              "description": "File size in bytes for file entities.",
+              "minimum": 0
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "description": "The entity's entity reference fields expressed as relationship objects. Each key is a field machine name.",
+          "additionalProperties": {
+            "$ref": "#/$defs/RelationshipObject"
+          }
+        },
+        "links": {
+          "$ref": "#/$defs/Links",
+          "description": "Links related to this resource object."
+        },
+        "meta": {
+          "type": "object",
+          "description": "Non-standard meta-information about this resource object."
+        }
+      }
+    },
+    "RelationshipObject": {
+      "type": "object",
+      "description": "A JSON:API relationship object representing an entity reference field.",
+      "properties": {
+        "data": {
+          "oneOf": [
+            { "$ref": "#/$defs/ResourceLinkage" },
+            {
+              "type": "array",
+              "description": "Array of resource linkage objects for multi-value entity reference fields.",
+              "items": { "$ref": "#/$defs/ResourceLinkage" }
+            },
+            { "type": "null", "description": "Null for empty single-value relationships." }
+          ],
+          "description": "The resource linkage data identifying the related resource(s)."
+        },
+        "links": {
+          "$ref": "#/$defs/Links",
+          "description": "Links for this relationship including self and related URLs."
+        }
+      }
+    },
+    "ResourceLinkage": {
+      "type": "object",
+      "description": "A resource linkage object within a relationship, identifying a related resource by type and UUID.",
+      "required": ["type", "id"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The resource type of the related entity.",
+          "examples": ["taxonomy_term--tags", "user--user", "file--file", "media--image"]
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The UUID of the related entity."
+        },
+        "meta": {
+          "type": "object",
+          "description": "Non-standard meta-information about the relationship linkage."
+        }
+      }
+    },
+    "Links": {
+      "type": "object",
+      "description": "A links object containing URL references for navigation and pagination.",
+      "properties": {
+        "self": {
+          "$ref": "#/$defs/Link",
+          "description": "The URL of the current resource or collection."
+        },
+        "related": {
+          "$ref": "#/$defs/Link",
+          "description": "The URL of a related resource."
+        },
+        "first": {
+          "$ref": "#/$defs/Link",
+          "description": "The URL of the first page in a paginated collection."
+        },
+        "prev": {
+          "$ref": "#/$defs/Link",
+          "description": "The URL of the previous page in a paginated collection."
+        },
+        "next": {
+          "$ref": "#/$defs/Link",
+          "description": "The URL of the next page in a paginated collection."
+        },
+        "last": {
+          "$ref": "#/$defs/Link",
+          "description": "The URL of the last page in a paginated collection."
+        }
+      }
+    },
+    "Link": {
+      "type": "object",
+      "description": "A single link object with an href URL and optional meta.",
+      "required": ["href"],
+      "properties": {
+        "href": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the link."
+        },
+        "meta": {
+          "type": "object",
+          "description": "Optional meta-information about the link."
+        }
+      }
+    },
+    "TextFieldValue": {
+      "type": "object",
+      "description": "A Drupal formatted text field value as returned in JSON:API attribute objects.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The raw text content before format processing."
+        },
+        "format": {
+          "type": ["string", "null"],
+          "description": "The machine name of the text format (e.g., basic_html, full_html, plain_text)."
+        },
+        "processed": {
+          "type": "string",
+          "description": "The text content after applying text format filters. Computed by Drupal, read-only."
+        },
+        "summary": {
+          "type": ["string", "null"],
+          "description": "Optional summary text. Used for teasers when body has a configured summary."
+        }
+      }
+    },
+    "PathAliasValue": {
+      "type": "object",
+      "description": "URL alias information for a Drupal entity as returned in JSON:API.",
+      "properties": {
+        "alias": {
+          "type": ["string", "null"],
+          "description": "The URL alias path starting with a forward slash (e.g., /my-article).",
+          "pattern": "^\\/.+"
+        },
+        "pid": {
+          "type": ["integer", "null"],
+          "description": "The numeric path alias ID.",
+          "minimum": 1
+        },
+        "langcode": {
+          "type": "string",
+          "description": "The language code for this path alias."
+        }
+      }
+    },
+    "FileUriValue": {
+      "type": "object",
+      "description": "A file URI value object as returned in JSON:API file entity attributes.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The file URI in Drupal stream wrapper format (e.g., public://2024/01/image.jpg)."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The absolute URL to the file for direct download or display."
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "description": "A JSON:API error object describing a single error encountered while processing a request.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for this particular error occurrence."
+        },
+        "status": {
+          "type": "string",
+          "description": "The HTTP status code applicable to this error.",
+          "pattern": "^[0-9]{3}$"
+        },
+        "code": {
+          "type": "string",
+          "description": "An application-specific error code."
+        },
+        "title": {
+          "type": "string",
+          "description": "A short, human-readable summary of the problem. Should not change between occurrences."
+        },
+        "detail": {
+          "type": "string",
+          "description": "A human-readable explanation specific to this error occurrence."
+        },
+        "source": {
+          "type": "object",
+          "description": "References to the source of the error.",
+          "properties": {
+            "pointer": {
+              "type": "string",
+              "description": "A JSON Pointer (RFC 6901) to the associated entity in the request body."
+            },
+            "parameter": {
+              "type": "string",
+              "description": "The URI query parameter that caused the error."
+            }
+          }
+        },
+        "links": {
+          "type": "object",
+          "description": "Links that may lead to further details about this error.",
+          "properties": {
+            "about": {
+              "$ref": "#/$defs/Link",
+              "description": "A link to further information about this error."
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "description": "Non-standard meta-information about the error."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "drupal": "https://www.drupal.org/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+
+    "Node": {
+      "@id": "drupal:Node",
+      "@context": {
+        "nid": {
+          "@id": "drupal:nid",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "dcterms:identifier",
+          "@type": "xsd:string"
+        },
+        "vid": {
+          "@id": "drupal:revisionId",
+          "@type": "xsd:integer"
+        },
+        "langcode": {
+          "@id": "dcterms:language",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "drupal:contentType",
+          "@type": "@id"
+        },
+        "title": "schema:name",
+        "status": {
+          "@id": "schema:creativeWorkStatus",
+          "@type": "xsd:boolean"
+        },
+        "promote": {
+          "@id": "drupal:promoted",
+          "@type": "xsd:boolean"
+        },
+        "sticky": {
+          "@id": "drupal:sticky",
+          "@type": "xsd:boolean"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "changed": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "uid": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "body": {
+          "@id": "schema:text"
+        },
+        "path": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "field_tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "field_image": {
+          "@id": "schema:image",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "ContentType": {
+      "@id": "drupal:ContentType",
+      "@context": {
+        "type": {
+          "@id": "drupal:machineNameId",
+          "@type": "xsd:string"
+        },
+        "name": "schema:name",
+        "description": "schema:description",
+        "help": {
+          "@id": "drupal:helpText",
+          "@type": "xsd:string"
+        },
+        "new_revision": {
+          "@id": "drupal:revisionsEnabled",
+          "@type": "xsd:boolean"
+        },
+        "preview_mode": {
+          "@id": "drupal:previewMode",
+          "@type": "xsd:integer"
+        },
+        "display_submitted": {
+          "@id": "drupal:displaySubmitted",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "drupal:User",
+      "@context": {
+        "uid": {
+          "@id": "drupal:userId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "dcterms:identifier",
+          "@type": "xsd:string"
+        },
+        "name": "schema:name",
+        "mail": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "schema:accountablePerson",
+          "@type": "xsd:boolean"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "changed": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "access": {
+          "@id": "drupal:lastAccess",
+          "@type": "xsd:dateTime"
+        },
+        "login": {
+          "@id": "drupal:lastLogin",
+          "@type": "xsd:dateTime"
+        },
+        "roles": {
+          "@id": "schema:hasCredential",
+          "@container": "@set"
+        },
+        "timezone": {
+          "@id": "drupal:timezone",
+          "@type": "xsd:string"
+        },
+        "langcode": {
+          "@id": "dcterms:language",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "TaxonomyTerm": {
+      "@id": "drupal:TaxonomyTerm",
+      "@context": {
+        "tid": {
+          "@id": "drupal:termId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "dcterms:identifier",
+          "@type": "xsd:string"
+        },
+        "vid": {
+          "@id": "drupal:vocabulary",
+          "@type": "@id"
+        },
+        "langcode": {
+          "@id": "dcterms:language",
+          "@type": "xsd:string"
+        },
+        "name": "schema:name",
+        "description": "schema:description",
+        "weight": {
+          "@id": "drupal:sortWeight",
+          "@type": "xsd:integer"
+        },
+        "parent": {
+          "@id": "skos:broader",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "changed": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "path": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "TaxonomyVocabulary": {
+      "@id": "drupal:TaxonomyVocabulary",
+      "@context": {
+        "vid": {
+          "@id": "drupal:vocabularyId",
+          "@type": "xsd:string"
+        },
+        "uuid": {
+          "@id": "dcterms:identifier",
+          "@type": "xsd:string"
+        },
+        "name": "schema:name",
+        "description": "schema:description",
+        "hierarchy": {
+          "@id": "drupal:hierarchyType",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "File": {
+      "@id": "drupal:File",
+      "@context": {
+        "fid": {
+          "@id": "drupal:fileId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "dcterms:identifier",
+          "@type": "xsd:string"
+        },
+        "langcode": {
+          "@id": "dcterms:language",
+          "@type": "xsd:string"
+        },
+        "uid": {
+          "@id": "dcterms:creator",
+          "@type": "@id"
+        },
+        "filename": "schema:name",
+        "uri": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        },
+        "filemime": {
+          "@id": "schema:encodingFormat",
+          "@type": "xsd:string"
+        },
+        "filesize": {
+          "@id": "schema:contentSize",
+          "@type": "xsd:integer"
+        },
+        "status": {
+          "@id": "drupal:fileStatus",
+          "@type": "xsd:boolean"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "changed": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Comment": {
+      "@id": "drupal:Comment",
+      "@context": {
+        "cid": {
+          "@id": "drupal:commentId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "dcterms:identifier",
+          "@type": "xsd:string"
+        },
+        "langcode": {
+          "@id": "dcterms:language",
+          "@type": "xsd:string"
+        },
+        "comment_type": {
+          "@id": "drupal:commentType",
+          "@type": "@id"
+        },
+        "subject": "schema:name",
+        "uid": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "entity_id": {
+          "@id": "schema:about",
+          "@type": "@id"
+        },
+        "entity_type": {
+          "@id": "drupal:parentEntityType",
+          "@type": "xsd:string"
+        },
+        "field_name": {
+          "@id": "drupal:commentField",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "schema:creativeWorkStatus",
+          "@type": "xsd:boolean"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "changed": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "comment_body": {
+          "@id": "schema:text"
+        },
+        "pid": {
+          "@id": "schema:parentItem",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "JsonApiResource": {
+      "@id": "drupal:JsonApiResource",
+      "@context": {
+        "type": {
+          "@id": "drupal:resourceType",
+          "@type": "xsd:string"
+        },
+        "id": {
+          "@id": "dcterms:identifier",
+          "@type": "xsd:string"
+        },
+        "attributes": {
+          "@id": "drupal:resourceAttributes"
+        },
+        "relationships": {
+          "@id": "drupal:resourceRelationships"
+        },
+        "links": {
+          "@id": "hydra:links"
+        },
+        "included": {
+          "@id": "drupal:includedResources",
+          "@container": "@set"
+        },
+        "meta": {
+          "@id": "drupal:responseMeta"
+        }
+      }
+    }
+  }
+}

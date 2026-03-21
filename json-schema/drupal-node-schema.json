@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drupal.org/schemas/drupal/node.json",
+  "title": "Drupal Node",
+  "description": "Schema representing a Drupal content node entity with its system metadata, publication status, revision tracking, language, and field values. Nodes are the primary content entities in Drupal and may belong to any configured content type (bundle) such as article or page.",
+  "type": "object",
+  "required": ["nid", "uuid", "type", "title", "status", "langcode"],
+  "properties": {
+    "nid": {
+      "type": "integer",
+      "description": "The unique numeric node ID assigned by Drupal upon creation. Used in internal references and REST API paths.",
+      "minimum": 1
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The universally unique identifier of the node. Used as the primary identifier in the JSON:API module."
+    },
+    "vid": {
+      "type": "integer",
+      "description": "The current revision ID. Increments each time a new revision is saved.",
+      "minimum": 1
+    },
+    "langcode": {
+      "type": "string",
+      "description": "The language code for this node translation (e.g., en, fr, de). Follows BCP 47 format.",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+      "examples": ["en", "fr", "de", "es", "ja"]
+    },
+    "type": {
+      "type": "string",
+      "description": "The machine name of the content type (bundle) this node belongs to, such as article or page.",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "examples": ["article", "page", "blog_post", "landing_page"]
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the content node. Required for all node types.",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "status": {
+      "type": "boolean",
+      "description": "Publication status of the node. True means the node is published and publicly accessible. False means it is unpublished and only visible to privileged users."
+    },
+    "promote": {
+      "type": "boolean",
+      "description": "Whether the node is promoted to the front page of the Drupal site."
+    },
+    "sticky": {
+      "type": "boolean",
+      "description": "Whether the node is displayed at the top of content lists regardless of sort order."
+    },
+    "revision_timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp of when the current revision was created.",
+      "minimum": 0
+    },
+    "revision_uid": {
+      "type": "integer",
+      "description": "The numeric user ID of the user who created the current revision.",
+      "minimum": 0
+    },
+    "revision_log": {
+      "type": ["string", "null"],
+      "description": "Optional log message describing the changes made in the current revision.",
+      "maxLength": 255
+    },
+    "revision_translation_affected": {
+      "type": ["boolean", "null"],
+      "description": "Whether this revision reflects a translation change. True if this revision was created due to a change in a translated version."
+    },
+    "uid": {
+      "type": "integer",
+      "description": "The numeric user ID of the user who originally authored the node.",
+      "minimum": 0
+    },
+    "created": {
+      "type": "integer",
+      "description": "Unix timestamp of when the node was originally created.",
+      "minimum": 0
+    },
+    "changed": {
+      "type": "integer",
+      "description": "Unix timestamp of when the node was last modified.",
+      "minimum": 0
+    },
+    "comment": {
+      "type": "integer",
+      "description": "Comment status for this node. 0 = comments hidden, 1 = comments closed, 2 = comments open.",
+      "enum": [0, 1, 2]
+    },
+    "body": {
+      "$ref": "#/$defs/TextItem",
+      "description": "The main body field of the node. Contains text value, optional summary, and the text format applied."
+    },
+    "path": {
+      "$ref": "#/$defs/PathAlias",
+      "description": "The URL alias configuration for the node's canonical path."
+    },
+    "field_tags": {
+      "type": "array",
+      "description": "Array of taxonomy term references used to tag or categorize this node. Available when the tags field is configured on the content type.",
+      "items": {
+        "$ref": "#/$defs/EntityReference"
+      }
+    },
+    "field_image": {
+      "description": "Image field reference to a file entity. Available when an image field is configured on the content type.",
+      "$ref": "#/$defs/ImageItem"
+    },
+    "metatag": {
+      "type": "object",
+      "description": "Meta tag values for SEO and social sharing, available when the Metatag module is installed.",
+      "properties": {
+        "value": {
+          "type": "object",
+          "description": "Key-value pairs of meta tag names and their values."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "TextItem": {
+      "type": "object",
+      "description": "A Drupal formatted text field value with optional summary and format specification.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The full text content. May contain HTML markup depending on the configured text format."
+        },
+        "summary": {
+          "type": ["string", "null"],
+          "description": "Optional trimmed summary of the text. Used for teaser views if provided."
+        },
+        "format": {
+          "type": "string",
+          "description": "The machine name of the text format applied to this field (e.g., basic_html, full_html, plain_text, restricted_html).",
+          "examples": ["basic_html", "full_html", "plain_text", "restricted_html"]
+        },
+        "processed": {
+          "type": "string",
+          "description": "The text value after applying the text format filters. Read-only, computed by Drupal."
+        }
+      }
+    },
+    "EntityReference": {
+      "type": "object",
+      "description": "A Drupal entity reference field value pointing to another entity.",
+      "required": ["target_id"],
+      "properties": {
+        "target_id": {
+          "type": "integer",
+          "description": "The numeric ID of the referenced entity.",
+          "minimum": 1
+        },
+        "target_type": {
+          "type": "string",
+          "description": "The entity type of the referenced entity (e.g., taxonomy_term, node, user)."
+        },
+        "target_uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The UUID of the referenced entity."
+        }
+      }
+    },
+    "ImageItem": {
+      "type": "object",
+      "description": "A Drupal image field value with file reference and display metadata.",
+      "required": ["target_id"],
+      "properties": {
+        "target_id": {
+          "type": "integer",
+          "description": "The numeric file entity ID of the referenced image.",
+          "minimum": 1
+        },
+        "alt": {
+          "type": ["string", "null"],
+          "description": "Alternative text for the image, used for accessibility and SEO.",
+          "maxLength": 512
+        },
+        "title": {
+          "type": ["string", "null"],
+          "description": "Optional title attribute for the image, shown as tooltip on hover.",
+          "maxLength": 1024
+        },
+        "width": {
+          "type": ["integer", "null"],
+          "description": "The pixel width of the image.",
+          "minimum": 1
+        },
+        "height": {
+          "type": ["integer", "null"],
+          "description": "The pixel height of the image.",
+          "minimum": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The absolute URL to the image file. Computed field, read-only."
+        }
+      }
+    },
+    "PathAlias": {
+      "type": "object",
+      "description": "A Drupal URL alias configuration for an entity's canonical path.",
+      "properties": {
+        "alias": {
+          "type": ["string", "null"],
+          "description": "The URL alias path starting with a forward slash (e.g., /my-article-title). Null if no alias is configured.",
+          "pattern": "^\\/.*"
+        },
+        "pid": {
+          "type": ["integer", "null"],
+          "description": "The numeric path ID for this alias. Null if no alias exists.",
+          "minimum": 1
+        },
+        "langcode": {
+          "type": "string",
+          "description": "The language code for this path alias.",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+        }
+      }
+    }
+  }
+}
