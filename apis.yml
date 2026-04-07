@@ -1,22 +1,18 @@
 aid: drupal
-url: 
-  https://raw.githubusercontent.com/api-evangelist/drupal/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/drupal/refs/heads/main/apis.yml
 apis:
   - aid: drupal:rest-api
     name: Drupal REST API
     tags:
-      - REST
-      - Content Management
       - CMS
+      - Content Management
+      - REST
       - Web Services
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://example.com
-    humanURL: 
-      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+    humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
     properties:
-      - url: 
-          https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+      - url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
         type: Documentation
       - url: openapi/drupal-rest-api-openapi.yml
         type: OpenAPI
@@ -31,19 +27,16 @@ apis:
   - aid: drupal:jsonapi
     name: Drupal JSON:API
     tags:
-      - JSON:API
-      - Content Management
       - CMS
-      - REST
+      - Content Management
       - Headless
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - JSON:API
+      - REST
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://example.com/jsonapi
-    humanURL: 
-      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+    humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
     properties:
-      - url: 
-          https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+      - url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
         type: Documentation
       - url: openapi/drupal-jsonapi-openapi.yml
         type: OpenAPI
@@ -59,13 +52,12 @@ apis:
   - aid: drupal:graphql
     name: Drupal GraphQL API
     tags:
-      - GraphQL
-      - Content Management
       - CMS
+      - Content Management
+      - GraphQL
       - Headless
       - Query Language
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://example.com/graphql
     humanURL: https://www.drupal.org/docs/contributed-modules/graphql
     properties:

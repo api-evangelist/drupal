@@ -25,6 +25,9 @@ servers:
   - url: https://example.com/jsonapi
     description: Drupal JSON:API Base (replace with your Drupal installation base URL)
 tags:
+  - name: Files
+    description: >-
+      JSON:API endpoints for file entities and file upload operations.
   - name: Node Articles
     description: >-
       JSON:API endpoints for article content nodes. The bundle slug varies by
@@ -33,20 +36,14 @@ tags:
     description: >-
       JSON:API endpoints for basic page content nodes. The bundle slug varies
       by Drupal installation.
-  - name: Users
-    description: >-
-      JSON:API endpoints for Drupal user entities. Config entities are read-only
-      via JSON:API and require authentication.
   - name: Taxonomy Terms
     description: >-
       JSON:API endpoints for taxonomy term entities across all configured
       vocabularies.
-  - name: Files
+  - name: Users
     description: >-
-      JSON:API endpoints for file entities and file upload operations.
-  - name: Media
-    description: >-
-      JSON:API endpoints for media entities when the core Media module is enabled.
+      JSON:API endpoints for Drupal user entities. Config entities are read-only
+      via JSON:API and require authentication.
 security:
   - basicAuth: []
   - oAuth2:

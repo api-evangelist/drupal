@@ -22,14 +22,18 @@ servers:
   - url: https://example.com
     description: Drupal Site (replace with your Drupal installation base URL)
 tags:
+  - name: Comments
+    description: >-
+      Comment resources for reading and managing comments attached to content
+      entities in Drupal.
+  - name: Files
+    description: >-
+      File entity resources for managing file metadata and content uploaded
+      to the Drupal file system.
   - name: Nodes
     description: >-
       Content node resources representing structured content items of any type
       (article, page, etc.) stored in Drupal's content management system.
-  - name: Users
-    description: >-
-      User account resources for reading and managing Drupal user entities,
-      including account details, roles, and profile fields.
   - name: Taxonomy Terms
     description: >-
       Taxonomy term resources for reading and managing categorization terms
@@ -38,14 +42,10 @@ tags:
     description: >-
       Taxonomy vocabulary resources representing the container configurations
       that organize sets of taxonomy terms.
-  - name: Files
+  - name: Users
     description: >-
-      File entity resources for managing file metadata and content uploaded
-      to the Drupal file system.
-  - name: Comments
-    description: >-
-      Comment resources for reading and managing comments attached to content
-      entities in Drupal.
+      User account resources for reading and managing Drupal user entities,
+      including account details, roles, and profile fields.
 security:
   - basicAuth: []
   - cookieAuth: []
