@@ -79,7 +79,7 @@ common:
   - url: json-schema/drupal-node-schema.json
     type: JSONSchema
 
-modified: '2026-03-21'
+modified: '2026-04-28'
 description: >-
   Drupal is an open-source content management system written in PHP and used to build
   websites, applications, and digital experiences for individuals, organizations,
