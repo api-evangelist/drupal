@@ -1,0 +1,491 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Drupal JSON:API
+  description: 'The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant
+    JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the
+    pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD
+    access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations,
+    revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:'
+  tags:
+  - Drupal
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: drupal
+    baseUri: https://example.com/jsonapi
+    description: Drupal JSON:API HTTP API.
+    authentication:
+      type: basic
+      username: '{{DRUPAL_USERNAME}}'
+      password: '{{DRUPAL_PASSWORD}}'
+    resources:
+    - name: node-article
+      path: /node/article
+      operations:
+      - name: listnodearticles
+        method: GET
+        description: List article nodes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnodearticle
+        method: POST
+        description: Create an article node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: node-article-uuid
+      path: /node/article/{uuid}
+      operations:
+      - name: getnodearticle
+        method: GET
+        description: Get an article node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatenodearticle
+        method: PATCH
+        description: Update an article node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletenodearticle
+        method: DELETE
+        description: Delete an article node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: node-page
+      path: /node/page
+      operations:
+      - name: listnodepages
+        method: GET
+        description: List basic page nodes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: node-page-uuid
+      path: /node/page/{uuid}
+      operations:
+      - name: getnodepage
+        method: GET
+        description: Get a basic page node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: user-user
+      path: /user/user
+      operations:
+      - name: listusers
+        method: GET
+        description: List users
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: user-user-uuid
+      path: /user/user/{uuid}
+      operations:
+      - name: getuser
+        method: GET
+        description: Get a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateuser
+        method: PATCH
+        description: Update a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: taxonomy-term-vocabulary
+      path: /taxonomy_term/{vocabulary}
+      operations:
+      - name: listtaxonomyterms
+        method: GET
+        description: List taxonomy terms by vocabulary
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: taxonomy-term-vocabulary-uuid
+      path: /taxonomy_term/{vocabulary}/{uuid}
+      operations:
+      - name: gettaxonomyterm
+        method: GET
+        description: Get a taxonomy term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: file-file
+      path: /file/file
+      operations:
+      - name: listfiles
+        method: GET
+        description: List file entities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: file-file-uuid
+      path: /file/file/{uuid}
+      operations:
+      - name: getfile
+        method: GET
+        description: Get a file entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefile
+        method: DELETE
+        description: Delete a file entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: drupal-rest
+    description: REST adapter for Drupal JSON:API.
+    resources:
+    - path: /node/article
+      name: listnodearticles
+      operations:
+      - method: GET
+        name: listnodearticles
+        description: List article nodes
+        call: drupal.listnodearticles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /node/article
+      name: createnodearticle
+      operations:
+      - method: POST
+        name: createnodearticle
+        description: Create an article node
+        call: drupal.createnodearticle
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /node/article/{uuid}
+      name: getnodearticle
+      operations:
+      - method: GET
+        name: getnodearticle
+        description: Get an article node
+        call: drupal.getnodearticle
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /node/article/{uuid}
+      name: updatenodearticle
+      operations:
+      - method: PATCH
+        name: updatenodearticle
+        description: Update an article node
+        call: drupal.updatenodearticle
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /node/article/{uuid}
+      name: deletenodearticle
+      operations:
+      - method: DELETE
+        name: deletenodearticle
+        description: Delete an article node
+        call: drupal.deletenodearticle
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /node/page
+      name: listnodepages
+      operations:
+      - method: GET
+        name: listnodepages
+        description: List basic page nodes
+        call: drupal.listnodepages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /node/page/{uuid}
+      name: getnodepage
+      operations:
+      - method: GET
+        name: getnodepage
+        description: Get a basic page node
+        call: drupal.getnodepage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user/user
+      name: listusers
+      operations:
+      - method: GET
+        name: listusers
+        description: List users
+        call: drupal.listusers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user/user/{uuid}
+      name: getuser
+      operations:
+      - method: GET
+        name: getuser
+        description: Get a user
+        call: drupal.getuser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user/user/{uuid}
+      name: updateuser
+      operations:
+      - method: PATCH
+        name: updateuser
+        description: Update a user
+        call: drupal.updateuser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /taxonomy_term/{vocabulary}
+      name: listtaxonomyterms
+      operations:
+      - method: GET
+        name: listtaxonomyterms
+        description: List taxonomy terms by vocabulary
+        call: drupal.listtaxonomyterms
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /taxonomy_term/{vocabulary}/{uuid}
+      name: gettaxonomyterm
+      operations:
+      - method: GET
+        name: gettaxonomyterm
+        description: Get a taxonomy term
+        call: drupal.gettaxonomyterm
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /file/file
+      name: listfiles
+      operations:
+      - method: GET
+        name: listfiles
+        description: List file entities
+        call: drupal.listfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /file/file/{uuid}
+      name: getfile
+      operations:
+      - method: GET
+        name: getfile
+        description: Get a file entity
+        call: drupal.getfile
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /file/file/{uuid}
+      name: deletefile
+      operations:
+      - method: DELETE
+        name: deletefile
+        description: Delete a file entity
+        call: drupal.deletefile
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: drupal-mcp
+    transport: http
+    description: MCP adapter for Drupal JSON:API for AI agent use.
+    tools:
+    - name: listnodearticles
+      description: List article nodes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.listnodearticles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createnodearticle
+      description: Create an article node
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: drupal.createnodearticle
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getnodearticle
+      description: Get an article node
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.getnodearticle
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatenodearticle
+      description: Update an article node
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: drupal.updatenodearticle
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletenodearticle
+      description: Delete an article node
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: drupal.deletenodearticle
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listnodepages
+      description: List basic page nodes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.listnodepages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getnodepage
+      description: Get a basic page node
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.getnodepage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listusers
+      description: List users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.listusers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getuser
+      description: Get a user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.getuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateuser
+      description: Update a user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: drupal.updateuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtaxonomyterms
+      description: List taxonomy terms by vocabulary
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.listtaxonomyterms
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gettaxonomyterm
+      description: Get a taxonomy term
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.gettaxonomyterm
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listfiles
+      description: List file entities
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.listfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getfile
+      description: Get a file entity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: drupal.getfile
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletefile
+      description: Delete a file entity
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: drupal.deletefile
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    DRUPAL_USERNAME: DRUPAL_USERNAME
+    DRUPAL_PASSWORD: DRUPAL_PASSWORD
