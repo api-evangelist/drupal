@@ -75,7 +75,7 @@ apis:
 
 common:
   - url: json-ld/drupal-context.jsonld
-    type: JSON-LD
+    type: JSONLD
   - url: json-schema/drupal-node-schema.json
     type: JSONSchema
 
