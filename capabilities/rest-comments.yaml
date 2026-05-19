@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Drupal REST API — Comments
+  description: 'Drupal REST API — Comments. 4 operations. Lead operation: Create a comment. Self-contained Naftiko capability
+    covering one Drupal business surface.'
+  tags:
+  - Drupal
+  - Comments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DRUPAL_API_KEY: DRUPAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-comments
+    baseUri: https://example.com
+    description: Drupal REST API — Comments business capability. Self-contained, no shared references.
+    resources:
+    - name: comment
+      path: /comment
+      operations:
+      - name: createcomment
+        method: POST
+        description: Create a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: comment-id
+      path: /comment/{id}
+      operations:
+      - name: getcomment
+        method: GET
+        description: Get a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecomment
+        method: PATCH
+        description: Update a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecomment
+        method: DELETE
+        description: Delete a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.DRUPAL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-comments-rest
+    port: 8080
+    description: REST adapter for Drupal REST API — Comments. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/comment
+      name: comment
+      description: REST surface for comment.
+      operations:
+      - method: POST
+        name: createcomment
+        description: Create a comment
+        call: rest-comments.createcomment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/comment/{id}
+      name: comment-id
+      description: REST surface for comment-id.
+      operations:
+      - method: GET
+        name: getcomment
+        description: Get a comment
+        call: rest-comments.getcomment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecomment
+        description: Update a comment
+        call: rest-comments.updatecomment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecomment
+        description: Delete a comment
+        call: rest-comments.deletecomment
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-comments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Drupal REST API — Comments. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-comment
+      description: Create a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-comments.createcomment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-comment
+      description: Get a comment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-comments.getcomment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-comment
+      description: Update a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-comments.updatecomment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-comment
+      description: Delete a comment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-comments.deletecomment
+      outputParameters:
+      - type: object
+        mapping: $.

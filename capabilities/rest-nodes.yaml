@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Drupal REST API — Nodes
+  description: 'Drupal REST API — Nodes. 4 operations. Lead operation: Create a node. Self-contained Naftiko capability covering
+    one Drupal business surface.'
+  tags:
+  - Drupal
+  - Nodes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DRUPAL_API_KEY: DRUPAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-nodes
+    baseUri: https://example.com
+    description: Drupal REST API — Nodes business capability. Self-contained, no shared references.
+    resources:
+    - name: node
+      path: /node
+      operations:
+      - name: createnode
+        method: POST
+        description: Create a node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: node-id
+      path: /node/{id}
+      operations:
+      - name: getnode
+        method: GET
+        description: Get a node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatenode
+        method: PATCH
+        description: Update a node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenode
+        method: DELETE
+        description: Delete a node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.DRUPAL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-nodes-rest
+    port: 8080
+    description: REST adapter for Drupal REST API — Nodes. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/node
+      name: node
+      description: REST surface for node.
+      operations:
+      - method: POST
+        name: createnode
+        description: Create a node
+        call: rest-nodes.createnode
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/node/{id}
+      name: node-id
+      description: REST surface for node-id.
+      operations:
+      - method: GET
+        name: getnode
+        description: Get a node
+        call: rest-nodes.getnode
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatenode
+        description: Update a node
+        call: rest-nodes.updatenode
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenode
+        description: Delete a node
+        call: rest-nodes.deletenode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-nodes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Drupal REST API — Nodes. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-node
+      description: Create a node
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-nodes.createnode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-node
+      description: Get a node
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-nodes.getnode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-node
+      description: Update a node
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-nodes.updatenode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-node
+      description: Delete a node
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-nodes.deletenode
+      outputParameters:
+      - type: object
+        mapping: $.

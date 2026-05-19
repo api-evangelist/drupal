@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Drupal JSON:API — Node Pages
+  description: 'Drupal JSON:API — Node Pages. 2 operations. Lead operation: List basic page nodes. Self-contained Naftiko
+    capability covering one Drupal business surface.'
+  tags:
+  - Drupal
+  - Node Pages
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DRUPAL_API_KEY: DRUPAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: jsonapi-node-pages
+    baseUri: https://example.com/jsonapi
+    description: Drupal JSON:API — Node Pages business capability. Self-contained, no shared references.
+    resources:
+    - name: node-page
+      path: /node/page
+      operations:
+      - name: listnodepages
+        method: GET
+        description: List basic page nodes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: node-page-uuid
+      path: /node/page/{uuid}
+      operations:
+      - name: getnodepage
+        method: GET
+        description: Get a basic page node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.DRUPAL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: jsonapi-node-pages-rest
+    port: 8080
+    description: REST adapter for Drupal JSON:API — Node Pages. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/node/page
+      name: node-page
+      description: REST surface for node-page.
+      operations:
+      - method: GET
+        name: listnodepages
+        description: List basic page nodes
+        call: jsonapi-node-pages.listnodepages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/node/page/{uuid}
+      name: node-page-uuid
+      description: REST surface for node-page-uuid.
+      operations:
+      - method: GET
+        name: getnodepage
+        description: Get a basic page node
+        call: jsonapi-node-pages.getnodepage
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: jsonapi-node-pages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Drupal JSON:API — Node Pages. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-basic-page-nodes
+      description: List basic page nodes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jsonapi-node-pages.listnodepages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-basic-page-node
+      description: Get a basic page node
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jsonapi-node-pages.getnodepage
+      outputParameters:
+      - type: object
+        mapping: $.

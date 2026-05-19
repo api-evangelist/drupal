@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Drupal REST API — Taxonomy Vocabularies
+  description: 'Drupal REST API — Taxonomy Vocabularies. 1 operations. Lead operation: Get a taxonomy vocabulary. Self-contained
+    Naftiko capability covering one Drupal business surface.'
+  tags:
+  - Drupal
+  - Taxonomy Vocabularies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DRUPAL_API_KEY: DRUPAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-taxonomy-vocabularies
+    baseUri: https://example.com
+    description: Drupal REST API — Taxonomy Vocabularies business capability. Self-contained, no shared references.
+    resources:
+    - name: taxonomy-vocabulary-id
+      path: /taxonomy/vocabulary/{id}
+      operations:
+      - name: gettaxonomyvocabulary
+        method: GET
+        description: Get a taxonomy vocabulary
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.DRUPAL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-taxonomy-vocabularies-rest
+    port: 8080
+    description: REST adapter for Drupal REST API — Taxonomy Vocabularies. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/taxonomy/vocabulary/{id}
+      name: taxonomy-vocabulary-id
+      description: REST surface for taxonomy-vocabulary-id.
+      operations:
+      - method: GET
+        name: gettaxonomyvocabulary
+        description: Get a taxonomy vocabulary
+        call: rest-taxonomy-vocabularies.gettaxonomyvocabulary
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-taxonomy-vocabularies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Drupal REST API — Taxonomy Vocabularies. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-taxonomy-vocabulary
+      description: Get a taxonomy vocabulary
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-taxonomy-vocabularies.gettaxonomyvocabulary
+      outputParameters:
+      - type: object
+        mapping: $.

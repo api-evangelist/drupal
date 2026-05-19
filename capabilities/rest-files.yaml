@@ -1,0 +1,95 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Drupal REST API — Files
+  description: 'Drupal REST API — Files. 2 operations. Lead operation: Get a file entity. Self-contained Naftiko capability
+    covering one Drupal business surface.'
+  tags:
+  - Drupal
+  - Files
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DRUPAL_API_KEY: DRUPAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-files
+    baseUri: https://example.com
+    description: Drupal REST API — Files business capability. Self-contained, no shared references.
+    resources:
+    - name: file-id
+      path: /file/{id}
+      operations:
+      - name: getfile
+        method: GET
+        description: Get a file entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefile
+        method: DELETE
+        description: Delete a file entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.DRUPAL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-files-rest
+    port: 8080
+    description: REST adapter for Drupal REST API — Files. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/file/{id}
+      name: file-id
+      description: REST surface for file-id.
+      operations:
+      - method: GET
+        name: getfile
+        description: Get a file entity
+        call: rest-files.getfile
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefile
+        description: Delete a file entity
+        call: rest-files.deletefile
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-files-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Drupal REST API — Files. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-file-entity
+      description: Get a file entity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-files.getfile
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-file-entity
+      description: Delete a file entity
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-files.deletefile
+      outputParameters:
+      - type: object
+        mapping: $.
