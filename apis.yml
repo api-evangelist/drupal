@@ -8,7 +8,7 @@ apis:
   - Content Management
   - REST
   - Web Services
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://example.com
   humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
   properties:
@@ -30,7 +30,7 @@ apis:
   - Headless
   - JSON:API
   - REST
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://example.com/jsonapi
   humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   properties:
@@ -53,7 +53,7 @@ apis:
   - GraphQL
   - Headless
   - Query Language
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://example.com/graphql
   humanURL: https://www.drupal.org/docs/contributed-modules/graphql
   properties:
