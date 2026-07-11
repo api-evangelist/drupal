@@ -69,6 +69,8 @@ apis:
     supports both queries and mutations for reading and writing data, and includes a built-in GraphiQL Explorer
     interface at /graphql/explorer for interactive schema browsing and query development.
 common:
+- type: OAuthScopes
+  url: scopes/drupal-scopes.yml
 - type: GitHubOrganization
   url: https://github.com/drupal
 - type: LinkedIn
@@ -77,6 +79,8 @@ common:
   type: JSONLD
 - url: json-schema/drupal-node-schema.json
   type: JSONSchema
+- type: Blog
+  url: https://www.drupal.org/planet/rss.xml
 modified: '2026-05-19'
 description: >-
   Drupal is an open-source content management system written in PHP and used to build websites, applications, and

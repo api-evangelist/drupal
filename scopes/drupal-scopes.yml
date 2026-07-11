@@ -1,0 +1,33 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/drupal-jsonapi-openapi.yml, openapi/drupal-rest-api-openapi.yml
+schemes:
+- name: oAuth2
+  source: openapi/drupal-jsonapi-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 via the Simple OAuth module.
+- name: oAuth2
+  source: openapi/drupal-rest-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 authentication via the Simple OAuth module.
+scopes:
+- scope: content
+  description: Access and manage content entities
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/drupal-jsonapi-openapi.yml
+  - openapi/drupal-rest-api-openapi.yml
+- scope: user
+  description: Access and manage user entities
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/drupal-jsonapi-openapi.yml
+  - openapi/drupal-rest-api-openapi.yml
