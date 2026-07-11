@@ -1,0 +1,39 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/drupal-jsonapi-openapi.yml, openapi/drupal-rest-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - cookie
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic Authentication using Drupal username and password.
+  sources:
+  - openapi/drupal-jsonapi-openapi.yml
+  - openapi/drupal-rest-api-openapi.yml
+- name: cookieAuth
+  type: apiKey
+  in: cookie
+  parameter: SESS
+  description: Cookie-based session authentication obtained via Drupal login.
+  sources:
+  - openapi/drupal-jsonapi-openapi.yml
+  - openapi/drupal-rest-api-openapi.yml
+- name: oAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+    scopes: 2
+  description: OAuth 2.0 via the Simple OAuth module.
+  sources:
+  - openapi/drupal-jsonapi-openapi.yml
+  - openapi/drupal-rest-api-openapi.yml
