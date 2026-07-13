@@ -1,0 +1,13 @@
+{
+  "repo": "drupal",
+  "feeds": [
+    {
+      "source": "https://www.drupal.org/planet/rss.xml",
+      "feed_url": "https://www.drupal.org/planet/rss.xml",
+      "title": "Drupal.org aggregator",
+      "saved": 29
+    }
+  ],
+  "fetched": "2026-07-11T11:43:46Z",
+  "post_count": 79
+}
