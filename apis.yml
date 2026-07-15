@@ -69,6 +69,8 @@ apis:
     supports both queries and mutations for reading and writing data, and includes a built-in GraphiQL Explorer
     interface at /graphql/explorer for interactive schema browsing and query development.
 common:
+- type: AgenticAccess
+  url: agentic-access/drupal-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/drupal-vulnerability-disclosure.yml
 - type: DomainSecurity
