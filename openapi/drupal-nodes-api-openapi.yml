@@ -1,0 +1,343 @@
+openapi: 3.1.0
+info:
+  title: 'Drupal JSON: Comments Nodes API'
+  description: The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.
+  version: '1.1'
+  contact:
+    name: Drupal Community
+    url: https://www.drupal.org/community
+  termsOfService: https://www.drupal.org/about/legal
+servers:
+- url: https://example.com/jsonapi
+  description: Drupal JSON:API Base (replace with your Drupal installation base URL)
+security:
+- basicAuth: []
+- oAuth2:
+  - content
+tags:
+- name: Nodes
+  description: Content node resources representing structured content items of any type (article, page, etc.) stored in Drupal's content management system.
+paths:
+  /node/{id}:
+    get:
+      operationId: getNode
+      summary: Get a node
+      description: 'Retrieves a single content node entity by its numeric ID. The response format depends on the Accept header supplied: JSON, HAL+JSON, or XML. Returns the node''s fields, metadata, and any configured display output.'
+      tags:
+      - Nodes
+      parameters:
+      - $ref: '#/components/parameters/EntityId'
+      - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: Node entity returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateNode
+      summary: Update a node
+      description: Updates an existing content node entity by its numeric ID. Only the fields included in the request body are modified. The caller must have edit permissions for the target node type. Requires authentication.
+      tags:
+      - Nodes
+      parameters:
+      - $ref: '#/components/parameters/EntityId'
+      - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+      responses:
+        '200':
+          description: Node updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNode
+      summary: Delete a node
+      description: Permanently deletes a content node entity by its numeric ID. The caller must have delete permissions for the target node type. This operation cannot be undone. Requires authentication.
+      tags:
+      - Nodes
+      parameters:
+      - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Node deleted successfully. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /node:
+    post:
+      operationId: createNode
+      summary: Create a node
+      description: Creates a new content node entity. The request body must include the content type (bundle), title, and any required fields. The caller must have create permissions for the specified node type. Requires authentication.
+      tags:
+      - Nodes
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+      responses:
+        '201':
+          description: Node created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  parameters:
+    ContentTypeFormat:
+      name: Content-Type
+      in: header
+      required: true
+      description: The serialization format of the request body. Must match the format of the data being sent.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        default: application/json
+    AcceptFormat:
+      name: Accept
+      in: header
+      required: false
+      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        - application/xml
+        default: application/json
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+  schemas:
+    TextContent:
+      type: object
+      description: Drupal text field value with optional summary and text format.
+      properties:
+        value:
+          type: string
+          description: The full text content, may include HTML markup depending on format.
+        summary:
+          type: string
+          description: Optional trimmed summary of the text content.
+        format:
+          type: string
+          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
+    NodeInput:
+      type: object
+      description: Request body for creating or updating a Drupal content node. Only include the fields that should be set or modified.
+      properties:
+        type:
+          type: array
+          description: The target node bundle (content type) machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        title:
+          type: array
+          description: The node title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Publication status. 1 for published, 0 for unpublished.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        body:
+          type: array
+          description: The body text content with optional summary and format.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+    TargetId:
+      type: object
+      description: Drupal entity reference value wrapper pointing to a related entity.
+      properties:
+        target_id:
+          type: integer
+          description: The numeric ID of the referenced entity.
+    BooleanValue:
+      type: object
+      description: Drupal field value wrapper for a boolean value.
+      properties:
+        value:
+          type: integer
+          description: Boolean represented as integer. 1 for true, 0 for false.
+          enum:
+          - 0
+          - 1
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
+    Node:
+      type: object
+      description: A Drupal content node entity representing structured content of a specific type (bundle) such as article or page.
+      properties:
+        nid:
+          type: array
+          description: The numeric node ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the node.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        vid:
+          type: array
+          description: The current revision ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        langcode:
+          type: array
+          description: The language code for the node (e.g., en, fr).
+          items:
+            $ref: '#/components/schemas/StringValue'
+        type:
+          type: array
+          description: The node type (bundle) machine name (e.g., article, page).
+          items:
+            $ref: '#/components/schemas/TargetId'
+        title:
+          type: array
+          description: The node title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Publication status. 1 for published, 0 for unpublished.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        created:
+          type: array
+          description: Unix timestamp of when the node was created.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        changed:
+          type: array
+          description: Unix timestamp of when the node was last modified.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uid:
+          type: array
+          description: Reference to the user who authored the node.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        body:
+          type: array
+          description: The main body field containing the node's primary text content.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+  responses:
+    Forbidden:
+      description: The authenticated user does not have permission to perform this operation on this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request body or parameters are invalid or malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Drupal username and password.
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESS
+      description: Cookie-based session authentication obtained via Drupal login.
+    oAuth2:
+      type: oauth2
+      description: OAuth 2.0 via the Simple OAuth module.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            content: Access and manage content entities
+            user: Access and manage user entities
+externalDocs:
+  description: Drupal JSON:API Module Documentation
+  url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview

@@ -1,0 +1,352 @@
+openapi: 3.1.0
+info:
+  title: 'Drupal JSON: Comments API'
+  description: The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.
+  version: '1.1'
+  contact:
+    name: Drupal Community
+    url: https://www.drupal.org/community
+  termsOfService: https://www.drupal.org/about/legal
+servers:
+- url: https://example.com/jsonapi
+  description: Drupal JSON:API Base (replace with your Drupal installation base URL)
+security:
+- basicAuth: []
+- oAuth2:
+  - content
+tags:
+- name: Comments
+  description: Comment resources for reading and managing comments attached to content entities in Drupal.
+paths:
+  /comment/{id}:
+    get:
+      operationId: getComment
+      summary: Get a comment
+      description: Retrieves a single comment entity by its numeric ID. Returns the comment body, author, timestamps, and the entity it is attached to. Anonymous users can read published comments.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/EntityId'
+      - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: Comment entity returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateComment
+      summary: Update a comment
+      description: Updates an existing comment entity by its numeric ID. Comment authors can edit their own comments within the configured edit window; administrators can edit any comment. Requires authentication.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/EntityId'
+      - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+      responses:
+        '200':
+          description: Comment updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteComment
+      summary: Delete a comment
+      description: Permanently deletes a comment entity by its numeric ID. Requires comment administration permissions and authentication.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Comment deleted successfully. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /comment:
+    post:
+      operationId: createComment
+      summary: Create a comment
+      description: Creates a new comment attached to a specified entity. The request body must include the comment body, target entity type, target entity ID, and field name. Requires comment posting permissions.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+      responses:
+        '201':
+          description: Comment created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  parameters:
+    ContentTypeFormat:
+      name: Content-Type
+      in: header
+      required: true
+      description: The serialization format of the request body. Must match the format of the data being sent.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        default: application/json
+    AcceptFormat:
+      name: Accept
+      in: header
+      required: false
+      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        - application/xml
+        default: application/json
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+  schemas:
+    TextContent:
+      type: object
+      description: Drupal text field value with optional summary and text format.
+      properties:
+        value:
+          type: string
+          description: The full text content, may include HTML markup depending on format.
+        summary:
+          type: string
+          description: Optional trimmed summary of the text content.
+        format:
+          type: string
+          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+    TargetId:
+      type: object
+      description: Drupal entity reference value wrapper pointing to a related entity.
+      properties:
+        target_id:
+          type: integer
+          description: The numeric ID of the referenced entity.
+    CommentInput:
+      type: object
+      description: Request body for creating or updating a comment entity.
+      required:
+      - comment_type
+      - entity_id
+      - entity_type
+      - field_name
+      properties:
+        comment_type:
+          type: array
+          description: The comment type bundle machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        subject:
+          type: array
+          description: The comment subject/title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        entity_id:
+          type: array
+          description: The parent entity this comment should be attached to.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        entity_type:
+          type: array
+          description: The entity type of the parent entity.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        field_name:
+          type: array
+          description: The field name on the parent entity for this comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        comment_body:
+          type: array
+          description: The comment body text.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
+    BooleanValue:
+      type: object
+      description: Drupal field value wrapper for a boolean value.
+      properties:
+        value:
+          type: integer
+          description: Boolean represented as integer. 1 for true, 0 for false.
+          enum:
+          - 0
+          - 1
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+    Comment:
+      type: object
+      description: A Drupal comment entity attached to a content entity such as a node, containing user-submitted text and metadata.
+      properties:
+        cid:
+          type: array
+          description: The numeric comment ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        langcode:
+          type: array
+          description: The language code for the comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        comment_type:
+          type: array
+          description: The comment type (bundle) machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        subject:
+          type: array
+          description: The subject/title of the comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        uid:
+          type: array
+          description: Reference to the user who authored the comment.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        entity_id:
+          type: array
+          description: Reference to the parent entity this comment is attached to.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        entity_type:
+          type: array
+          description: The entity type of the parent entity (e.g., node).
+          items:
+            $ref: '#/components/schemas/StringValue'
+        field_name:
+          type: array
+          description: The field name on the parent entity that holds this comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Comment status. 1 for published, 0 for unpublished.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        created:
+          type: array
+          description: Unix timestamp of when the comment was created.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        comment_body:
+          type: array
+          description: The main body text of the comment.
+          items:
+            $ref: '#/components/schemas/TextContent'
+  responses:
+    Forbidden:
+      description: The authenticated user does not have permission to perform this operation on this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request body or parameters are invalid or malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Drupal username and password.
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESS
+      description: Cookie-based session authentication obtained via Drupal login.
+    oAuth2:
+      type: oauth2
+      description: OAuth 2.0 via the Simple OAuth module.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            content: Access and manage content entities
+            user: Access and manage user entities
+externalDocs:
+  description: Drupal JSON:API Module Documentation
+  url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview

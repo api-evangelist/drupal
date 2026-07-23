@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: 'Drupal JSON: Comments Taxonomy Vocabularies API'
+  description: The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.
+  version: '1.1'
+  contact:
+    name: Drupal Community
+    url: https://www.drupal.org/community
+  termsOfService: https://www.drupal.org/about/legal
+servers:
+- url: https://example.com/jsonapi
+  description: Drupal JSON:API Base (replace with your Drupal installation base URL)
+security:
+- basicAuth: []
+- oAuth2:
+  - content
+tags:
+- name: Taxonomy Vocabularies
+  description: Taxonomy vocabulary resources representing the container configurations that organize sets of taxonomy terms.
+paths:
+  /taxonomy/vocabulary/{id}:
+    get:
+      operationId: getTaxonomyVocabulary
+      summary: Get a taxonomy vocabulary
+      description: Retrieves a single taxonomy vocabulary configuration entity by its machine name ID. Returns the vocabulary name, description, and hierarchy settings.
+      tags:
+      - Taxonomy Vocabularies
+      parameters:
+      - $ref: '#/components/parameters/EntityId'
+      - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: Taxonomy vocabulary returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyVocabulary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    AcceptFormat:
+      name: Accept
+      in: header
+      required: false
+      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        - application/xml
+        default: application/json
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+    TaxonomyVocabulary:
+      type: object
+      description: A Drupal taxonomy vocabulary configuration entity that defines a grouping container for taxonomy terms.
+      properties:
+        vid:
+          type: array
+          description: The machine name identifier of the vocabulary.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the vocabulary.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        name:
+          type: array
+          description: The human-readable name of the vocabulary.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        description:
+          type: array
+          description: Optional description of the vocabulary and its purpose.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        hierarchy:
+          type: array
+          description: Hierarchy setting. 0 for no hierarchy, 1 for single hierarchy, 2 for multiple hierarchy.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+  responses:
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Drupal username and password.
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESS
+      description: Cookie-based session authentication obtained via Drupal login.
+    oAuth2:
+      type: oauth2
+      description: OAuth 2.0 via the Simple OAuth module.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            content: Access and manage content entities
+            user: Access and manage user entities
+externalDocs:
+  description: Drupal JSON:API Module Documentation
+  url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
