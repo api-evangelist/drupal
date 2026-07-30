@@ -1,50 +1,20 @@
 aid: drupal
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/drupal.png
 url: https://raw.githubusercontent.com/api-evangelist/drupal/refs/heads/main/apis.yml
 apis:
-- aid: drupal:rest-api
-  name: Drupal REST API
-  tags:
-  - CMS
-  - Content Management
-  - REST
-  - Web Services
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://example.com
-  humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
-  properties:
-  - url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
-    type: Documentation
-  - url: openapi/drupal-rest-api-openapi.yml
-    type: OpenAPI
-  description: >-
-    The Drupal RESTful Web Services API is a core module that exposes Drupal entities and data as REST resources over
-    HTTP. It supports multiple serialization formats and HTTP methods including GET, POST, PATCH, and DELETE, and is
-    highly configurable in terms of which resources, formats, and authentication methods are enabled. Unlike the
-    JSON:API module, it allows developers to define custom REST endpoints for non-entity data and complex business
-    logic operations.
-- aid: drupal:jsonapi
-  name: Drupal JSON:API
-  tags:
-  - CMS
-  - Content Management
-  - Headless
-  - JSON:API
-  - REST
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://example.com/jsonapi
-  humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
-  properties:
-  - url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
-    type: Documentation
-  - url: openapi/drupal-jsonapi-openapi.yml
-    type: OpenAPI
-  - url: json-schema/drupal-jsonapi-resource-schema.json
-    type: JSONSchema
-  description: >-
-    The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a
-    standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique
-    URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and
-    DELETE operations for full CRUD access.
 - aid: drupal:graphql
   name: Drupal GraphQL API
   tags:
@@ -64,10 +34,173 @@ apis:
   - url: graphql/drupal-graphql.md
     type: GraphQL
   description: >-
-    The Drupal GraphQL module is a contributed module that enables developers to craft and expose a GraphQL schema for
-    Drupal 10 and 11, allowing client applications to query Drupal content and entities using GraphQL syntax. It
-    supports both queries and mutations for reading and writing data, and includes a built-in GraphiQL Explorer
-    interface at /graphql/explorer for interactive schema browsing and query development.
+    The Drupal GraphQL module is a contributed module that enables developers to craft and expose a GraphQL
+    schema for Drupal 10 and 11, allowing client applications to query Drupal content and entities using
+    GraphQL syntax. It supports both queries and mutations for reading and writing data, and includes
+    a built-in GraphiQL Explorer interface at /graphql/explorer for interactive schema browsing and query
+    development.
+- aid: drupal:drupal-comments-api
+  name: drupal Comments API
+  description: >-
+    Comment resources for reading and managing comments attached to content entities in Drupal.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-comments-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
+- aid: drupal:drupal-files-api
+  name: drupal Files API
+  description: JSON:API endpoints for file entities and file upload operations.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-files-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
+- aid: drupal:drupal-node-articles-api
+  name: drupal Node Articles API
+  description: >-
+    JSON:API endpoints for article content nodes. The bundle slug varies by Drupal installation; article
+    is shown as an example bundle name.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Node Articles
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-node-articles-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
+- aid: drupal:drupal-node-pages-api
+  name: drupal Node Pages API
+  description: >-
+    JSON:API endpoints for basic page content nodes. The bundle slug varies by Drupal installation.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Node Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-node-pages-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
+- aid: drupal:drupal-nodes-api
+  name: drupal Nodes API
+  description: >-
+    Content node resources representing structured content items of any type (article, page, etc.) stored
+    in Drupal's content management system.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Nodes
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-nodes-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
+- aid: drupal:drupal-taxonomy-terms-api
+  name: drupal Taxonomy Terms API
+  description: JSON:API endpoints for taxonomy term entities across all configured vocabularies.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Taxonomy Terms
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-taxonomy-terms-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
+- aid: drupal:drupal-taxonomy-vocabularies-api
+  name: drupal Taxonomy Vocabularies API
+  description: >-
+    Taxonomy vocabulary resources representing the container configurations that organize sets of taxonomy
+    terms.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Taxonomy Vocabularies
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
+- aid: drupal:drupal-users-api
+  name: drupal Users API
+  description: >-
+    JSON:API endpoints for Drupal user entities. Config entities are read-only via JSON:API and require
+    authentication.
+  humanURL: >-
+    https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  baseURL: https://example.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/drupal-users-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: JSONSchema
+    url: json-schema/drupal-jsonapi-resource-schema.json
 common:
 - type: AgenticAccess
   url: agentic-access/drupal-agentic-access.yml
