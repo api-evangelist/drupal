@@ -1,0 +1,1090 @@
+openapi: 3.1.0
+info:
+  title: Drupal REST API
+  description: >-
+    The Drupal RESTful Web Services API is a core module that exposes Drupal
+    entities and data as REST resources over HTTP. It supports GET, POST, PATCH,
+    and DELETE operations for entity types including nodes, users, taxonomy terms,
+    files, and comments. Resources are accessed at uniform paths corresponding to
+    entity type and entity ID, and support multiple serialization formats including
+    JSON, HAL+JSON, and XML. Authentication is handled via Basic Auth, cookie-based
+    sessions, or OAuth2. Unlike JSON:API, this module also supports custom REST
+    resource plugins for non-entity endpoints and complex business logic operations.
+  version: '1.0'
+  contact:
+    name: Drupal Community
+    url: https://www.drupal.org/community
+  termsOfService: https://www.drupal.org/about/legal
+externalDocs:
+  description: Drupal RESTful Web Services API Documentation
+  url: https://www.drupal.org/docs/drupal-apis/restful-web-services-api/restful-web-services-api-overview
+servers:
+  - url: https://example.com
+    description: Drupal Site (replace with your Drupal installation base URL)
+tags:
+  - name: Comments
+    description: >-
+      Comment resources for reading and managing comments attached to content
+      entities in Drupal.
+  - name: Files
+    description: >-
+      File entity resources for managing file metadata and content uploaded
+      to the Drupal file system.
+  - name: Nodes
+    description: >-
+      Content node resources representing structured content items of any type
+      (article, page, etc.) stored in Drupal's content management system.
+  - name: Taxonomy Terms
+    description: >-
+      Taxonomy term resources for reading and managing categorization terms
+      organized into vocabularies within Drupal.
+  - name: Taxonomy Vocabularies
+    description: >-
+      Taxonomy vocabulary resources representing the container configurations
+      that organize sets of taxonomy terms.
+  - name: Users
+    description: >-
+      User account resources for reading and managing Drupal user entities,
+      including account details, roles, and profile fields.
+security:
+  - basicAuth: []
+  - cookieAuth: []
+paths:
+  /node/{id}:
+    get:
+      operationId: getNode
+      summary: Get a node
+      description: >-
+        Retrieves a single content node entity by its numeric ID. The response
+        format depends on the Accept header supplied: JSON, HAL+JSON, or XML.
+        Returns the node's fields, metadata, and any configured display output.
+      tags:
+        - Nodes
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: Node entity returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateNode
+      summary: Update a node
+      description: >-
+        Updates an existing content node entity by its numeric ID. Only the fields
+        included in the request body are modified. The caller must have edit
+        permissions for the target node type. Requires authentication.
+      tags:
+        - Nodes
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+      responses:
+        '200':
+          description: Node updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNode
+      summary: Delete a node
+      description: >-
+        Permanently deletes a content node entity by its numeric ID. The caller
+        must have delete permissions for the target node type. This operation
+        cannot be undone. Requires authentication.
+      tags:
+        - Nodes
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Node deleted successfully. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /node:
+    post:
+      operationId: createNode
+      summary: Create a node
+      description: >-
+        Creates a new content node entity. The request body must include the
+        content type (bundle), title, and any required fields. The caller must
+        have create permissions for the specified node type. Requires authentication.
+      tags:
+        - Nodes
+      parameters:
+        - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/NodeInput'
+      responses:
+        '201':
+          description: Node created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /user/{id}:
+    get:
+      operationId: getUser
+      summary: Get a user
+      description: >-
+        Retrieves a single user entity by its numeric ID. Returns the user's
+        account fields and profile data. Anonymous users can retrieve basic
+        information; additional fields require appropriate permissions.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: User entity returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateUser
+      summary: Update a user
+      description: >-
+        Updates an existing user entity by its numeric ID. Only the fields included
+        in the request body are modified. Users can update their own accounts;
+        administrators can update any account. Requires authentication.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: User updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteUser
+      summary: Delete a user
+      description: >-
+        Permanently deletes a user account entity by its numeric ID. Only
+        administrators with the appropriate permissions can delete user accounts.
+        Requires authentication.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: User deleted successfully. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /taxonomy/term/{id}:
+    get:
+      operationId: getTaxonomyTerm
+      summary: Get a taxonomy term
+      description: >-
+        Retrieves a single taxonomy term entity by its numeric ID. Returns the
+        term's name, vocabulary, description, and any additional fields configured
+        on the term bundle.
+      tags:
+        - Taxonomy Terms
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: Taxonomy term returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyTerm'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateTaxonomyTerm
+      summary: Update a taxonomy term
+      description: >-
+        Updates an existing taxonomy term entity by its numeric ID. Only the
+        fields included in the request body are modified. Requires taxonomy
+        management permissions and authentication.
+      tags:
+        - Taxonomy Terms
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxonomyTermInput'
+      responses:
+        '200':
+          description: Taxonomy term updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyTerm'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTaxonomyTerm
+      summary: Delete a taxonomy term
+      description: >-
+        Permanently deletes a taxonomy term entity by its numeric ID. Requires
+        taxonomy management permissions and authentication.
+      tags:
+        - Taxonomy Terms
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Taxonomy term deleted successfully. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /taxonomy/term:
+    post:
+      operationId: createTaxonomyTerm
+      summary: Create a taxonomy term
+      description: >-
+        Creates a new taxonomy term in a specified vocabulary. The request body
+        must include the term name and target vocabulary. Requires taxonomy
+        management permissions and authentication.
+      tags:
+        - Taxonomy Terms
+      parameters:
+        - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxonomyTermInput'
+      responses:
+        '201':
+          description: Taxonomy term created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyTerm'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /taxonomy/vocabulary/{id}:
+    get:
+      operationId: getTaxonomyVocabulary
+      summary: Get a taxonomy vocabulary
+      description: >-
+        Retrieves a single taxonomy vocabulary configuration entity by its
+        machine name ID. Returns the vocabulary name, description, and hierarchy
+        settings.
+      tags:
+        - Taxonomy Vocabularies
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: Taxonomy vocabulary returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyVocabulary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /file/{id}:
+    get:
+      operationId: getFile
+      summary: Get a file entity
+      description: >-
+        Retrieves a single file entity by its numeric ID. Returns metadata about
+        the file including filename, MIME type, size, URI, and upload timestamps.
+        Does not return the raw file binary; use the file URI to download the file.
+      tags:
+        - Files
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: File entity returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFile
+      summary: Delete a file entity
+      description: >-
+        Permanently deletes a file entity and its associated file from the Drupal
+        file system by its numeric ID. Requires file management permissions and
+        authentication.
+      tags:
+        - Files
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: File deleted successfully. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /comment/{id}:
+    get:
+      operationId: getComment
+      summary: Get a comment
+      description: >-
+        Retrieves a single comment entity by its numeric ID. Returns the comment
+        body, author, timestamps, and the entity it is attached to. Anonymous
+        users can read published comments.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/AcceptFormat'
+      responses:
+        '200':
+          description: Comment entity returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateComment
+      summary: Update a comment
+      description: >-
+        Updates an existing comment entity by its numeric ID. Comment authors
+        can edit their own comments within the configured edit window;
+        administrators can edit any comment. Requires authentication.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+        - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+      responses:
+        '200':
+          description: Comment updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteComment
+      summary: Delete a comment
+      description: >-
+        Permanently deletes a comment entity by its numeric ID. Requires comment
+        administration permissions and authentication.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Comment deleted successfully. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /comment:
+    post:
+      operationId: createComment
+      summary: Create a comment
+      description: >-
+        Creates a new comment attached to a specified entity. The request body
+        must include the comment body, target entity type, target entity ID, and
+        field name. Requires comment posting permissions.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/ContentTypeFormat'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+      responses:
+        '201':
+          description: Comment created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Drupal username and password.
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESS
+      description: >-
+        Cookie-based session authentication obtained via Drupal login. The session
+        cookie is returned after a successful login request.
+    oAuth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via the Simple OAuth module.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            content: Access and manage content entities
+            user: Access and manage user entities
+  parameters:
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+    AcceptFormat:
+      name: Accept
+      in: header
+      required: false
+      description: >-
+        The desired response serialization format. Defaults to application/json.
+        Use application/hal+json for HAL+JSON hypermedia format.
+      schema:
+        type: string
+        enum:
+          - application/json
+          - application/hal+json
+          - application/xml
+        default: application/json
+    ContentTypeFormat:
+      name: Content-Type
+      in: header
+      required: true
+      description: >-
+        The serialization format of the request body. Must match the format of
+        the data being sent.
+      schema:
+        type: string
+        enum:
+          - application/json
+          - application/hal+json
+        default: application/json
+  responses:
+    BadRequest:
+      description: The request body or parameters are invalid or malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: >-
+        The authenticated user does not have permission to perform this operation
+        on this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Node:
+      type: object
+      description: >-
+        A Drupal content node entity representing structured content of a specific
+        type (bundle) such as article or page.
+      properties:
+        nid:
+          type: array
+          description: The numeric node ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the node.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        vid:
+          type: array
+          description: The current revision ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        langcode:
+          type: array
+          description: The language code for the node (e.g., en, fr).
+          items:
+            $ref: '#/components/schemas/StringValue'
+        type:
+          type: array
+          description: The node type (bundle) machine name (e.g., article, page).
+          items:
+            $ref: '#/components/schemas/TargetId'
+        title:
+          type: array
+          description: The node title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Publication status. 1 for published, 0 for unpublished.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        created:
+          type: array
+          description: Unix timestamp of when the node was created.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        changed:
+          type: array
+          description: Unix timestamp of when the node was last modified.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uid:
+          type: array
+          description: Reference to the user who authored the node.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        body:
+          type: array
+          description: The main body field containing the node's primary text content.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    NodeInput:
+      type: object
+      description: >-
+        Request body for creating or updating a Drupal content node. Only include
+        the fields that should be set or modified.
+      properties:
+        type:
+          type: array
+          description: The target node bundle (content type) machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        title:
+          type: array
+          description: The node title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Publication status. 1 for published, 0 for unpublished.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        body:
+          type: array
+          description: The body text content with optional summary and format.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    User:
+      type: object
+      description: A Drupal user account entity with profile and authentication information.
+      properties:
+        uid:
+          type: array
+          description: The numeric user ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the user.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        name:
+          type: array
+          description: The unique username used for login.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        mail:
+          type: array
+          description: The user's email address.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Account status. 1 for active, 0 for blocked.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        created:
+          type: array
+          description: Unix timestamp of when the user account was created.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        changed:
+          type: array
+          description: Unix timestamp of when the user account was last modified.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        roles:
+          type: array
+          description: List of role references assigned to this user.
+          items:
+            $ref: '#/components/schemas/TargetId'
+    UserInput:
+      type: object
+      description: Request body for updating a Drupal user account. Include only fields to modify.
+      properties:
+        name:
+          type: array
+          description: The unique username.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        mail:
+          type: array
+          description: The user's email address.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Account status. 1 for active, 0 for blocked.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+    TaxonomyTerm:
+      type: object
+      description: >-
+        A Drupal taxonomy term entity used for categorizing and tagging content
+        within a vocabulary.
+      properties:
+        tid:
+          type: array
+          description: The numeric taxonomy term ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the term.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        vid:
+          type: array
+          description: Reference to the vocabulary this term belongs to.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        name:
+          type: array
+          description: The display name of the taxonomy term.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        description:
+          type: array
+          description: Optional description for the taxonomy term.
+          items:
+            $ref: '#/components/schemas/TextContent'
+        weight:
+          type: array
+          description: Integer weight controlling term ordering within the vocabulary.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        parent:
+          type: array
+          description: Reference to parent term(s) for hierarchical vocabularies.
+          items:
+            $ref: '#/components/schemas/TargetId'
+    TaxonomyTermInput:
+      type: object
+      description: Request body for creating or updating a taxonomy term.
+      required:
+        - name
+        - vid
+      properties:
+        vid:
+          type: array
+          description: The target vocabulary machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        name:
+          type: array
+          description: The display name of the taxonomy term.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        description:
+          type: array
+          description: Optional description for the term.
+          items:
+            $ref: '#/components/schemas/TextContent'
+        parent:
+          type: array
+          description: Optional parent term reference for hierarchical vocabularies.
+          items:
+            $ref: '#/components/schemas/TargetId'
+    TaxonomyVocabulary:
+      type: object
+      description: >-
+        A Drupal taxonomy vocabulary configuration entity that defines a grouping
+        container for taxonomy terms.
+      properties:
+        vid:
+          type: array
+          description: The machine name identifier of the vocabulary.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the vocabulary.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        name:
+          type: array
+          description: The human-readable name of the vocabulary.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        description:
+          type: array
+          description: Optional description of the vocabulary and its purpose.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        hierarchy:
+          type: array
+          description: >-
+            Hierarchy setting. 0 for no hierarchy, 1 for single hierarchy,
+            2 for multiple hierarchy.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+    File:
+      type: object
+      description: >-
+        A Drupal file entity representing metadata for an uploaded file stored
+        in the Drupal file system.
+      properties:
+        fid:
+          type: array
+          description: The numeric file ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the file.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        langcode:
+          type: array
+          description: The language code for the file entity.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        uid:
+          type: array
+          description: Reference to the user who uploaded the file.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        filename:
+          type: array
+          description: The original filename of the uploaded file.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        uri:
+          type: array
+          description: >-
+            The file URI in Drupal stream wrapper format (e.g., public://image.jpg).
+          items:
+            $ref: '#/components/schemas/StringValue'
+        filemime:
+          type: array
+          description: The MIME type of the file (e.g., image/jpeg, application/pdf).
+          items:
+            $ref: '#/components/schemas/StringValue'
+        filesize:
+          type: array
+          description: The file size in bytes.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        status:
+          type: array
+          description: File status. 1 for permanent, 0 for temporary.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        created:
+          type: array
+          description: Unix timestamp of when the file was uploaded.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        changed:
+          type: array
+          description: Unix timestamp of when the file entity was last modified.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+    Comment:
+      type: object
+      description: >-
+        A Drupal comment entity attached to a content entity such as a node,
+        containing user-submitted text and metadata.
+      properties:
+        cid:
+          type: array
+          description: The numeric comment ID.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        uuid:
+          type: array
+          description: The universally unique identifier of the comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        langcode:
+          type: array
+          description: The language code for the comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        comment_type:
+          type: array
+          description: The comment type (bundle) machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        subject:
+          type: array
+          description: The subject/title of the comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        uid:
+          type: array
+          description: Reference to the user who authored the comment.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        entity_id:
+          type: array
+          description: Reference to the parent entity this comment is attached to.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        entity_type:
+          type: array
+          description: The entity type of the parent entity (e.g., node).
+          items:
+            $ref: '#/components/schemas/StringValue'
+        field_name:
+          type: array
+          description: The field name on the parent entity that holds this comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Comment status. 1 for published, 0 for unpublished.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        created:
+          type: array
+          description: Unix timestamp of when the comment was created.
+          items:
+            $ref: '#/components/schemas/IntegerValue'
+        comment_body:
+          type: array
+          description: The main body text of the comment.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    CommentInput:
+      type: object
+      description: Request body for creating or updating a comment entity.
+      required:
+        - comment_type
+        - entity_id
+        - entity_type
+        - field_name
+      properties:
+        comment_type:
+          type: array
+          description: The comment type bundle machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        subject:
+          type: array
+          description: The comment subject/title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        entity_id:
+          type: array
+          description: The parent entity this comment should be attached to.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        entity_type:
+          type: array
+          description: The entity type of the parent entity.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        field_name:
+          type: array
+          description: The field name on the parent entity for this comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        comment_body:
+          type: array
+          description: The comment body text.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+    BooleanValue:
+      type: object
+      description: Drupal field value wrapper for a boolean value.
+      properties:
+        value:
+          type: integer
+          description: Boolean represented as integer. 1 for true, 0 for false.
+          enum: [0, 1]
+    TargetId:
+      type: object
+      description: Drupal entity reference value wrapper pointing to a related entity.
+      properties:
+        target_id:
+          type: integer
+          description: The numeric ID of the referenced entity.
+    TextContent:
+      type: object
+      description: Drupal text field value with optional summary and text format.
+      properties:
+        value:
+          type: string
+          description: The full text content, may include HTML markup depending on format.
+        summary:
+          type: string
+          description: Optional trimmed summary of the text content.
+        format:
+          type: string
+          description: >-
+            The text format machine name applied to this field (e.g., basic_html,
+            full_html, plain_text).

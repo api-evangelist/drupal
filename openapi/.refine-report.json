@@ -1,0 +1,28 @@
+{
+  "provider": "drupal",
+  "sources": [
+    "drupal-comments-api-openapi.yml",
+    "drupal-files-api-openapi.yml",
+    "drupal-node-articles-api-openapi.yml",
+    "drupal-node-pages-api-openapi.yml",
+    "drupal-nodes-api-openapi.yml",
+    "drupal-taxonomy-terms-api-openapi.yml",
+    "drupal-taxonomy-vocabularies-api-openapi.yml",
+    "drupal-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "drupal-comments-api-openapi.yml",
+    "drupal-files-api-openapi.yml",
+    "drupal-node-articles-api-openapi.yml",
+    "drupal-node-pages-api-openapi.yml",
+    "drupal-nodes-api-openapi.yml",
+    "drupal-taxonomy-terms-api-openapi.yml",
+    "drupal-taxonomy-vocabularies-api-openapi.yml",
+    "drupal-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
