@@ -1,0 +1,1428 @@
+{
+  "item": [
+    {
+      "id": "3d5d3f25-2503-4af3-b181-5c7ae2c2aad1",
+      "name": "Files",
+      "description": {
+        "content": "JSON:API endpoints for file entities and file upload operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a7531d6a-dc9e-42c9-bf7c-acb867b925de",
+          "name": "List file entities",
+          "request": {
+            "name": "List file entities",
+            "description": {
+              "content": "Retrieves a collection of file entities. Returns file metadata including filename, MIME type, size, and URI. Requires authentication with appropriate file access permissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "file",
+                "file"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[name][path]",
+                  "value": "<string>",
+                  "description": "The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name][value]",
+                  "value": "<string>",
+                  "description": "The value to filter against."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "The maximum number of resources to return in a single page. Used for cursor-based pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f01cc1f-b506-42c7-abf8-bd5b70b17e0c",
+              "name": "Collection of file entities returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"a205f97a-ba8a-e8c3-96c3-4f2a97bf1e97\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://fxBh.zlnyGFvjV7ouU+Zh00ClLfnKk\"\n        },\n        \"related\": {\n          \"href\": \"https://gMzozlmrDHVhKOtDBzxlZLhgRVVdZKLA.butkhNvkQKylgJznkcF.fcBiVyPG0qGvyntglcSxl,olcfHMGvzG+97xJ7DJXfNP2JG\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"297dce3b-bb30-3560-c307-d80cea1ad420\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://xYTgX.lcvuAnEA.L9ctVG4CUaI1Yg+5l6NXZm.zkWm3lsizubL+8idGRS6Psl-h\"\n        },\n        \"related\": {\n          \"href\": \"http://xLqMKuJPONrFrODS.tpx8RZjN-Uve3,KW4KCiK+tg\"\n        }\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"ab1780d7-cd9a-ebf9-e7be-6947df0e39ab\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://ybqbBNhCLmxIsQLyrqLHzbUTRJ.tbumWC--m7aq\"\n        },\n        \"related\": {\n          \"href\": \"http://JsCGNMLXEyNzRZGCAaBsmeAsllqxDz.seeqj4Ch9oGa2qh5ZX1bDivYGozFj7\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"6379a1bd-7acd-fcb4-dda9-b96358f9d0a6\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://uxDKtvTQnOeEirfqT.wnUX+AOS-MuEe3d9ZaKR9XqCBoOTOTdov-jTBOV9MUXP\"\n        },\n        \"related\": {\n          \"href\": \"http://emHpusalRQO.smikNZGyAOo3MVyyid5Pyjh+\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": {\n      \"href\": \"https://MpFIRwLvNhSNSsPRfoEVYBOVos.boV3qafiWnX+R,Af5zLt\"\n    },\n    \"first\": {\n      \"href\": \"https://VnY.kaMLoz8U4O84cC2X0PkBFXUKw\"\n    },\n    \"prev\": {\n      \"href\": \"https://pLVjwAGUDkYhSXMVCuZz.fokw,7sWyPuSGdHnfO8q-8nKwlYxJPL8,QygJrgjBBnXwQYd7vQi1NzDQSB0b\"\n    },\n    \"next\": {\n      \"href\": \"http://DUQqlMfL.hznsT5aKkMwjMEqTIz7Os3Ds6khjlCM4UcdC4GAaa2XA99M3\"\n    },\n    \"last\": {\n      \"href\": \"https://VLVrRwCbGiIC.dctL+5yFd+Jebrl\"\n    }\n  },\n  \"meta\": {\n    \"count\": 8619\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88b87ee6-7a6f-4227-bd85-078886e8e2e5",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e10957ce-c9b2-4255-8bda-97f34d2670c6",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33d280c9-55b5-4e17-bdbc-fb7b9fd41337",
+          "name": "Get a file entity",
+          "request": {
+            "name": "Get a file entity",
+            "description": {
+              "content": "Retrieves a single file entity by UUID. Returns file metadata. The file binary is accessible via the URI field returned in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "file",
+                "file",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdde3a0a-f784-4aa0-9f06-6464a4051225",
+              "name": "File entity returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"ac73eb57-4c45-7c62-0bf6-685be99c8294\",\n    \"attributes\": {},\n    \"relationships\": {},\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://MVpfAZmuNNpNUhv.nuVOx0vEjcyguucgCdAwzHUYNUzQtl32aZWYCylGpkGdCdC\"\n      },\n      \"related\": {\n        \"href\": \"http://yEmgWwfWidCWBPBKsTAjJWOOTaGKv.mmuGjLqBfIdXkqDUIU9RrSZzf8spbOIX4kVtATat,1EJWHnEOWv\"\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"fb456858-b1fa-c1ac-507a-da5d4f73759e\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://dfSJiZFaDfcC.wfEwZqggedjS2Qe+W+EWOmr4xur03uoRIaEqlq0IAoCyI.D\"\n        },\n        \"related\": {\n          \"href\": \"http://bMWxrpjgiSzzUPyuNrv.vigUuuIhPUXfEslVNyff-eWB7\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"74886bf0-2fd2-96d9-edbe-cd468c0f65d6\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://kLngUfRAnDPOyYqEERtl.lirk-9fjoFYUy.uUOssBVEgcuZhYh77cWrNW9BimQsoKmRmj5zFk4\"\n        },\n        \"related\": {\n          \"href\": \"https://tX.zdhMHFZdbuXLMd19W.jU72Dy0AtRIP7igD8yrFnnRE\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": {\n      \"href\": \"http://hQSpxtcwAmdxM.pyvgGc1t\"\n    },\n    \"related\": {\n      \"href\": \"http://BxJErSSGeTbbYWoadeElScGVcoJyfvj.sycaeIbU8kRUMiEIwjyqSXa64YTG\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f609cb1-8a6b-4486-b361-432965a116b7",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1c7253c-5c24-45ee-bd8d-28efdb48489a",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d981da2-f4a8-4981-8076-e5c6ecbb84d1",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebc04441-67ef-4d47-8e48-6ec2d5ccd4f8",
+          "name": "Delete a file entity",
+          "request": {
+            "name": "Delete a file entity",
+            "description": {
+              "content": "Permanently deletes a file entity and its associated file from storage by UUID. Requires file management permissions and authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "file",
+                "file",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5643fe54-a1e4-4225-b7df-75203c7978ba",
+              "name": "File entity deleted successfully. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "823d076e-9217-4fc2-a1fc-ede56bc00199",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bff4fd72-77f4-49d7-861c-1d0d12ba5805",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dd2f916-731e-4eaa-bd26-425b716999bb",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    "file",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64d15d2d-8167-4f12-841a-8d3a5ce3388e",
+          "name": "Get a file entity",
+          "request": {
+            "name": "Get a file entity",
+            "description": {
+              "content": "Retrieves a single file entity by its numeric ID. Returns metadata about the file including filename, MIME type, size, URI, and upload timestamps. Does not return the raw file binary; use the file URI to download the file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "file",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e0673978-7d75-4642-a800-8d0fe70dcf4e",
+              "name": "File entity returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fid\": [\n    {\n      \"value\": 4913\n    },\n    {\n      \"value\": 9978\n    }\n  ],\n  \"uuid\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"langcode\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"uid\": [\n    {\n      \"target_id\": 9425\n    },\n    {\n      \"target_id\": 7588\n    }\n  ],\n  \"filename\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"uri\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"filemime\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"filesize\": [\n    {\n      \"value\": 7794\n    },\n    {\n      \"value\": 8383\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 0\n    }\n  ],\n  \"created\": [\n    {\n      \"value\": 3430\n    },\n    {\n      \"value\": 5036\n    }\n  ],\n  \"changed\": [\n    {\n      \"value\": 853\n    },\n    {\n      \"value\": 7851\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "007b5024-79a4-43f4-903b-d3e5cc2fcd44",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22deb180-d6b1-431d-b5ab-faa9530c9ccc",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9658f259-d854-49f5-ad27-9d0a0453230b",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d08ccf1-a325-450a-92d4-4933be7bd658",
+          "name": "Delete a file entity",
+          "request": {
+            "name": "Delete a file entity",
+            "description": {
+              "content": "Permanently deletes a file entity and its associated file from the Drupal file system by its numeric ID. Requires file management permissions and authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "file",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b67a3d5a-f6bb-4d4c-b57c-d667af56ee66",
+              "name": "File deleted successfully. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a409ea62-d402-4b1c-ac0c-ff546cc19536",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3eb7a59-719d-4d0b-8e1f-c2c2fee489f6",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25013cd3-82ae-490b-a9c2-f1340ca9b29b",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/jsonapi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ad946290-145c-4f77-927f-adae128b48a7",
+    "name": "Drupal JSON: Comments Files API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.\n\nContact Support:\n Name: Drupal Community",
+      "type": "text/plain"
+    }
+  }
+}

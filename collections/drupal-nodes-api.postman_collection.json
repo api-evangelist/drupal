@@ -1,0 +1,1232 @@
+{
+  "item": [
+    {
+      "id": "402cff8c-2a82-4efa-af9f-b60d9004e8ac",
+      "name": "Nodes",
+      "description": {
+        "content": "Content node resources representing structured content items of any type (article, page, etc.) stored in Drupal's content management system.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4e48357d-8072-4b10-9ea5-7b3a948f3ae4",
+          "name": "Get a node",
+          "request": {
+            "name": "Get a node",
+            "description": {
+              "content": "Retrieves a single content node entity by its numeric ID. The response format depends on the Accept header supplied: JSON, HAL+JSON, or XML. Returns the node's fields, metadata, and any configured display output.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "afff53e0-04d4-4744-b06b-99951d37dc68",
+              "name": "Node entity returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nid\": [\n    {\n      \"value\": 1708\n    },\n    {\n      \"value\": 9523\n    }\n  ],\n  \"uuid\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"value\": 4280\n    },\n    {\n      \"value\": 5771\n    }\n  ],\n  \"langcode\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"type\": [\n    {\n      \"target_id\": 8623\n    },\n    {\n      \"target_id\": 4625\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 0\n    }\n  ],\n  \"created\": [\n    {\n      \"value\": 2765\n    },\n    {\n      \"value\": 3437\n    }\n  ],\n  \"changed\": [\n    {\n      \"value\": 401\n    },\n    {\n      \"value\": 4199\n    }\n  ],\n  \"uid\": [\n    {\n      \"target_id\": 8734\n    },\n    {\n      \"target_id\": 4442\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d328be0-9767-4739-9723-95955fa043ca",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df58753c-6dde-4ebc-92b9-630d2652f991",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63f54a57-0038-4edc-a21d-c481bdbea47e",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76a318ea-953e-4eb6-a7db-93d0426bb797",
+          "name": "Update a node",
+          "request": {
+            "name": "Update a node",
+            "description": {
+              "content": "Updates an existing content node entity by its numeric ID. Only the fields included in the request body are modified. The caller must have edit permissions for the target node type. Requires authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": [\n    {\n      \"target_id\": \"<integer>\"\n    },\n    {\n      \"target_id\": \"<integer>\"\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": \"<integer>\"\n    },\n    {\n      \"value\": \"<integer>\"\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fe856522-bd6b-4c83-a4bf-7c126e75f135",
+              "name": "Node updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nid\": [\n    {\n      \"value\": 1708\n    },\n    {\n      \"value\": 9523\n    }\n  ],\n  \"uuid\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"value\": 4280\n    },\n    {\n      \"value\": 5771\n    }\n  ],\n  \"langcode\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"type\": [\n    {\n      \"target_id\": 8623\n    },\n    {\n      \"target_id\": 4625\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 0\n    }\n  ],\n  \"created\": [\n    {\n      \"value\": 2765\n    },\n    {\n      \"value\": 3437\n    }\n  ],\n  \"changed\": [\n    {\n      \"value\": 401\n    },\n    {\n      \"value\": 4199\n    }\n  ],\n  \"uid\": [\n    {\n      \"target_id\": 8734\n    },\n    {\n      \"target_id\": 4442\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32519fa7-e555-41e2-9aab-c3dbb92488ca",
+              "name": "The request body or parameters are invalid or malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fd22642-78a0-4c25-94a8-1b0108d01bd5",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88d9333b-00ea-4b16-b7a1-3e11129d6dbc",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d143213d-5921-48a2-ba96-8a95c134d9e2",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fde0cde9-4182-48f9-b634-9864ea0807f5",
+          "name": "Delete a node",
+          "request": {
+            "name": "Delete a node",
+            "description": {
+              "content": "Permanently deletes a content node entity by its numeric ID. The caller must have delete permissions for the target node type. This operation cannot be undone. Requires authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7834df7e-2d9d-424d-8681-a87d7cc19b16",
+              "name": "Node deleted successfully. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f33fdbcc-73a3-4745-9a07-f1330f716aa7",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb816064-fb0b-4295-9f32-b09322ff0315",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f36a1e0-bb43-4056-963e-37aa2cc36827",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed8c2d47-1bf4-4e6a-8b3b-a26209c16139",
+          "name": "Create a node",
+          "request": {
+            "name": "Create a node",
+            "description": {
+              "content": "Creates a new content node entity. The request body must include the content type (bundle), title, and any required fields. The caller must have create permissions for the specified node type. Requires authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": [\n    {\n      \"target_id\": \"<integer>\"\n    },\n    {\n      \"target_id\": \"<integer>\"\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": \"<integer>\"\n    },\n    {\n      \"value\": \"<integer>\"\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "679a7990-3834-4077-ac97-2c7ce8ff7a73",
+              "name": "Node created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nid\": [\n    {\n      \"value\": 1708\n    },\n    {\n      \"value\": 9523\n    }\n  ],\n  \"uuid\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"value\": 4280\n    },\n    {\n      \"value\": 5771\n    }\n  ],\n  \"langcode\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"type\": [\n    {\n      \"target_id\": 8623\n    },\n    {\n      \"target_id\": 4625\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 0\n    }\n  ],\n  \"created\": [\n    {\n      \"value\": 2765\n    },\n    {\n      \"value\": 3437\n    }\n  ],\n  \"changed\": [\n    {\n      \"value\": 401\n    },\n    {\n      \"value\": 4199\n    }\n  ],\n  \"uid\": [\n    {\n      \"target_id\": 8734\n    },\n    {\n      \"target_id\": 4442\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ecd0bd4-efe7-4b81-8734-2735b5096ea2",
+              "name": "The request body or parameters are invalid or malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24f0664a-c4c4-49fa-8be7-44990ab3eb8c",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e48a8231-49c9-4e60-831c-8bc6c6ff76d4",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    {\n      \"target_id\": 5360\n    },\n    {\n      \"target_id\": 6180\n    }\n  ],\n  \"title\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"status\": [\n    {\n      \"value\": 0\n    },\n    {\n      \"value\": 1\n    }\n  ],\n  \"body\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/jsonapi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b75f1070-12a5-4fb8-a93b-f23ccc826a2d",
+    "name": "Drupal JSON: Comments Nodes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.\n\nContact Support:\n Name: Drupal Community",
+      "type": "text/plain"
+    }
+  }
+}

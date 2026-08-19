@@ -1,0 +1,623 @@
+{
+  "item": [
+    {
+      "id": "e089053f-10fc-491d-9dcb-dc900590261c",
+      "name": "Node Pages",
+      "description": {
+        "content": "JSON:API endpoints for basic page content nodes. The bundle slug varies by Drupal installation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d6e39650-88fc-4174-96ca-68f38059cc8d",
+          "name": "List basic page nodes",
+          "request": {
+            "name": "List basic page nodes",
+            "description": {
+              "content": "Retrieves a collection of basic page content nodes. Supports the same query parameters as other JSON:API collection endpoints including filter, sort, page, include, and fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                "page"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[name][path]",
+                  "value": "<string>",
+                  "description": "The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name][value]",
+                  "value": "<string>",
+                  "description": "The value to filter against."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "The maximum number of resources to return in a single page. Used for cursor-based pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4174bf3-98f7-4f97-ad5b-82101ccddf36",
+              "name": "Collection of basic page nodes returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"54e6bed0-af5e-7e19-a50b-dc13e8acfd28\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://dEiEpPjAJjrgLNO.dnRXchOdsAn+Y83,2jNtZF7.iXA\"\n        },\n        \"related\": {\n          \"href\": \"http://WUIRY.eyxyNcZlA7tK--VzGfVYCZTu+8N9kX,TztR7aQGQReDs.r5XA-NgFNCQ7\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"6f723338-b7ec-f81c-330d-ff3b8f40b07c\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://lP.zqnzcNHuovNFH5KOoPhQdsC,KHyLacwHR+boIwan1jvTePw7k7XbZN-4qGPe\"\n        },\n        \"related\": {\n          \"href\": \"https://VSa.pbqrCy3,FUnrZy\"\n        }\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"7da4720c-55d0-b8d4-f4eb-b69b4f935f72\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://oCOSmdcBdFcIOGkqfzTKrwQNMFFxO.hmPjjE4urrrnIlIRUgHSli.DRNHKZ3LVqRTZnwk8z7z\"\n        },\n        \"related\": {\n          \"href\": \"http://OeBqoKtNI.oxcxjwIqohKAtyG3EMaIDsmKlJYz4op22Ry-jmTIqW+c8Lsvfo\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"af259fa8-67e6-9426-3205-8c00d11cf0a9\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://OYFugOgtDvULHHGOZrjXbyLmBZxvjzBPw.ojlfTn4hA,wsTxmNBTXQa1VgJBf3.3KVa8Xti97EegSwWbelBT6XlBB2V\"\n        },\n        \"related\": {\n          \"href\": \"http://ghzeP.nmxEmx,ArQ2f6r6wLyrUh2oCNkHv49KSf9HUgQE-ajQD\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": {\n      \"href\": \"https://fBDjECPUJWJVDlmMV.iltrhTFxhB2gRcWaf,mp64nT3iKFU2FLM,MXCgjd5AfaIxv\"\n    },\n    \"first\": {\n      \"href\": \"https://SvoOZqBImRzEFsxWtQr.aanaxg8zMNWMNbRyyKSsxLAXjEogpmVsJNvTXuPoioIDPn\"\n    },\n    \"prev\": {\n      \"href\": \"http://cMkJAQzfOCebEnXhg.depVF2pFs6O.6E6PcrZNfsvx25sAoqb6hzZhLXXY\"\n    },\n    \"next\": {\n      \"href\": \"https://AtNprPYwrOUcQ.xdVTud-rStSdM0Tq1zDyY4Uv2tllyrw+yGJKZBh3vS\"\n    },\n    \"last\": {\n      \"href\": \"https://fH.nltsKP3Bwze0ln-8W,JZuQb,to7vs\"\n    }\n  },\n  \"meta\": {\n    \"count\": 2385\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6903e18a-7a0b-40dc-982d-789fc68f80d5",
+              "name": "The request body or query parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cecc7c56-d1ad-4f0f-911e-f12f5f0071ec",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53d6ef4e-ef9b-47ec-bd94-073b5a74d705",
+          "name": "Get a basic page node",
+          "request": {
+            "name": "Get a basic page node",
+            "description": {
+              "content": "Retrieves a single basic page content node by its UUID. Supports sparse fieldsets and relationship includes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                "page",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ce34510-8a5f-4dc1-a572-faeba8752aa2",
+              "name": "Basic page node returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "page",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"4b8dc83d-3c28-90bc-bff3-c83f4c30a2af\",\n    \"attributes\": {},\n    \"relationships\": {},\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://aiUuQjxeREnFELEYkdIPqyagD.eknjwTU0lVnjVuvD6W+oOJE565dPtsSnQDc4ovgzXcYsvkKMyTgcRLgBDA9pbgB9-p\"\n      },\n      \"related\": {\n        \"href\": \"http://hobWOZdpsrYjQyFOuHQEcSzaJTjAW.nafpoZUWV-9EOwEHpkjlgvjd\"\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"eb96d116-6e1a-db57-4775-8b0d1959280f\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://YEGaNjPVeE.bpbiLp7IF1O,Ub\"\n        },\n        \"related\": {\n          \"href\": \"http://eG.gbzZhrVKjHrZHTf,GNeWPVK5AtlJWCFIu.EnP+IY9cNtJgFU1umtOY+UVI7p+KY+lX5WyDca5CjEyAPIHsA-v\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"a227c4f9-c762-f502-4557-501153c13027\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://yvfMjHtRxzHNWXBgHwlRkPD.hpbPQhpUpffomYrIGM35H3TyoREd2,RbT.Vi2nUf8KnFplWvxrPZV5AaDDTK9IqVNuydm\"\n        },\n        \"related\": {\n          \"href\": \"http://LnsJxIbvqxBDrHVRZAgn.nyiyFTdWnXsSVOBN4KOB,HnegKhBnC\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": {\n      \"href\": \"https://NJFsnpIqXsLgLgKvmUxeYrTN.tsnqH3TPoA2xgRseZZWAkzCfBLsxREU4BATTNQ-co3aPTDPb8ddXX6B0gjkEalRv5zSgq1b0Jvvzw3Z\"\n    },\n    \"related\": {\n      \"href\": \"https://kWbncfVnNTjzzyGSZvDrACGgxW.fhhllGGq6F5byR7.OvpNXM24KMxy6AAqvBrd.djdUgNtkbCZwNYVEme69CCcSdfmIFGiUcjtv6Rszp\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab9a6223-b663-44f0-a9f0-98a24b5a91b5",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "page",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7150944d-2e7f-4917-8433-89c94a31dddf",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "page",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/jsonapi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "98c08cf2-d955-41cb-b03e-46c93776c9cd",
+    "name": "Drupal JSON: Comments Node Pages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.\n\nContact Support:\n Name: Drupal Community",
+      "type": "text/plain"
+    }
+  }
+}

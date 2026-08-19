@@ -1,0 +1,1919 @@
+{
+  "item": [
+    {
+      "id": "518f1e5a-b9a7-4a7d-85c3-0fa6969b1c01",
+      "name": "Taxonomy Terms",
+      "description": {
+        "content": "JSON:API endpoints for taxonomy term entities across all configured vocabularies.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "493e7512-5097-4de4-b549-b05c6dea6679",
+          "name": "List taxonomy terms by vocabulary",
+          "request": {
+            "name": "List taxonomy terms by vocabulary",
+            "description": {
+              "content": "Retrieves a collection of taxonomy terms for a specific vocabulary bundle. Replace {vocabulary} with the machine name of the vocabulary (e.g., tags, categories). Supports filtering, sorting, pagination, and includes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy_term",
+                ":vocabulary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[name][path]",
+                  "value": "<string>",
+                  "description": "The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name][value]",
+                  "value": "<string>",
+                  "description": "The value to filter against."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "The maximum number of resources to return in a single page. Used for cursor-based pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vocabulary",
+                  "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69d9db99-296e-4361-88cf-6ce2b55cb3ae",
+              "name": "Collection of taxonomy terms returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    ":vocabulary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vocabulary",
+                      "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"1621a6a8-51cc-a075-1739-618da958240c\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://byNfMZTfiHBHClELv.wnxkJTWaFBamy1wlwreI7OaITnfxsZb.YDuiHQCRpZpOIxMISVB9uysXScR\"\n        },\n        \"related\": {\n          \"href\": \"http://teRwslTJRpQKEAIhPDsDsqauNadII.cvezVqXC6UB2uf1t\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"c16ae6a7-c970-eb2a-1962-9cbd096e2b6e\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://huNSMlfMNeT.xoEgFGntuE5fYnulLRtEx9B\"\n        },\n        \"related\": {\n          \"href\": \"https://jUSqhYKrxrnaxkvEesaAcGfxZktAzU.idawE5VOgXS,odwfrlXqOGG47hopVoicNIpDQsrH2hQmNrm4gnNn+7O\"\n        }\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"c1186533-62a3-f9f3-7d80-de310aa8f9ca\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://yRVYFovjczJ.ejMdEpIijhlWfch0V472z94MPeIkaJ539sZVShusAUHHHA03hpoNy2kAPIF,hjt\"\n        },\n        \"related\": {\n          \"href\": \"https://PoPMk.tlltmoB9WYjmHUxJPDZ\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"cfd1cf55-8176-543d-5ed8-59eebeac83d2\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://QgfXWVkeGatnIWMZOpxTuIf.mieHHHRhZo67msZmKsHHpOVcZ6D.M1vPJeIWYbh,3eVNazF\"\n        },\n        \"related\": {\n          \"href\": \"https://xAOsbRoep.drsWr,5FAglDCVj7ePF.yogcmMQ1WyL8+a9M\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": {\n      \"href\": \"http://fGk.ktnahKAZLCbSglaIPJaWRDetWu0dQ\"\n    },\n    \"first\": {\n      \"href\": \"https://XqULdsQXOD.wfvfrphuRBNv1jjhP06rwMaXrqZvKb0gZWUlFndzBFMBTzW\"\n    },\n    \"prev\": {\n      \"href\": \"http://MIpGfAeljvjvdDWHWXMaQguAEbWcy.ifompEKv3V.ihKexf-DiYUaPBcrBgU\"\n    },\n    \"next\": {\n      \"href\": \"http://dXIsuPlwxOZkJwXYsVdRzYcG.cvofzrWd13MSCUaqoHELx+T\"\n    },\n    \"last\": {\n      \"href\": \"https://LKoreKpsRkWjMgNgHSprXVCPKg.qkX6DLSutPumfSIY5KxCEVWEXVlxG3VPGOXXb.ksPG5he8olsA\"\n    }\n  },\n  \"meta\": {\n    \"count\": 4461\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e29c44ad-f019-47cf-ab00-83e7c7504a28",
+              "name": "The request body or query parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    ":vocabulary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vocabulary",
+                      "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "856da136-cfef-41a2-ac26-b7aa3ab12e07",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    ":vocabulary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vocabulary",
+                      "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b27b7b45-413d-4bb8-9f3d-82dc81beecda",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    ":vocabulary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vocabulary",
+                      "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "385752d5-d860-475a-b27f-ac761bf483d1",
+          "name": "Get a taxonomy term",
+          "request": {
+            "name": "Get a taxonomy term",
+            "description": {
+              "content": "Retrieves a single taxonomy term by vocabulary bundle and UUID. Returns the term's name, description, weight, and any configured relationships such as parent terms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy_term",
+                ":vocabulary",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vocabulary",
+                  "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c04160de-f1b2-4457-933e-d2e37725b5ed",
+              "name": "Taxonomy term returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    ":vocabulary",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vocabulary",
+                      "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"4ddd75a5-86cf-0b3d-45d3-5eb1edea53e7\",\n    \"attributes\": {},\n    \"relationships\": {},\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://KqSvDPmQSATTDMVrRnHl.dmmQ5ui8UjFf5efmHVBoR6KNUe+2DjTK,\"\n      },\n      \"related\": {\n        \"href\": \"http://tqrvhxvpeNSLrpIfyGflNekJQAl.jzVbocK+WIFn4YcBG1w8.6rIfQKf+cAFm6dimaNe\"\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"d1ea7ee9-f0db-bf76-9ba6-36d53faa5440\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://wUGVmta.renhOPJqACvSZp18so\"\n        },\n        \"related\": {\n          \"href\": \"http://NUjRGZHhSMzjEcAvNKsfezCIgvGzdK.cmlhTVa5mUB18lxYpaEK2eoMfXNcapJztGfJDwux1iXWgfW0jwCH.K9iNi.\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"59b5f8ba-acaf-7067-2a4d-39979561e177\",\n      \"attributes\": {},\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://IERfoHobNhlREuAdUlJGjxgQphEs.mukvZj43vPO4vlwRfDMz4i2BLMfuT5CvQaqsDmPFa373\"\n        },\n        \"related\": {\n          \"href\": \"http://dfI.queO9gbW\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": {\n      \"href\": \"https://xJcgmBkfTotuBAXCfMTpZfhHMKk.dygdvipJaLFySnVw5M3HIMHIXduzQtKkPspotXAjulCXpLi0QMwe37lecb\"\n    },\n    \"related\": {\n      \"href\": \"https://nKAuHeSvdAQtjqgva.pbhOhthGc9VStkdFvWitKh6XvkOzAFO5Rq,EhSOT+hx6AHs4YBnl.NRxfRBAhW+\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99ca020c-0c5b-4ef4-b9e5-8c5571f31520",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    ":vocabulary",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vocabulary",
+                      "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32bd4040-07c4-45b2-a798-d52d70b5e123",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    ":vocabulary",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vocabulary",
+                      "description": "(Required) The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8081295-f0bf-4ac6-bb2a-f3913f2caee6",
+          "name": "Get a taxonomy term",
+          "request": {
+            "name": "Get a taxonomy term",
+            "description": {
+              "content": "Retrieves a single taxonomy term entity by its numeric ID. Returns the term's name, vocabulary, description, and any additional fields configured on the term bundle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy",
+                "term",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e19fabe-a9da-4e5f-9607-4a8be29f7eaa",
+              "name": "Taxonomy term returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tid\": [\n    {\n      \"value\": 1476\n    },\n    {\n      \"value\": 9263\n    }\n  ],\n  \"uuid\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 9373\n    },\n    {\n      \"target_id\": 4442\n    }\n  ],\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"weight\": [\n    {\n      \"value\": 5944\n    },\n    {\n      \"value\": 4157\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 9984\n    },\n    {\n      \"target_id\": 842\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "864b4728-8fc5-4d87-96d1-31945627f35a",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d5b8cf1-122a-48ec-9faa-6f9005cd22a3",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8545a4e3-6ca2-48f3-ba00-4e5460b8828a",
+          "name": "Update a taxonomy term",
+          "request": {
+            "name": "Update a taxonomy term",
+            "description": {
+              "content": "Updates an existing taxonomy term entity by its numeric ID. Only the fields included in the request body are modified. Requires taxonomy management permissions and authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy",
+                "term",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": \"<integer>\"\n    },\n    {\n      \"target_id\": \"<integer>\"\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": \"<integer>\"\n    },\n    {\n      \"target_id\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a407efa-9617-4772-adc4-fca6c74ab886",
+              "name": "Taxonomy term updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tid\": [\n    {\n      \"value\": 1476\n    },\n    {\n      \"value\": 9263\n    }\n  ],\n  \"uuid\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 9373\n    },\n    {\n      \"target_id\": 4442\n    }\n  ],\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"weight\": [\n    {\n      \"value\": 5944\n    },\n    {\n      \"value\": 4157\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 9984\n    },\n    {\n      \"target_id\": 842\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f38ab832-1cf9-4684-ac68-cb06c08571de",
+              "name": "The request body or parameters are invalid or malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fc514d9-a7a1-4fbc-9783-fb34323e03f7",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4a4f9eb-5fad-4887-ac45-477f29afb764",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3202d447-5af2-45cf-a6f7-d687b875f6a4",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1eb385a9-9752-426a-b21b-ac4b683fabef",
+          "name": "Delete a taxonomy term",
+          "request": {
+            "name": "Delete a taxonomy term",
+            "description": {
+              "content": "Permanently deletes a taxonomy term entity by its numeric ID. Requires taxonomy management permissions and authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy",
+                "term",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e89fdac2-3513-4351-9419-3b8b903353a7",
+              "name": "Taxonomy term deleted successfully. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39a464e0-c803-48a0-a542-acb40c80d3eb",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "484dcaa4-4c22-43a1-a7a7-2a297f3da30b",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "107cee63-53e6-4e52-bd89-c522c25fbbff",
+              "name": "The requested entity does not exist or is not accessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3b697b9-4e66-44ad-b7a9-168b567b28e8",
+          "name": "Create a taxonomy term",
+          "request": {
+            "name": "Create a taxonomy term",
+            "description": {
+              "content": "Creates a new taxonomy term in a specified vocabulary. The request body must include the term name and target vocabulary. Requires taxonomy management permissions and authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy",
+                "term"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": \"<integer>\"\n    },\n    {\n      \"target_id\": \"<integer>\"\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"summary\": \"<string>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": \"<integer>\"\n    },\n    {\n      \"target_id\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccdcc0da-913b-44a7-a710-caa13e867407",
+              "name": "Taxonomy term created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tid\": [\n    {\n      \"value\": 1476\n    },\n    {\n      \"value\": 9263\n    }\n  ],\n  \"uuid\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 9373\n    },\n    {\n      \"target_id\": 4442\n    }\n  ],\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"weight\": [\n    {\n      \"value\": 5944\n    },\n    {\n      \"value\": 4157\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 9984\n    },\n    {\n      \"target_id\": 842\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f23ba252-607c-43a1-8998-b079c4120c48",
+              "name": "The request body or parameters are invalid or malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11111663-22ab-46cc-96f5-23890c2a700a",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9468bc7-d14e-4f59-8dfc-d549a625b4ec",
+              "name": "The authenticated user does not have permission to perform this operation on this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "term"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The serialization format of the request body. Must match the format of the data being sent.",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"vid\": [\n    {\n      \"target_id\": 2962\n    },\n    {\n      \"target_id\": 7382\n    }\n  ],\n  \"description\": [\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"summary\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"parent\": [\n    {\n      \"target_id\": 694\n    },\n    {\n      \"target_id\": 9580\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/jsonapi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f21fd1eb-2ec5-4a72-8f3f-53625f6f0318",
+    "name": "Drupal JSON: Comments Taxonomy Terms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.\n\nContact Support:\n Name: Drupal Community",
+      "type": "text/plain"
+    }
+  }
+}

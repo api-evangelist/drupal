@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Drupal JSON: Comments Node Pages API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Node Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List basic page nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/node/page",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "filter[name][path]",
+                "value": "",
+                "type": "query",
+                "description": "The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields."
+              },
+              {
+                "name": "filter[name][value]",
+                "value": "",
+                "type": "query",
+                "description": "The value to filter against."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date."
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of resources to return in a single page. Used for cursor-based pagination."
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+              },
+              {
+                "name": "fields[node--article]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+              }
+            ]
+          },
+          "docs": "Retrieves a collection of basic page content nodes. Supports the same query parameters as other JSON:API collection endpoints including filter, sort, page, include, and fields."
+        },
+        {
+          "info": {
+            "name": "Get a basic page node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/node/page/:uuid",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+              },
+              {
+                "name": "fields[node--article]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+              }
+            ]
+          },
+          "docs": "Retrieves a single basic page content node by its UUID. Supports sparse fieldsets and relationship includes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

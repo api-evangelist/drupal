@@ -1,0 +1,1694 @@
+{
+  "item": [
+    {
+      "id": "d8e911f6-1bdd-4ed0-aad5-8fedf5fbd7fd",
+      "name": "Node Articles",
+      "description": {
+        "content": "JSON:API endpoints for article content nodes. The bundle slug varies by Drupal installation; article is shown as an example bundle name.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4850fa8-0764-4a26-a0af-3598e98aee73",
+          "name": "List article nodes",
+          "request": {
+            "name": "List article nodes",
+            "description": {
+              "content": "Retrieves a collection of article content nodes. Supports filtering by any field using the filter query parameter, ascending and descending sorting via sort, cursor-based pagination via page[limit] and page[offset], sparse fieldsets via fields[node--article], and relationship resolution via include. Published nodes are accessible to anonymous users; unpublished nodes require authentication and appropriate permissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                "article"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[name][path]",
+                  "value": "<string>",
+                  "description": "The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name][value]",
+                  "value": "<string>",
+                  "description": "The value to filter against."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name][operator]",
+                  "value": "=",
+                  "description": "The comparison operator for the filter condition. Supported operators: =, <>, >, >=, <, <=, STARTS_WITH, CONTAINS, ENDS_WITH, IN, NOT IN, BETWEEN, NOT BETWEEN, IS NULL, IS NOT NULL."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "The maximum number of resources to return in a single page. Used for cursor-based pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eadf04f6-ce64-4ffd-9cce-d53b46debe3e",
+              "name": "Collection of article nodes returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "filter[name][operator]",
+                      "value": "="
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": [\n    {\n      \"type\": \"node--article\",\n      \"id\": \"e0883f8e-cb70-e905-e980-4f2804bb46df\",\n      \"attributes\": {\n        \"drupal_internal__nid\": 9855,\n        \"drupal_internal__vid\": 1026,\n        \"langcode\": \"string\",\n        \"status\": false,\n        \"title\": \"string\",\n        \"created\": \"1947-06-08T06:52:04.188Z\",\n        \"changed\": \"1955-01-26T04:50:56.506Z\",\n        \"promote\": true,\n        \"sticky\": true,\n        \"body\": {\n          \"value\": \"string\",\n          \"summary\": \"string\",\n          \"format\": \"string\",\n          \"processed\": \"string\"\n        },\n        \"path\": {\n          \"alias\": \"string\",\n          \"pid\": 5177,\n          \"langcode\": \"string\"\n        }\n      },\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://YYzOZcutWttP.klEiVhiw.rzqIxZ3v7ES7DTu8tW7FJpu+6sBRTkgHhNUZ48RAVLr0OEPebZkkhCTTLTCtH\"\n        },\n        \"related\": {\n          \"href\": \"http://EijsdxFaSEllzfiDTLih.ltpxK0lRhZ3LQ-Bf4zbHIGB2hVNpOZEniJxm5HB2q-\"\n        }\n      }\n    },\n    {\n      \"type\": \"node--article\",\n      \"id\": \"5eb73dc4-15d1-8b6f-3ede-0c8a0df00bb3\",\n      \"attributes\": {\n        \"drupal_internal__nid\": 5635,\n        \"drupal_internal__vid\": 345,\n        \"langcode\": \"string\",\n        \"status\": true,\n        \"title\": \"string\",\n        \"created\": \"2021-03-27T23:18:16.321Z\",\n        \"changed\": \"2007-12-31T01:04:54.985Z\",\n        \"promote\": true,\n        \"sticky\": true,\n        \"body\": {\n          \"value\": \"string\",\n          \"summary\": \"string\",\n          \"format\": \"string\",\n          \"processed\": \"string\"\n        },\n        \"path\": {\n          \"alias\": \"string\",\n          \"pid\": 7487,\n          \"langcode\": \"string\"\n        }\n      },\n      \"relationships\": {},\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://GEGIuyZcUADilrarzzsgwOawHzOBuE.qjyyTwEcrPvJtUoAcjCERc1Cw3u6lkNK6fVHh,ZTBKfCtF-Yfxk8b9tBWxLDG3MmTMha1C-pQusnFNCh9+ci\"\n        },\n        \"related\": {\n          \"href\": \"http://sIFUmJsooHDeOUtFuCdODCggptwtRMVAf.sigqcP-zUsSUY9uFH7RJPGYHt5Awigqxs8tmp4jVsC-7CTtZzihQndvAY7Y\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": {\n      \"href\": \"https://hWoEUCJznzwRcODelcC.fvzdjuxnuvaKfJ.eTLBkl+vRdhIpClqK7ffYv-PCZe3iJ\"\n    },\n    \"first\": {\n      \"href\": \"http://uUjMg.ltxoLtrAbo3HZ4mqYTipZEB5xoiPQhV38BX\"\n    },\n    \"prev\": {\n      \"href\": \"https://WdFKDGCpvxWjoIaYnxtDZrOgvvxuAiVwH.xgXC817mwlBEw.NIn3uG1TL.tmBNV\"\n    },\n    \"next\": {\n      \"href\": \"https://NysEmkFVHAzFkDzfVd.jwhuKm4\"\n    },\n    \"last\": {\n      \"href\": \"http://hlVJEfPSYonolksDvqQuFBQTwXZmvERM.nxZ1CYJTDrwmugclAxe1tBgmJp6B57b7znZtYlMJ+-+POEKU-EGx76rjwHyk9JuQwII6yHDfcp\"\n    }\n  },\n  \"meta\": {\n    \"count\": 6592\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61fb6275-6233-4f3e-a289-9fb5d6a6fa4b",
+              "name": "The request body or query parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "filter[name][operator]",
+                      "value": "="
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b55d2be5-47e6-40b8-833d-ba947d57ff36",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name][path]",
+                      "value": "status"
+                    },
+                    {
+                      "key": "filter[name][value]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "filter[name][operator]",
+                      "value": "="
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-created"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c15e8bd-9d8e-4cc0-a6f2-037ed46e0e0f",
+          "name": "Create an article node",
+          "request": {
+            "name": "Create an article node",
+            "description": {
+              "content": "Creates a new article content node. The request body must be a JSON:API resource object with type set to node--article and the desired attributes and relationships. Entity reference fields must be expressed as relationship objects, not plain attributes. Requires authentication and create article content permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                "article"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    },\n    \"relationships\": {\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"<string>\",\n            \"id\": \"<uuid>\"\n          },\n          {\n            \"type\": \"<string>\",\n            \"id\": \"<uuid>\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f358d380-f07c-41b0-9699-bbafe9a8a593",
+              "name": "Article node created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    },\n    \"relationships\": {\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"a679022a-6413-f54e-dd49-c267dfd915ea\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"5c9bf88b-82e0-4154-f038-07da8d597663\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"4d5a132c-d11c-161d-9709-826c7fe8e5ba\",\n    \"attributes\": {\n      \"drupal_internal__nid\": 1098,\n      \"drupal_internal__vid\": 5882,\n      \"langcode\": \"string\",\n      \"status\": true,\n      \"title\": \"string\",\n      \"created\": \"1996-09-23T09:35:13.066Z\",\n      \"changed\": \"2008-09-19T07:24:31.544Z\",\n      \"promote\": false,\n      \"sticky\": false,\n      \"body\": {\n        \"value\": \"string\",\n        \"summary\": \"string\",\n        \"format\": \"string\",\n        \"processed\": \"string\"\n      },\n      \"path\": {\n        \"alias\": \"string\",\n        \"pid\": 6867,\n        \"langcode\": \"string\"\n      }\n    },\n    \"relationships\": {\n      \"node_type\": {\n        \"data\": {\n          \"type\": \"taxonomy_term--tags\",\n          \"id\": \"3e4bf509-83b1-d0f5-6045-20875eea37b5\"\n        }\n      },\n      \"uid\": {\n        \"data\": {\n          \"type\": \"taxonomy_term--tags\",\n          \"id\": \"56254cf7-2668-0754-0e75-8d55ee74069f\"\n        }\n      },\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"1387b73c-979c-29e0-e0c3-8b9dcf2ba363\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"dd353340-61cd-5fc7-037a-8433e3c74967\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://CMaSKaoYhnPacoEevjsRCScEI.arpwF5GWsw8DFKy5OpKXOzlurYB7MLP2xS2Rap,mWE0mfpj7tWTePFm2YguOkZqKslabJ\"\n      },\n      \"related\": {\n        \"href\": \"https://XOcvJkOdcLqZA.ahdbedvN0S2V2IqYAQDZks2UBCLsD0LWWBNcH1krIr0yD4Qep6yt6tOuND\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "061734f4-e581-42cb-9245-8dc3cd51dcc5",
+              "name": "The request body or query parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    },\n    \"relationships\": {\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"a679022a-6413-f54e-dd49-c267dfd915ea\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"5c9bf88b-82e0-4154-f038-07da8d597663\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "589454b1-3328-442e-9a86-a17bad9a5b7e",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    },\n    \"relationships\": {\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"a679022a-6413-f54e-dd49-c267dfd915ea\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"5c9bf88b-82e0-4154-f038-07da8d597663\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9ef757b-f78d-448b-8b8d-f69419c30a0f",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    },\n    \"relationships\": {\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"a679022a-6413-f54e-dd49-c267dfd915ea\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"5c9bf88b-82e0-4154-f038-07da8d597663\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ea76ff0-cac5-4ad8-ae52-336703d9f533",
+              "name": "The request body is syntactically valid but semantically unprocessable, such as failing field validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    },\n    \"relationships\": {\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"a679022a-6413-f54e-dd49-c267dfd915ea\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"5c9bf88b-82e0-4154-f038-07da8d597663\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b5fdee4-5f58-4668-91fd-a13470b59069",
+          "name": "Get an article node",
+          "request": {
+            "name": "Get an article node",
+            "description": {
+              "content": "Retrieves a single article content node by its UUID. Supports sparse fieldsets via fields[node--article] and relationship resolution via include. Note that JSON:API always uses UUID as the identifier, not the numeric node ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                "article",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[node--article]",
+                  "value": "<string>",
+                  "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fee00bf-4139-4e2f-b6bc-8c2491fd52af",
+              "name": "Article node returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"4d5a132c-d11c-161d-9709-826c7fe8e5ba\",\n    \"attributes\": {\n      \"drupal_internal__nid\": 1098,\n      \"drupal_internal__vid\": 5882,\n      \"langcode\": \"string\",\n      \"status\": true,\n      \"title\": \"string\",\n      \"created\": \"1996-09-23T09:35:13.066Z\",\n      \"changed\": \"2008-09-19T07:24:31.544Z\",\n      \"promote\": false,\n      \"sticky\": false,\n      \"body\": {\n        \"value\": \"string\",\n        \"summary\": \"string\",\n        \"format\": \"string\",\n        \"processed\": \"string\"\n      },\n      \"path\": {\n        \"alias\": \"string\",\n        \"pid\": 6867,\n        \"langcode\": \"string\"\n      }\n    },\n    \"relationships\": {\n      \"node_type\": {\n        \"data\": {\n          \"type\": \"taxonomy_term--tags\",\n          \"id\": \"3e4bf509-83b1-d0f5-6045-20875eea37b5\"\n        }\n      },\n      \"uid\": {\n        \"data\": {\n          \"type\": \"taxonomy_term--tags\",\n          \"id\": \"56254cf7-2668-0754-0e75-8d55ee74069f\"\n        }\n      },\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"1387b73c-979c-29e0-e0c3-8b9dcf2ba363\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"dd353340-61cd-5fc7-037a-8433e3c74967\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://CMaSKaoYhnPacoEevjsRCScEI.arpwF5GWsw8DFKy5OpKXOzlurYB7MLP2xS2Rap,mWE0mfpj7tWTePFm2YguOkZqKslabJ\"\n      },\n      \"related\": {\n        \"href\": \"https://XOcvJkOdcLqZA.ahdbedvN0S2V2IqYAQDZks2UBCLsD0LWWBNcH1krIr0yD4Qep6yt6tOuND\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26704909-dbea-4b5c-bc9a-996e765a15ed",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48a9d08c-5f13-4ae2-aa41-e872d6af23d5",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6561c70f-bb91-4f01-8feb-8f78e58cc64e",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "uid,field_tags"
+                    },
+                    {
+                      "key": "fields[node--article]",
+                      "value": "title,body,created"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The JSON:API media type. Include this header to receive a properly formatted JSON:API response.",
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "195567ed-6d8f-45c0-bc5b-38327e103f60",
+          "name": "Update an article node",
+          "request": {
+            "name": "Update an article node",
+            "description": {
+              "content": "Updates an existing article content node by its UUID. Only the attributes and relationships included in the request body are modified; omitted fields retain their current values. Requires authentication and edit permissions for the article content type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                "article",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce9fbdac-cc99-48c4-8d42-385c58714b3c",
+              "name": "Article node updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  },\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"4d5a132c-d11c-161d-9709-826c7fe8e5ba\",\n    \"attributes\": {\n      \"drupal_internal__nid\": 1098,\n      \"drupal_internal__vid\": 5882,\n      \"langcode\": \"string\",\n      \"status\": true,\n      \"title\": \"string\",\n      \"created\": \"1996-09-23T09:35:13.066Z\",\n      \"changed\": \"2008-09-19T07:24:31.544Z\",\n      \"promote\": false,\n      \"sticky\": false,\n      \"body\": {\n        \"value\": \"string\",\n        \"summary\": \"string\",\n        \"format\": \"string\",\n        \"processed\": \"string\"\n      },\n      \"path\": {\n        \"alias\": \"string\",\n        \"pid\": 6867,\n        \"langcode\": \"string\"\n      }\n    },\n    \"relationships\": {\n      \"node_type\": {\n        \"data\": {\n          \"type\": \"taxonomy_term--tags\",\n          \"id\": \"3e4bf509-83b1-d0f5-6045-20875eea37b5\"\n        }\n      },\n      \"uid\": {\n        \"data\": {\n          \"type\": \"taxonomy_term--tags\",\n          \"id\": \"56254cf7-2668-0754-0e75-8d55ee74069f\"\n        }\n      },\n      \"field_tags\": {\n        \"data\": [\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"1387b73c-979c-29e0-e0c3-8b9dcf2ba363\"\n          },\n          {\n            \"type\": \"taxonomy_term--tags\",\n            \"id\": \"dd353340-61cd-5fc7-037a-8433e3c74967\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://CMaSKaoYhnPacoEevjsRCScEI.arpwF5GWsw8DFKy5OpKXOzlurYB7MLP2xS2Rap,mWE0mfpj7tWTePFm2YguOkZqKslabJ\"\n      },\n      \"related\": {\n        \"href\": \"https://XOcvJkOdcLqZA.ahdbedvN0S2V2IqYAQDZks2UBCLsD0LWWBNcH1krIr0yD4Qep6yt6tOuND\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c72d28d8-0aff-4017-ae53-36ba03c1f8a6",
+              "name": "The request body or query parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8296b33-0715-4e6a-812c-40f6d756d762",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c31a453-5f24-4f55-8768-ee17fff2c8b2",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a63c2f25-500b-4161-a71e-76027642f934",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Must be application/vnd.api+json for all JSON:API write requests.",
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"node--article\",\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"body\": {\n        \"value\": \"<string>\",\n        \"summary\": \"<string>\",\n        \"format\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ad904f3-4ef2-45ff-9385-e0cf8d3872e1",
+          "name": "Delete an article node",
+          "request": {
+            "name": "Delete an article node",
+            "description": {
+              "content": "Permanently deletes an article content node by its UUID. Requires authentication and delete permissions for the article content type. This operation cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "node",
+                "article",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e682621-920d-4216-8178-1acaf916b961",
+              "name": "Article node deleted successfully. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "62102102-7b46-45b0-b03c-b1201989d111",
+              "name": "Authentication is required to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "954fe3fa-ffc4-4a4f-9d96-6562fca91338",
+              "name": "The authenticated user lacks permission to perform this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c1f91d8-2413-4d8f-85f7-c07b247e3383",
+              "name": "The requested resource does not exist or is inaccessible.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "node",
+                    "article",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\",\n        \"parameter\": \"string\"\n      }\n    }\n  ],\n  \"jsonapi\": {\n    \"version\": \"1.0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/jsonapi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bb440514-536f-44d8-afa6-e56338b5dfee",
+    "name": "Drupal JSON: Comments Node Articles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.\n\nContact Support:\n Name: Drupal Community",
+      "type": "text/plain"
+    }
+  }
+}

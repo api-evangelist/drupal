@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Drupal JSON: Comments Taxonomy Vocabularies API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Taxonomy Vocabularies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a taxonomy vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/taxonomy/vocabulary/:id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The numeric ID of the entity."
+              }
+            ]
+          },
+          "docs": "Retrieves a single taxonomy vocabulary configuration entity by its machine name ID. Returns the vocabulary name, description, and hierarchy settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Drupal JSON: Comments Node Articles API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Node Articles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List article nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/node/article",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "filter[name][path]",
+                "value": "",
+                "type": "query",
+                "description": "The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields."
+              },
+              {
+                "name": "filter[name][value]",
+                "value": "",
+                "type": "query",
+                "description": "The value to filter against."
+              },
+              {
+                "name": "filter[name][operator]",
+                "value": "",
+                "type": "query",
+                "description": "The comparison operator for the filter condition. Supported operators: =, <>, >, >=, <, <=, STARTS_WITH, CONTAINS, ENDS_WITH, IN, NOT IN, BETWEEN, NOT BETWEEN, IS NULL, IS NOT NULL."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date."
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of resources to return in a single page. Used for cursor-based pagination."
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+              },
+              {
+                "name": "fields[node--article]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+              }
+            ]
+          },
+          "docs": "Retrieves a collection of article content nodes. Supports filtering by any field using the filter query parameter, ascending and descending sorting via sort, cursor-based pagination via page[limit] and page[offset], sparse fieldsets via fields[node--article], and relationship resolution via include. Published nodes are accessible to anonymous users; unpublished nodes require authentication and appropriate permissions."
+        },
+        {
+          "info": {
+            "name": "Create an article node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/jsonapi/node/article",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new article content node. The request body must be a JSON:API resource object with type set to node--article and the desired attributes and relationships. Entity reference fields must be expressed as relationship objects, not plain attributes. Requires authentication and create article content permission."
+        },
+        {
+          "info": {
+            "name": "Get an article node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/node/article/:uuid",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+              },
+              {
+                "name": "fields[node--article]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+              }
+            ]
+          },
+          "docs": "Retrieves a single article content node by its UUID. Supports sparse fieldsets via fields[node--article] and relationship resolution via include. Note that JSON:API always uses UUID as the identifier, not the numeric node ID."
+        },
+        {
+          "info": {
+            "name": "Update an article node",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://example.com/jsonapi/node/article/:uuid",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing article content node by its UUID. Only the attributes and relationships included in the request body are modified; omitted fields retain their current values. Requires authentication and edit permissions for the article content type."
+        },
+        {
+          "info": {
+            "name": "Delete an article node",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/jsonapi/node/article/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an article content node by its UUID. Requires authentication and delete permissions for the article content type. This operation cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

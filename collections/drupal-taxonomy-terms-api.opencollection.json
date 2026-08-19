@@ -1,0 +1,229 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Drupal JSON: Comments Taxonomy Terms API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Taxonomy Terms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List taxonomy terms by vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/taxonomy_term/:vocabulary",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vocabulary",
+                "value": "",
+                "type": "path",
+                "description": "The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+              },
+              {
+                "name": "filter[name][path]",
+                "value": "",
+                "type": "query",
+                "description": "The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields."
+              },
+              {
+                "name": "filter[name][value]",
+                "value": "",
+                "type": "query",
+                "description": "The value to filter against."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date."
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of resources to return in a single page. Used for cursor-based pagination."
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+              },
+              {
+                "name": "fields[node--article]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+              }
+            ]
+          },
+          "docs": "Retrieves a collection of taxonomy terms for a specific vocabulary bundle. Replace {vocabulary} with the machine name of the vocabulary (e.g., tags, categories). Supports filtering, sorting, pagination, and includes."
+        },
+        {
+          "info": {
+            "name": "Get a taxonomy term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/taxonomy_term/:vocabulary/:uuid",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vocabulary",
+                "value": "",
+                "type": "path",
+                "description": "The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics)."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline."
+              },
+              {
+                "name": "fields[node--article]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names."
+              }
+            ]
+          },
+          "docs": "Retrieves a single taxonomy term by vocabulary bundle and UUID. Returns the term's name, description, weight, and any configured relationships such as parent terms."
+        },
+        {
+          "info": {
+            "name": "Get a taxonomy term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/jsonapi/taxonomy/term/:id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The numeric ID of the entity."
+              }
+            ]
+          },
+          "docs": "Retrieves a single taxonomy term entity by its numeric ID. Returns the term's name, vocabulary, description, and any additional fields configured on the term bundle."
+        },
+        {
+          "info": {
+            "name": "Update a taxonomy term",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://example.com/jsonapi/taxonomy/term/:id",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The numeric ID of the entity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing taxonomy term entity by its numeric ID. Only the fields included in the request body are modified. Requires taxonomy management permissions and authentication."
+        },
+        {
+          "info": {
+            "name": "Delete a taxonomy term",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/jsonapi/taxonomy/term/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The numeric ID of the entity."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a taxonomy term entity by its numeric ID. Requires taxonomy management permissions and authentication."
+        },
+        {
+          "info": {
+            "name": "Create a taxonomy term",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/jsonapi/taxonomy/term",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new taxonomy term in a specified vocabulary. The request body must include the term name and target vocabulary. Requires taxonomy management permissions and authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
