@@ -67,6 +67,8 @@ apis:
     https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
   baseURL: https://example.com
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -190,6 +192,8 @@ apis:
     https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
   baseURL: https://example.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
