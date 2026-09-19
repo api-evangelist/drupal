@@ -1,35 +1,87 @@
 name: Drupal
 aid: drupal
 deliveryModel:
-  model: unknown
-  open_source: false
-  commercial: false
+  model: open-core
+  license: GPL-2.0
+  open_source: true
+  commercial: true
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
   source:
+  - license
   - openapi
-  generated: '2026-08-28'
+  - pricing
+  generated: '2026-09-17'
   method: derived
 specificationVersion: '0.23'
 accessModel:
-  pricing: freemium
+  pricing: free
   onboarding: self-serve
   trial: false
-  try_now: false
+  try_now: true
   public: false
-  label: Freemium · Self-serve signup
-  confidence: medium
-  try_now_blocked_by: example-domain
+  label: Free · Self-serve signup
+  confidence: high
   source:
-  - plans
+  - finops
   - authentication
+  - rate-limits
   - security
-  generated: '2026-08-26'
+  generated: '2026-09-17'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/drupal.png
 url: https://raw.githubusercontent.com/api-evangelist/drupal/refs/heads/main/apis.yml
 apis:
+- aid: drupal:drupalorg-api
+  name: Drupal.org REST API
+  description: 'The read-only REST API the Drupal Association operates on drupal.org itself, exposing Drupal.org’s
+    own nodes, users, comments and taxonomy terms as JSON or XML. This is the only Drupal API served from a host
+    the project controls — every other surface in this record is software you install and run on your own domain.
+    Probed live 2026-09-17: /api-d7/node.json, /api-d7/user.json, /api-d7/comment.json and /api-d7/taxonomy_term.json
+    all returned 200 application/json; /api-d7/file.json returned 403 (files are addressed individually as /api-d7/file/{fid}.json).'
+  humanURL: https://www.drupal.org/drupalorg/docs/api
+  baseURL: https://www.drupal.org/api-d7
+  tags:
+  - Open-Source
+  - Content Management
+  - Community
+  - Read Only
+  - Project-Metadata
+  tags_raw:
+  - Open Source
+  - Content Management
+  - Community
+  - Read Only
+  - Project Metadata
+  properties:
+  - type: Documentation
+    url: https://www.drupal.org/drupalorg/docs/api
+  - type: RateLimits
+    url: rate-limits/drupal-rate-limits.yml
+  x-probe:
+    checked: '2026-09-17'
+    results:
+    - url: https://www.drupal.org/api-d7/node.json
+      status: 200
+      content_type: application/json
+    - url: https://www.drupal.org/api-d7/user.json
+      status: 200
+      content_type: application/json
+    - url: https://www.drupal.org/api-d7/comment.json
+      status: 200
+      content_type: application/json
+    - url: https://www.drupal.org/api-d7/taxonomy_term.json
+      status: 200
+      content_type: application/json
+    - url: https://www.drupal.org/api-d7/file.json
+      status: 403
+      content_type: text/html
+    note: No OpenAPI is published for this API and none is authored here. Recording the surface without a fabricated
+      contract is the honest result.
+  x-access: read-only; no authentication documented; 50 records per request; Accept header or .json/.xml extension
+    required
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/drupal.png
 - aid: drupal:graphql
   name: Drupal GraphQL API
   tags:
@@ -48,11 +100,10 @@ apis:
     type: Documentation
   - url: graphql/drupal-graphql.md
     type: GraphQL
-  description: The Drupal GraphQL module is a contributed module that enables developers to craft and
-    expose a GraphQL schema for Drupal 10 and 11, allowing client applications to query Drupal content
-    and entities using GraphQL syntax. It supports both queries and mutations for reading and writing
-    data, and includes a built-in GraphiQL Explorer interface at /graphql/explorer for interactive schema
-    browsing and query development.
+  description: The Drupal GraphQL module is a contributed module that enables developers to craft and expose a GraphQL
+    schema for Drupal 10 and 11, allowing client applications to query Drupal content and entities using GraphQL
+    syntax. It supports both queries and mutations for reading and writing data, and includes a built-in GraphiQL
+    Explorer interface at /graphql/explorer for interactive schema browsing and query development.
 - aid: drupal:drupal-comments-api
   name: drupal Comments API
   description: Comment resources for reading and managing comments attached to content entities in Drupal.
@@ -69,6 +120,8 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-comments-api-overlay.yaml
 - aid: drupal:drupal-files-api
   name: drupal Files API
   description: JSON:API endpoints for file entities and file upload operations.
@@ -87,10 +140,12 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-files-api-overlay.yaml
 - aid: drupal:drupal-node-articles-api
   name: drupal Node Articles API
-  description: JSON:API endpoints for article content nodes. The bundle slug varies by Drupal installation;
-    article is shown as an example bundle name.
+  description: JSON:API endpoints for article content nodes. The bundle slug varies by Drupal installation; article
+    is shown as an example bundle name.
   humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
   baseURL: https://example.com
   tags:
@@ -104,6 +159,8 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-node-articles-api-overlay.yaml
 - aid: drupal:drupal-node-pages-api
   name: drupal Node Pages API
   description: JSON:API endpoints for basic page content nodes. The bundle slug varies by Drupal installation.
@@ -120,13 +177,17 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-node-pages-api-overlay.yaml
 - aid: drupal:drupal-nodes-api
   name: drupal Nodes API
-  description: Content node resources representing structured content items of any type (article, page,
-    etc.) stored in Drupal's content management system.
+  description: Content node resources representing structured content items of any type (article, page, etc.) stored
+    in Drupal's content management system.
   humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
   baseURL: https://example.com
   tags:
+  - Node
+  tags_raw:
   - Nodes
   properties:
   - type: OpenAPI
@@ -137,6 +198,8 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-nodes-api-overlay.yaml
 - aid: drupal:drupal-taxonomy-terms-api
   name: drupal Taxonomy Terms API
   description: JSON:API endpoints for taxonomy term entities across all configured vocabularies.
@@ -153,10 +216,12 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-taxonomy-terms-api-overlay.yaml
 - aid: drupal:drupal-taxonomy-vocabularies-api
   name: drupal Taxonomy Vocabularies API
-  description: Taxonomy vocabulary resources representing the container configurations that organize sets
-    of taxonomy terms.
+  description: Taxonomy vocabulary resources representing the container configurations that organize sets of taxonomy
+    terms.
   humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
   baseURL: https://example.com
   tags:
@@ -170,10 +235,12 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-taxonomy-vocabularies-api-overlay.yaml
 - aid: drupal:drupal-users-api
   name: drupal Users API
-  description: JSON:API endpoints for Drupal user entities. Config entities are read-only via JSON:API
-    and require authentication.
+  description: JSON:API endpoints for Drupal user entities. Config entities are read-only via JSON:API and require
+    authentication.
   humanURL: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
   baseURL: https://example.com
   tags:
@@ -189,6 +256,8 @@ apis:
     url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: JSONSchema
     url: json-schema/drupal-jsonapi-resource-schema.json
+  - type: Overlay
+    url: overlays/drupal-users-api-overlay.yaml
 common:
 - type: Website
   url: https://drupal.org
@@ -212,6 +281,101 @@ common:
   type: JSONSchema
 - type: Blog
   url: https://www.drupal.org/planet/rss.xml
-modified: '2026-09-16'
-description: Drupal is an open-source content management system written in PHP and used to build websites,
-  applications, and digital experiences for individuals, organizations, and enterprises worldwide.
+- type: Documentation
+  url: https://www.drupal.org/docs
+- type: DeveloperPortal
+  url: https://www.drupal.org/docs/develop
+- type: APIReference
+  url: https://www.drupal.org/docs/develop/drupal-apis
+- type: GettingStarted
+  url: https://www.drupal.org/docs/getting-started
+- type: Support
+  url: https://www.drupal.org/community
+- type: TermsOfService
+  url: https://www.drupal.org/terms
+- type: PrivacyPolicy
+  url: https://www.drupal.org/privacy
+- type: SignUp
+  url: https://www.drupal.org/user/register
+- type: Security
+  url: https://www.drupal.org/security
+- type: Packages
+  url: packages/drupal-packages.yml
+- type: CLI
+  url: cli/drupal-cli.yml
+- type: MCPServer
+  url: mcp/drupal-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/drupal-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/drupal-llms.txt
+- type: Conformance
+  url: conformance/drupal-conformance.yml
+- type: ErrorCatalog
+  url: errors/drupal-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/drupal-lifecycle.yml
+- type: Deprecation
+  url: https://www.drupal.org/about/core/policies/core-change-policies/drupal-deprecation-policy
+- type: ChangeLog
+  url: changelog/drupal-changelog.yml
+- type: Conventions
+  url: conventions/drupal-conventions.yml
+- type: DataModel
+  url: data-model/drupal-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/drupal-well-known.yml
+- type: RateLimits
+  url: rate-limits/drupal-rate-limits.yml
+- type: SpectralRules
+  url: rules/drupal-jsonschema-spectral-rules.yml
+- type: FinOps
+  url: finops/drupal-finops.yml
+- type: Overlay
+  url: overlays/drupal-node-articles-api-overlay.yaml
+- type: License
+  name: GPL-2.0
+  url: https://www.drupal.org/about/licensing
+  note: 'Drupal.org states: "licensed under the GNU General Public License, version 2 or later" (SPDX GPL-2.0-or-later).
+    Recorded with the catalog’s short SPDX form.'
+modified: '2026-09-17'
+description: 'Drupal is an open-source content management system written in PHP, used to build websites, applications
+  and digital experiences for individuals, organizations, governments and enterprises worldwide. It is self-hosted
+  software rather than a hosted service: Drupal core ships a JSON:API v1.0 surface and a RESTful Web Services surface
+  that run on the operator’s own domain, and contributed modules add GraphQL and an MCP server. The Drupal Association
+  itself operates one public read-only API, the Drupal.org REST API at https://www.drupal.org/api-d7, alongside
+  a machine-readable release-history feed and a Composer package repository.'
+x-enrichment:
+  date: '2026-09-17'
+  status: enriched
+  artifacts_added: 29
+  pass: local-v3
+created: '2026-05-04'
+tags:
+- Content Management
+- CMS
+- Open-Source
+- JSON:API
+- GraphQL
+- Headless
+- PHP
+- Self-Hosted
+- Publishing
+- Digital Experience
+tags_raw:
+- Content Management
+- CMS
+- Open Source
+- JSON:API
+- GraphQL
+- Headless
+- PHP
+- Self-Hosted
+- Publishing
+- Digital Experience
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  x-twitter: apievangelist
