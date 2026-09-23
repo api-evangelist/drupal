@@ -1,0 +1,67 @@
+generated: '2026-09-17'
+method: searched
+source: https://www.drupal.org/about/core/policies/core-release-cycles/schedule
+versioning:
+  scheme: semantic-ish MAJOR.MINOR.PATCH for core; JSON:API and REST surfaces are versioned by the core release,
+    not by a URL version segment
+  in_url: false
+  note: Drupal core carries the API contract. There is no /v1/ path segment on JSON:API or REST — /jsonapi and /<entity>?_format=json
+    are stable paths whose behaviour is tied to the installed core version.
+  current_major: '11'
+  next_major:
+    version: 12.0.0
+    expected: 2026-12
+    status: alpha1 published 2026-09-02
+deprecation_policy:
+  published: true
+  url: https://www.drupal.org/about/core/policies/core-change-policies/drupal-deprecation-policy
+  mechanism: '@deprecated PHPdoc tag + @trigger_error(..., E_USER_DEPRECATED) at runtime'
+  message_format: '%thing% is deprecated in %deprecation-version% and is removed from %removal-version%. %extra-info%.
+    See %cr-link%'
+  retention: deprecated code is kept for the remainder of the current major and removed in the next major
+  backward_compatibility_promise: true
+  http_headers:
+    deprecation: false
+    sunset: false
+    note: Drupal signals deprecation in code (PHP E_USER_DEPRECATED) and in release notes, not via RFC 8594 Deprecation/Sunset
+      response headers. No Deprecation or Sunset header was observed on https://www.drupal.org/api-d7/node.json.
+end_of_life:
+- version: '7'
+  eol: '2025-01-05'
+  status: ended
+- version: '10'
+  eol: '2026-12-09'
+  status: announced
+  note: Final minor was 10.6.0; support ends when Drupal 12 ships.
+- version: '11'
+  eol: null
+  status: supported
+supported_branches:
+- 10.6.
+- 11.3.
+- 11.4.
+- 12.0.
+security_releases:
+  published: true
+  advisories_url: https://www.drupal.org/security
+  feed: https://www.drupal.org/security/rss.xml
+  feed_probed:
+    url: https://www.drupal.org/security/rss.xml
+    status: 200
+    checked: '2026-09-17'
+  window: third Wednesday of the month
+status_page:
+  published: false
+  probed:
+  - url: https://status.drupal.org/
+    status: 200
+    result: redirects to www.drupal.org — a default vhost catch-all, not a status page
+  note: No dedicated public status page was found for drupal.org. Drupal is self-hosted software; an operator’s
+    availability is their own.
+sla:
+  published: false
+  note: Drupal is open-source software, not a hosted service; no SLA applies to the project itself.
+deprecated_operations:
+  count: 0
+  source: openapi/
+  note: 'No operation in the repo’s OpenAPI files carries deprecated: true.'

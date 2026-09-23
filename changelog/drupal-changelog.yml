@@ -1,0 +1,134 @@
+generated: '2026-09-17'
+method: probed
+source: https://updates.drupal.org/release-history/drupal/current
+name: Drupal core release history
+scheme: semver-ish (MAJOR.MINOR.PATCH); contributed modules also use the legacy 8.x-N.M core-compatibility scheme
+machine_readable: true
+machine_readable_endpoint: https://updates.drupal.org/release-history/{project}/{core_major}
+machine_readable_format: XML
+note: Drupal publishes a machine-readable, dated release feed for core and every contributed project at updates.drupal.org
+  — the same endpoint the in-product Update Manager polls. It answers unauthenticated and is the authoritative dated
+  source used here. The human release-note pages on www.drupal.org sit behind an F5 client challenge that blocks
+  non-browser clients.
+supported_branches:
+- 10.6.
+- 11.3.
+- 11.4.
+- 12.0.
+current_version: 12.0.0-alpha1
+cadence:
+  major: annual, December
+  minor: roughly every 6 months (June and December)
+  patch_window: monthly bugfix window, first Wednesday UTC
+  security_window: monthly security window, third Wednesday, 1200 America/New_York
+  source: https://www.drupal.org/about/core/policies/core-release-cycles/schedule
+entries:
+- version: 12.0.0-alpha1
+  date: '2026-09-02'
+  status: published
+  categories:
+  - Bug fixes
+  - New features
+  security: false
+  breaking: true
+  url: https://www.drupal.org/project/drupal/releases/12.0.0-alpha1
+- version: 11.4.7
+  date: '2026-09-16'
+  status: published
+  categories:
+  - Security update
+  security: true
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.7
+- version: 11.4.6
+  date: '2026-09-03'
+  status: published
+  categories:
+  - Insecure
+  - Bug fixes
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.6
+- version: 11.4.5
+  date: '2026-08-06'
+  status: published
+  categories:
+  - Bug fixes
+  - Insecure
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.5
+- version: 11.4.4
+  date: '2026-07-15'
+  status: published
+  categories:
+  - Security update
+  - Insecure
+  security: true
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.4
+- version: 11.4.3
+  date: '2026-07-14'
+  status: published
+  categories:
+  - Bug fixes
+  - Insecure
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.3
+- version: 11.4.2
+  date: '2026-07-10'
+  status: published
+  categories:
+  - Bug fixes
+  - Insecure
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.2
+- version: 11.4.1
+  date: '2026-07-03'
+  status: published
+  categories:
+  - Bug fixes
+  - Insecure
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.1
+- version: 11.4.0
+  date: '2026-07-01'
+  status: published
+  categories:
+  - Bug fixes
+  - New features
+  - Insecure
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.0
+- version: 11.4.0-rc2
+  date: '2026-06-17'
+  status: published
+  categories:
+  - Security update
+  - Insecure
+  security: true
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.0-rc2
+- version: 11.4.0-rc1
+  date: '2026-06-11'
+  status: published
+  categories:
+  - New features
+  - Insecure
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.0-rc1
+- version: 11.4.0-beta1
+  date: '2026-06-03'
+  status: published
+  categories:
+  - Bug fixes
+  - New features
+  - Insecure
+  security: false
+  breaking: false
+  url: https://www.drupal.org/project/drupal/releases/11.4.0-beta1

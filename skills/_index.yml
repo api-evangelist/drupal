@@ -1,0 +1,44 @@
+generated: '2026-09-17'
+method: generated
+source: openapi/*.yml operationIds + conventions/drupal-conventions.yml + errors/drupal-problem-types.yml
+note: 'Every operationId referenced here was grepped out of the specs in openapi/; none is invented. All four skills
+  lead with the same constraint, because it is the defining property of this contract: Drupal has no idempotency
+  and no undo.'
+skills:
+- file: drupal-publish-article.md
+  name: drupal-publish-article
+  api: drupal:drupal-node-articles-api
+  description: Create, review and publish an article node over JSON:API.
+  operations:
+  - listNodeArticles
+  - createNodeArticle
+  - getNodeArticle
+  - updateNodeArticle
+- file: drupal-retire-content-safely.md
+  name: drupal-retire-content-safely
+  api: drupal:drupal-nodes-api
+  description: Take content out of circulation without destroying it — the unpublish-first pattern for an API with
+    no undo.
+  operations:
+  - getNode
+  - updateNode
+  - deleteNode
+- file: drupal-tag-content.md
+  name: drupal-tag-content
+  api: drupal:drupal-taxonomy-terms-api
+  description: Classify content with taxonomy terms without duplicating terms or clobbering existing tags.
+  operations:
+  - getTaxonomyVocabulary
+  - listTaxonomyTerms
+  - getTaxonomyTerm
+  - createTaxonomyTerm
+  - updateNodeArticle
+- file: drupal-moderate-comments.md
+  name: drupal-moderate-comments
+  api: drupal:drupal-comments-api
+  description: Review, unpublish and remove comments, with the reversibility rules that decide which to use.
+  operations:
+  - createComment
+  - getComment
+  - updateComment
+  - deleteComment

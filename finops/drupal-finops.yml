@@ -11,67 +11,64 @@ providerId: drupal
 publisherName: drupal
 serviceCategory: API
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+method: searched
+modified: '2026-09-17'
 tags:
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the drupal API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+- FinOps
+- Cost Management
+- FOCUS
+description: FinOps framing for Drupal. The chargeable unit on a Drupal project is hosting and labour, neither of
+  which the Drupal project sells — there is no vendor invoice to allocate. Cost allocation is meaningful only against
+  the operator’s own infrastructure.
 principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
+- name: Visibility
+  description: Make API consumption costs visible to engineering, product, and finance teams in near real-time.
+- name: Allocation
+  description: Tag every chargeable API call with the consuming team, environment, application, and feature so cost
+    can be allocated.
+- name: Optimization
+  description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce cost per
+    useful unit of work.
+- name: Accountability
+  description: Establish budget owners and chargeback or showback flows for each consuming team.
 domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+- name: Understand Usage and Cost
+  capabilities:
+  - Data Ingestion
+  - Allocation
+  - Reporting and Analytics
+  - Anomaly Management
+- name: Quantify Business Value
+  capabilities:
+  - Planning and Estimating
+  - Forecasting
+  - Budgeting
+  - Benchmarking
+  - Unit Economics
+- name: Optimize Usage and Cost
+  capabilities:
+  - Architecting for Cloud
+  - Rate Optimization
+  - Workload Optimization
+  - Cloud Sustainability
+  - Licensing and SaaS
+- name: Manage the FinOps Practice
+  capabilities:
+  - FinOps Practice Operations
+  - FinOps Education and Enablement
+  - Invoicing and Chargeback
+  - Onboarding Workloads
+  - Intersecting Disciplines
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
-  billingCurrency: USD
-  chargeCategories:
-    - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
+  pricingCategory: Free
+  billingFrequency: null
+  billingCurrency: null
+  chargeCategories: []
+  chargeFrequency: null
+  note: 'Corrected 2026-09-17. This block previously read "Usage-Based / Monthly / USD", which was a 2026-05-04
+    bulk-sweep scaffold value with no basis — and it was load-bearing: derive-access-model.py falls back to finops
+    billingModel.pricingCategory when plans[] is empty, so the scaffold was labelling GPL-licensed software as "Paid".
+    Drupal charges nothing for the software or for any API surface in this record.'
 focusColumns:
   ServiceName: drupal
   ServiceCategory: Developer Tools / API
@@ -83,67 +80,69 @@ focusColumns:
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
+- name: api_requests
+  description: Count of billable API requests
+  unit: request
+  aggregation: sum
+  dimensions:
+  - api
+  - endpoint
+  - tier
+  - region
+  - consumer
+- name: data_egress
+  description: Bytes returned over the network in API responses
+  unit: GB
+  aggregation: sum
+  dimensions:
+  - api
+  - region
+  - consumer
+- name: compute_seconds
+  description: Server-side compute consumed by the request, where applicable
+  unit: second
+  aggregation: sum
+  dimensions:
+  - api
+  - endpoint
+  - tier
 apis:
-  - name: Drupal REST API
-    baseURL: https://example.com
-    tags:
-      - CMS
-      - Content Management
-      - REST
-      - Web Services
-    serviceName: Drupal REST API
-    serviceCategory: API
-  - name: Drupal JSON:API
-    baseURL: https://example.com/jsonapi
-    tags:
-      - CMS
-      - Content Management
-      - Headless
-      - JSON:API
-      - REST
-    serviceName: Drupal JSON:API
-    serviceCategory: API
-  - name: Drupal GraphQL API
-    baseURL: https://example.com/graphql
-    tags:
-      - CMS
-      - Content Management
-      - GraphQL
-      - Headless
-      - Query Language
-    serviceName: Drupal GraphQL API
-    serviceCategory: API
+- name: Drupal REST API
+  baseURL: https://example.com
+  tags:
+  - CMS
+  - Content Management
+  - REST
+  - Web Services
+  serviceName: Drupal REST API
+  serviceCategory: API
+- name: Drupal JSON:API
+  baseURL: https://example.com/jsonapi
+  tags:
+  - CMS
+  - Content Management
+  - Headless
+  - JSON:API
+  - REST
+  serviceName: Drupal JSON:API
+  serviceCategory: API
+- name: Drupal GraphQL API
+  baseURL: https://example.com/graphql
+  tags:
+  - CMS
+  - Content Management
+  - GraphQL
+  - Headless
+  - Query Language
+  serviceName: Drupal GraphQL API
+  serviceCategory: API
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+- name: Cost per 1K Requests
+  metric: billed_cost / (api_requests / 1000)
+  target: TBD
+- name: Cost per Active Consumer
+  metric: billed_cost / active_consumers
+  target: TBD
 maintainers: []
+generated: '2026-09-17'
+source: https://www.drupal.org/about/licensing , https://www.drupal.org/project/drupal

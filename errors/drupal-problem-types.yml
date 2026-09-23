@@ -1,0 +1,74 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/*.yml (4xx/5xx responses, components.schemas.JsonApiError), https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+format: jsonapi-errors
+format_note: 'Not RFC 9457. The JSON:API module returns application/vnd.api+json with a top-level errors[] array;
+  the core REST module returns {"message": "..."} in the requested _format. Two envelopes coexist on a Drupal site
+  depending on which module serves the path.'
+envelopes:
+- surface: JSON:API (/jsonapi/...)
+  media_type: application/vnd.api+json
+  shape:
+    errors:
+    - status: string
+      title: string
+      detail: string
+      source:
+        pointer: JSON Pointer to the offending member
+        parameter: the offending query parameter
+    jsonapi:
+      version: '1.0'
+  source: components.schemas.JsonApiErrorResponse in openapi/drupal-node-articles-api-openapi.yml
+- surface: core REST (/<entity>/{id}?_format=json)
+  media_type: application/json
+  shape:
+    message: string
+  source: components.schemas.ErrorResponse in openapi/drupal-nodes-api-openapi.yml
+problem_types:
+- status: 400
+  title: Bad Request
+  detail: Malformed request body, unparseable filter[] or page[] query parameter, or a resource type that does not
+    exist.
+  remediation: Validate the JSON:API document shape and query parameter syntax before retrying. Not retryable unchanged.
+  retryable: false
+  observed_in: 'openapi/*: comments, files, node-articles, node-pages, nodes, taxonomy-terms, users'
+- status: 401
+  title: Unauthorized
+  detail: No credentials presented, or a Bearer token that is expired or invalid.
+  remediation: Obtain a token from the site’s OAuth authorization endpoint (simple_oauth) or present Basic credentials;
+    then retry.
+  retryable: true
+  observed_in: openapi/*
+- status: 403
+  title: Forbidden
+  detail: Authenticated but the Drupal user lacks the entity/field permission. Drupal returns 403 rather than 404
+    for unpublished or access-denied entities, and JSON:API omits inaccessible resources from collections rather
+    than failing the whole request.
+  remediation: Grant the required permission on the role, or request a token with the matching scope. Not retryable
+    unchanged.
+  retryable: false
+  observed_in: openapi/*
+- status: 404
+  title: Not Found
+  detail: No entity with that UUID/ID, or the resource type is disabled on this site (JSON:API resources can be
+    switched off per type via jsonapi_extras).
+  remediation: Confirm the UUID and that the resource type is enabled on the target installation. Not retryable
+    unchanged.
+  retryable: false
+  observed_in: openapi/*
+- status: 422
+  title: Unprocessable Entity
+  detail: The document parsed but failed Drupal entity validation — a required field missing, a field constraint
+    violated, or a relationship pointing at a non-existent target.
+  remediation: Read source.pointer on each error object; it is a JSON Pointer to the offending attribute or relationship.
+  retryable: false
+  observed_in: openapi/drupal-comments-api-openapi.yml, drupal-node-articles-api-openapi.yml, drupal-taxonomy-terms-api-openapi.yml
+coverage:
+  operations_with_4xx: 33
+  distinct_status_codes:
+  - 400
+  - 401
+  - 403
+  - 404
+  - 422
+  note: No 5xx response is declared in any spec in this repo.

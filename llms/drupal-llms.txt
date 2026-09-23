@@ -1,0 +1,83 @@
+# Drupal
+
+> Drupal is an open-source content management system written in PHP, used to build websites,
+> applications and digital experiences. It is SELF-HOSTED software: every API surface described
+> here runs on the operator's own domain, not on a vendor-run host. There is no `api.drupal.org`
+> to call. Wherever you see `{site}` below, substitute the Drupal installation you are working
+> against. The one exception is the Drupal.org REST API, which the Drupal Association itself
+> operates at https://www.drupal.org/api-d7.
+
+## What this provider actually exposes
+
+- Two HTTP surfaces shipped in core: the **JSON:API module** (`/jsonapi`, JSON:API v1.0) and the
+  **RESTful Web Services module** (`/<entity>/{id}?_format=json`).
+- A **GraphQL** surface from the contributed `graphql` module (`/graphql`, explorer at `/graphql/explorer`).
+- An **MCP server** from the contributed `mcp_server` module (`/_mcp` over HTTP, or `drush mcp:server` over stdio).
+- A **read-only public API operated by Drupal.org itself** at `https://www.drupal.org/api-d7`.
+
+## Contracts
+
+- [JSON:API + REST OpenAPI definitions](openapi/) — 8 OpenAPI 3.2.0 documents, 33 operations, covering
+  nodes, articles, pages, users, comments, taxonomy terms, taxonomy vocabularies and files.
+- [GraphQL surface](graphql/drupal-graphql.md) — the GraphQL module, schema is site-defined.
+- [JSON:API resource schema](json-schema/drupal-jsonapi-resource-schema.json)
+- [Node schema](json-schema/drupal-node-schema.json)
+- [JSON-LD context](json-ld/drupal-context.jsonld)
+
+## How to call it correctly
+
+- Media type is `application/vnd.api+json` on `/jsonapi`. Send it on both request and response.
+- Resources are addressed by **UUID**, not by the integer node id. `/jsonapi/node/article/{uuid}`.
+  The integer is available as the `drupal_internal__nid` attribute. Getting this wrong is the single
+  most common integration error against Drupal.
+- Resource types are `<entity_type>--<bundle>`: `node--article`, `user--user`, `taxonomy_term--tags`.
+- Paginate by following `links.next`. Core JSON:API caps `page[limit]` at 50.
+- Filter with `filter[<field>]=<value>`; sort with `sort=-created`; reduce payload with
+  `fields[node--article]=title,created`; avoid N+1 with `include=uid,field_tags`.
+- Errors come back as a JSON:API `errors[]` array with `status`/`title`/`detail`/`source.pointer`.
+  This is NOT RFC 9457 Problem Details.
+
+## What it does NOT have — read this before writing an agent
+
+- **No idempotency.** There is no `Idempotency-Key` header and no replay protection. A retried POST
+  creates a second node. See [conventions](conventions/drupal-conventions.yml).
+- **No undo.** `DELETE` is immediate and permanent in core. There is no cancel, restore or trash
+  operation in the contract. If you need a reversible action, PATCH `status` to `false` (unpublish)
+  instead of deleting. See the reversibility block in [conventions](conventions/drupal-conventions.yml).
+- **No rate-limit headers.** Core ships no limiter and returns no `RateLimit-*` or `Retry-After`.
+  Limits belong to the operator's edge.
+- **No agent card.** No `/.well-known/agent-card.json` is served on any drupal.org host.
+- **No well-known documents.** Every `/.well-known/*` path on drupal.org returns a bot-challenge page.
+
+## Reference
+
+- [Authentication profile](authentication/drupal-authentication.yml) — HTTP Basic, session cookie, OAuth 2.0 Bearer via `simple_oauth`
+- [OAuth scopes](scopes/drupal-scopes.yml)
+- [Conventions and reversibility](conventions/drupal-conventions.yml)
+- [Error catalog](errors/drupal-problem-types.yml)
+- [Data model](data-model/drupal-data-model.yml)
+- [Conformance](conformance/drupal-conformance.yml) — JSON:API v1.0 is the domain standard this contract declares
+- [Lifecycle, deprecation policy and EOL dates](lifecycle/drupal-lifecycle.yml)
+- [Release changelog](changelog/drupal-changelog.yml) — dated, machine-readable at `https://updates.drupal.org/release-history/{project}/{core_major}`
+- [Packages](packages/drupal-packages.yml) — Composer packages that provide the API surface; there is no client SDK
+- [CLI](cli/drupal-cli.yml) — Drush
+- [MCP server](mcp/drupal-mcp.yml)
+- [Well-known probe results](well-known/drupal-well-known.yml)
+- [Domain security probe](security/drupal-domain-security.yml)
+- [Vulnerability disclosure](security/drupal-vulnerability-disclosure.yml)
+- [Agent skills](skills/_index.yml)
+
+## Documentation
+
+- JSON:API module overview: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+- RESTful Web Services module: https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+- GraphQL module: https://www.drupal.org/docs/contributed-modules/graphql
+- Drupal.org API (api-d7): https://www.drupal.org/drupalorg/docs/api
+- Release cycle: https://www.drupal.org/about/core/policies/core-release-cycles/schedule
+- Deprecation policy: https://www.drupal.org/about/core/policies/core-change-policies/drupal-deprecation-policy
+- Security advisories: https://www.drupal.org/security
+
+---
+generated: 2026-09-17
+method: generated
+source: apis.yml + repo artifacts (drupal.org serves no /llms.txt — the path returns an F5 bot-challenge page)

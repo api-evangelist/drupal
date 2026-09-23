@@ -1,19 +1,18 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: 'Drupal JSON: Comments Taxonomy Vocabularies API'
-  description: The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.
-  version: '1.1'
+  title: Drupal REST Taxonomy Vocabularies API
+  description: The Drupal RESTful Web Services API is a core module that exposes Drupal entities and data as REST resources over HTTP.
+  version: '1.0'
   contact:
     name: Drupal Community
     url: https://www.drupal.org/community
   termsOfService: https://www.drupal.org/about/legal
 servers:
-- url: https://example.com/jsonapi
-  description: Drupal JSON:API Base (replace with your Drupal installation base URL)
+- url: https://example.com
+  description: Drupal Site (replace with your Drupal installation base URL)
 security:
 - basicAuth: []
-- oAuth2:
-  - content
+- cookieAuth: []
 tags:
 - name: Taxonomy Vocabularies
   description: Taxonomy vocabulary resources representing the container configurations that organize sets of taxonomy terms.
@@ -40,27 +39,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    AcceptFormat:
-      name: Accept
-      in: header
-      required: false
-      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
-      schema:
-        type: string
-        enum:
-        - application/json
-        - application/hal+json
-        - application/xml
-        default: application/json
-    EntityId:
-      name: id
-      in: path
-      required: true
-      description: The numeric ID of the entity.
-      schema:
-        type: integer
-        minimum: 1
   schemas:
     ErrorResponse:
       type: object
@@ -69,6 +47,20 @@ components:
         message:
           type: string
           description: Human-readable description of the error.
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
     TaxonomyVocabulary:
       type: object
       description: A Drupal taxonomy vocabulary configuration entity that defines a grouping container for taxonomy terms.
@@ -98,33 +90,40 @@ components:
           description: Hierarchy setting. 0 for no hierarchy, 1 for single hierarchy, 2 for multiple hierarchy.
           items:
             $ref: '#/components/schemas/IntegerValue'
-    StringValue:
-      type: object
-      description: Drupal field value wrapper for a string value.
-      properties:
-        value:
-          type: string
-          description: The string value.
-    IntegerValue:
-      type: object
-      description: Drupal field value wrapper for an integer value.
-      properties:
-        value:
-          type: integer
-          description: The integer value.
   responses:
-    Unauthorized:
-      description: Authentication is required to access this resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested entity does not exist or is not accessible.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+    AcceptFormat:
+      name: Accept
+      in: header
+      required: false
+      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        - application/xml
+        default: application/json
   securitySchemes:
     basicAuth:
       type: http
@@ -134,10 +133,10 @@ components:
       type: apiKey
       in: cookie
       name: SESS
-      description: Cookie-based session authentication obtained via Drupal login.
+      description: Cookie-based session authentication obtained via Drupal login. The session cookie is returned after a successful login request.
     oAuth2:
       type: oauth2
-      description: OAuth 2.0 via the Simple OAuth module.
+      description: OAuth 2.0 authentication via the Simple OAuth module.
       flows:
         authorizationCode:
           authorizationUrl: https://example.com/oauth/authorize
@@ -146,5 +145,5 @@ components:
             content: Access and manage content entities
             user: Access and manage user entities
 externalDocs:
-  description: Drupal JSON:API Module Documentation
-  url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  description: Drupal RESTful Web Services API Documentation
+  url: https://www.drupal.org/docs/drupal-apis/restful-web-services-api/restful-web-services-api-overview

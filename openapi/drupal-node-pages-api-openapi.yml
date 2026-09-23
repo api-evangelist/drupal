@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: 'Drupal JSON: Comments Node Pages API'
-  description: The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access. It supports filtering, sorting, pagination, sparse fieldsets, includes for relationship resolution, translations, revisions, and file uploads out of the box. All resource identifiers use entity UUIDs rather than numeric IDs. The JSON:API module is the recommended approach for most decoupled and headless Drupal applications due to its adherence to the open JSON:API specification (jsonapi.org) and its compatibility with the broader JSON:API client ecosystem.
+  title: 'Drupal JSON: Node Pages API'
+  description: The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable.
   version: '1.1'
   contact:
     name: Drupal Community
@@ -69,34 +69,41 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: The request body or query parameters are invalid.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
-    NotFound:
-      description: The requested resource does not exist or is inaccessible.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
-    Forbidden:
-      description: The authenticated user lacks permission to perform this operation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
   parameters:
-    FilterPath:
-      name: filter[name][path]
+    SortParam:
+      name: sort
       in: query
       required: false
-      description: The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields.
+      description: Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date.
       schema:
         type: string
-        example: status
+        example: -created
+    PageOffset:
+      name: page[offset]
+      in: query
+      required: false
+      description: The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    FilterValue:
+      name: filter[name][value]
+      in: query
+      required: false
+      description: The value to filter against.
+      schema:
+        type: string
+        example: '1'
+    EntityUuid:
+      name: uuid
+      in: path
+      required: true
+      description: The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID.
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
     FieldsParam:
       name: fields[node--article]
       in: query
@@ -105,6 +112,14 @@ components:
       schema:
         type: string
         example: title,body,created
+    IncludeParam:
+      name: include
+      in: query
+      required: false
+      description: A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline.
+      schema:
+        type: string
+        example: uid,field_tags
     PageLimit:
       name: page[limit]
       in: query
@@ -115,23 +130,6 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-    EntityUuid:
-      name: uuid
-      in: path
-      required: true
-      description: The UUID of the entity. JSON:API always uses UUID as the identifier, not the numeric entity ID.
-      schema:
-        type: string
-        format: uuid
-        example: 550e8400-e29b-41d4-a716-446655440000
-    SortParam:
-      name: sort
-      in: query
-      required: false
-      description: Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date.
-      schema:
-        type: string
-        example: -created
     JsonApiAccept:
       name: Accept
       in: header
@@ -140,119 +138,34 @@ components:
       schema:
         type: string
         default: application/vnd.api+json
-    FilterValue:
-      name: filter[name][value]
+    FilterPath:
+      name: filter[name][path]
       in: query
       required: false
-      description: The value to filter against.
+      description: The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields.
       schema:
         type: string
-        example: '1'
-    PageOffset:
-      name: page[offset]
-      in: query
-      required: false
-      description: The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    IncludeParam:
-      name: include
-      in: query
-      required: false
-      description: A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline.
-      schema:
-        type: string
-        example: uid,field_tags
+        example: status
+  responses:
+    BadRequest:
+      description: The request body or query parameters are invalid.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
+    Forbidden:
+      description: The authenticated user lacks permission to perform this operation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
+    NotFound:
+      description: The requested resource does not exist or is inaccessible.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
   schemas:
-    JsonApiLinks:
-      type: object
-      description: Navigation links included in JSON:API responses.
-      properties:
-        self:
-          type: object
-          description: Link to the current resource or collection.
-          properties:
-            href:
-              type: string
-              format: uri
-              description: The URL of the current resource.
-        related:
-          type: object
-          description: Link to a related resource.
-          properties:
-            href:
-              type: string
-              format: uri
-              description: The URL of the related resource.
-    JsonApiSingleResponse:
-      type: object
-      description: A JSON:API response containing a single resource object.
-      properties:
-        jsonapi:
-          type: object
-          description: JSON:API version metadata.
-          properties:
-            version:
-              type: string
-              description: The JSON:API specification version.
-              example: '1.0'
-        data:
-          $ref: '#/components/schemas/JsonApiResourceObject'
-        included:
-          type: array
-          description: Array of included related resources when using the include parameter.
-          items:
-            $ref: '#/components/schemas/JsonApiResourceObject'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    JsonApiErrorResponse:
-      type: object
-      description: A JSON:API error response containing one or more error objects.
-      properties:
-        errors:
-          type: array
-          description: Array of error objects describing the problems encountered.
-          items:
-            $ref: '#/components/schemas/JsonApiError'
-        jsonapi:
-          type: object
-          properties:
-            version:
-              type: string
-              example: '1.0'
-    JsonApiCollection:
-      type: object
-      description: A JSON:API collection response containing multiple resource objects.
-      properties:
-        jsonapi:
-          type: object
-          description: JSON:API version metadata.
-          properties:
-            version:
-              type: string
-              description: The JSON:API specification version.
-              example: '1.0'
-        data:
-          type: array
-          description: Array of resource objects.
-          items:
-            $ref: '#/components/schemas/JsonApiResourceObject'
-        included:
-          type: array
-          description: Array of included related resources when using the include parameter.
-          items:
-            $ref: '#/components/schemas/JsonApiResourceObject'
-        links:
-          $ref: '#/components/schemas/JsonApiCollectionLinks'
-        meta:
-          type: object
-          description: Non-standard meta-information about the response, such as total result count.
-          properties:
-            count:
-              type: integer
-              description: Total number of matching resources across all pages.
     JsonApiResourceObject:
       type: object
       description: A JSON:API resource object representing a single Drupal entity.
@@ -276,6 +189,21 @@ components:
           description: The resource's entity reference fields expressed as relationship objects with data containing type and id.
         links:
           $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiErrorResponse:
+      type: object
+      description: A JSON:API error response containing one or more error objects.
+      properties:
+        errors:
+          type: array
+          description: Array of error objects describing the problems encountered.
+          items:
+            $ref: '#/components/schemas/JsonApiError'
+        jsonapi:
+          type: object
+          properties:
+            version:
+              type: string
+              example: '1.0'
     JsonApiError:
       type: object
       description: A single JSON:API error object.
@@ -338,6 +266,78 @@ components:
               type: string
               format: uri
               description: Link to the last page of results.
+    JsonApiLinks:
+      type: object
+      description: Navigation links included in JSON:API responses.
+      properties:
+        self:
+          type: object
+          description: Link to the current resource or collection.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: The URL of the current resource.
+        related:
+          type: object
+          description: Link to a related resource.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: The URL of the related resource.
+    JsonApiSingleResponse:
+      type: object
+      description: A JSON:API response containing a single resource object.
+      properties:
+        jsonapi:
+          type: object
+          description: JSON:API version metadata.
+          properties:
+            version:
+              type: string
+              description: The JSON:API specification version.
+              example: '1.0'
+        data:
+          $ref: '#/components/schemas/JsonApiResourceObject'
+        included:
+          type: array
+          description: Array of included related resources when using the include parameter.
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiCollection:
+      type: object
+      description: A JSON:API collection response containing multiple resource objects.
+      properties:
+        jsonapi:
+          type: object
+          description: JSON:API version metadata.
+          properties:
+            version:
+              type: string
+              description: The JSON:API specification version.
+              example: '1.0'
+        data:
+          type: array
+          description: Array of resource objects.
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        included:
+          type: array
+          description: Array of included related resources when using the include parameter.
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        links:
+          $ref: '#/components/schemas/JsonApiCollectionLinks'
+        meta:
+          type: object
+          description: Non-standard meta-information about the response, such as total result count.
+          properties:
+            count:
+              type: integer
+              description: Total number of matching resources across all pages.
   securitySchemes:
     basicAuth:
       type: http

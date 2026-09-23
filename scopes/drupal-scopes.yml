@@ -1,33 +1,89 @@
-generated: '2026-07-11'
+generated: '2026-09-17'
 method: derived
-source: openapi/drupal-jsonapi-openapi.yml, openapi/drupal-rest-api-openapi.yml
+source: openapi/drupal-comments-api-openapi.yml, openapi/drupal-files-api-openapi.yml, openapi/drupal-node-articles-api-openapi.yml,
+  openapi/drupal-node-pages-api-openapi.yml, openapi/drupal-nodes-api-openapi.yml, openapi/drupal-taxonomy-terms-api-openapi.yml,
+  openapi/drupal-taxonomy-vocabularies-api-openapi.yml, openapi/drupal-users-api-openapi.yml
 schemes:
 - name: oAuth2
-  source: openapi/drupal-jsonapi-openapi.yml
+  source: openapi/drupal-comments-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 authentication via the Simple OAuth module.
+- name: oAuth2
+  source: openapi/drupal-files-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://example.com/oauth/authorize
     tokenUrl: https://example.com/oauth/token
   description: OAuth 2.0 via the Simple OAuth module.
 - name: oAuth2
-  source: openapi/drupal-rest-api-openapi.yml
+  source: openapi/drupal-node-articles-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 via the Simple OAuth module.
+- name: oAuth2
+  source: openapi/drupal-node-pages-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 via the Simple OAuth module.
+- name: oAuth2
+  source: openapi/drupal-nodes-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://example.com/oauth/authorize
     tokenUrl: https://example.com/oauth/token
   description: OAuth 2.0 authentication via the Simple OAuth module.
+- name: oAuth2
+  source: openapi/drupal-taxonomy-terms-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 via the Simple OAuth module.
+- name: oAuth2
+  source: openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 authentication via the Simple OAuth module.
+- name: oAuth2
+  source: openapi/drupal-users-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+  description: OAuth 2.0 via the Simple OAuth module.
 scopes:
 - scope: content
   description: Access and manage content entities
   flows:
   - authorizationCode
   sources:
-  - openapi/drupal-jsonapi-openapi.yml
-  - openapi/drupal-rest-api-openapi.yml
+  - openapi/drupal-comments-api-openapi.yml
+  - openapi/drupal-files-api-openapi.yml
+  - openapi/drupal-node-articles-api-openapi.yml
+  - openapi/drupal-node-pages-api-openapi.yml
+  - openapi/drupal-nodes-api-openapi.yml
+  - openapi/drupal-taxonomy-terms-api-openapi.yml
+  - openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+  - openapi/drupal-users-api-openapi.yml
 - scope: user
   description: Access and manage user entities
   flows:
   - authorizationCode
   sources:
-  - openapi/drupal-jsonapi-openapi.yml
-  - openapi/drupal-rest-api-openapi.yml
+  - openapi/drupal-comments-api-openapi.yml
+  - openapi/drupal-files-api-openapi.yml
+  - openapi/drupal-node-articles-api-openapi.yml
+  - openapi/drupal-node-pages-api-openapi.yml
+  - openapi/drupal-nodes-api-openapi.yml
+  - openapi/drupal-taxonomy-terms-api-openapi.yml
+  - openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+  - openapi/drupal-users-api-openapi.yml

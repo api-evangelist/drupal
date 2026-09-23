@@ -1,0 +1,63 @@
+generated: '2026-09-17'
+method: searched
+source: https://www.drush.org/ , https://packagist.org/packages/drush/drush
+name: Drush
+official: true
+first_party: community-governed (drush-ops), the de-facto CLI for Drupal and the one core documentation points at
+version: 13.8.0
+published: '2026-09-08'
+homepage: https://www.drush.org/
+repository: https://github.com/drush-ops/drush
+install:
+- method: composer
+  command: composer require drush/drush
+  scope: per-project (recommended)
+- method: launcher
+  command: composer global require drush/drush
+  scope: global launcher
+invocation: vendor/bin/drush <command>
+command_groups:
+- group: site
+  examples:
+  - drush status
+  - drush site:install
+  - drush core:requirements
+- group: cache
+  examples:
+  - drush cache:rebuild
+  - drush cache:clear
+- group: config
+  examples:
+  - drush config:export
+  - drush config:import
+  - drush config:get
+  - drush config:set
+- group: database
+  examples:
+  - drush sql:dump
+  - drush sql:cli
+  - drush sql:sync
+- group: entity/content
+  examples:
+  - drush entity:delete
+  - drush php:eval
+- group: modules
+  examples:
+  - drush pm:install
+  - drush pm:uninstall
+  - drush pm:list
+- group: updates
+  examples:
+  - drush updatedb
+  - drush updatedb:status
+- group: users
+  examples:
+  - drush user:create
+  - drush user:login
+  - drush user:role:add
+- group: mcp
+  examples:
+  - drush mcp:server
+  note: Provided by drupal/mcp_server — runs the site as an MCP server over stdio.
+api_relationship: Drush is an operator CLI, not a client for the HTTP API surface in openapi/. It configures and
+  operates the site that serves those endpoints, and (via mcp_server) is the stdio transport for the MCP surface.

@@ -1,6 +1,8 @@
-generated: '2026-07-11'
+generated: '2026-09-17'
 method: derived
-source: openapi/drupal-jsonapi-openapi.yml, openapi/drupal-rest-api-openapi.yml
+source: openapi/drupal-comments-api-openapi.yml, openapi/drupal-files-api-openapi.yml, openapi/drupal-node-articles-api-openapi.yml,
+  openapi/drupal-node-pages-api-openapi.yml, openapi/drupal-nodes-api-openapi.yml, openapi/drupal-taxonomy-terms-api-openapi.yml,
+  openapi/drupal-taxonomy-vocabularies-api-openapi.yml, openapi/drupal-users-api-openapi.yml
 summary:
   types:
   - apiKey
@@ -16,16 +18,29 @@ schemes:
   scheme: basic
   description: HTTP Basic Authentication using Drupal username and password.
   sources:
-  - openapi/drupal-jsonapi-openapi.yml
-  - openapi/drupal-rest-api-openapi.yml
+  - openapi/drupal-comments-api-openapi.yml
+  - openapi/drupal-files-api-openapi.yml
+  - openapi/drupal-node-articles-api-openapi.yml
+  - openapi/drupal-node-pages-api-openapi.yml
+  - openapi/drupal-nodes-api-openapi.yml
+  - openapi/drupal-taxonomy-terms-api-openapi.yml
+  - openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+  - openapi/drupal-users-api-openapi.yml
 - name: cookieAuth
   type: apiKey
   in: cookie
   parameter: SESS
-  description: Cookie-based session authentication obtained via Drupal login.
+  description: Cookie-based session authentication obtained via Drupal login. The session cookie
+    is returned after a successful login request.
   sources:
-  - openapi/drupal-jsonapi-openapi.yml
-  - openapi/drupal-rest-api-openapi.yml
+  - openapi/drupal-comments-api-openapi.yml
+  - openapi/drupal-files-api-openapi.yml
+  - openapi/drupal-node-articles-api-openapi.yml
+  - openapi/drupal-node-pages-api-openapi.yml
+  - openapi/drupal-nodes-api-openapi.yml
+  - openapi/drupal-taxonomy-terms-api-openapi.yml
+  - openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+  - openapi/drupal-users-api-openapi.yml
 - name: oAuth2
   type: oauth2
   flows:
@@ -33,7 +48,13 @@ schemes:
     authorizationUrl: https://example.com/oauth/authorize
     tokenUrl: https://example.com/oauth/token
     scopes: 2
-  description: OAuth 2.0 via the Simple OAuth module.
+  description: OAuth 2.0 authentication via the Simple OAuth module.
   sources:
-  - openapi/drupal-jsonapi-openapi.yml
-  - openapi/drupal-rest-api-openapi.yml
+  - openapi/drupal-comments-api-openapi.yml
+  - openapi/drupal-files-api-openapi.yml
+  - openapi/drupal-node-articles-api-openapi.yml
+  - openapi/drupal-node-pages-api-openapi.yml
+  - openapi/drupal-nodes-api-openapi.yml
+  - openapi/drupal-taxonomy-terms-api-openapi.yml
+  - openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+  - openapi/drupal-users-api-openapi.yml

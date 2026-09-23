@@ -1,0 +1,354 @@
+generated: '2026-09-17'
+method: probed
+source: live HTTPS probes, 2026-09-17
+summary:
+  hosts_probed: 7
+  paths_probed: 70
+  real_documents_found: 4
+probe_note: 'IMPORTANT METHOD NOTE. A first pass with a Chrome User-Agent returned HTTP 200 and a 3,038-byte F5
+  "Client Challenge" page for EVERY path on EVERY drupal.org host, including the site root — which would have been
+  recorded as either a wall or, worse, as served documents. Re-probing with a plain non-browser User-Agent returned
+  the true responses: honest 404s on www.drupal.org, and four REAL discovery documents on accounts.drupal.org and
+  git.drupalcode.org. The edge challenges browser-shaped clients and lets machine clients through, which is the
+  reverse of the usual pattern. Probe both ways before concluding.'
+hosts:
+- host: www.drupal.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404 from the origin (Drupal 404 page). Nothing served.
+- host: drupal.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404, identical to www.
+- host: accounts.drupal.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    result: miss
+    note: 404 "Resource not found" at the host root — this Keycloak instance serves discovery under its realm path,
+      not the host root.
+  - path: /auth/realms/main/.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: drupal-accounts-openid-configuration.json
+    result: served
+    note: Real OpenID Provider metadata for the Keycloak realm behind Drupal.org single sign-on. Found by following
+      the 302 from https://www.drupal.org/user/register, which names client_id=drupalorg-sso and the openid-connect
+      protocol. issuer https://accounts.drupal.org/auth/realms/main.
+- host: git.drupalcode.org
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: drupal-drupalcode-openid-configuration.json
+    result: served
+    note: GitLab OIDC provider metadata for Drupal’s own GitLab instance. issuer https://git.drupalcode.org.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: drupal-drupalcode-oauth-authorization-server.json
+    result: served
+    note: RFC 8414 authorization-server metadata; scopes_supported includes api, read_api, read_repository, write_repository,
+      mcp and mcp_orbit.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    file: drupal-drupalcode-oauth-protected-resource.json
+    result: served
+    note: RFC 9728 protected-resource metadata naming https://git.drupalcode.org/api/v4/mcp as the resource and
+      scope "mcp". This is how the second MCP surface in mcp/drupal-mcp.yml was discovered.
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    file: null
+    result: miss
+    note: 580-byte GitLab HTML sign-in shell, not an RFC 9116 document.
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html
+    file: null
+    result: miss
+    note: GitLab HTML shell.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    content_type: text/html
+    file: null
+    result: miss
+    note: GitLab HTML shell.
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    file: null
+    result: miss
+    note: GitLab HTML shell — a 200 with an HTML body is not an agent card.
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    file: null
+    result: miss
+    note: GitLab HTML shell.
+- host: api.drupal.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+  - path: /.well-known/api-catalog
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+  - path: /.well-known/agent.json
+    status: 200
+    file: null
+    result: miss
+    note: 200 returning the same 16,972-byte api.drupal.org HTML page for every path — a catch-all, not a document.
+- host: updates.drupal.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the release-history XML feed.
+- host: packages.drupal.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    result: miss
+    note: Genuine 404. This host serves only the Composer repository.
+agent_card_probe:
+  paths:
+  - /.well-known/agent-card.json
+  - /.well-known/agent.json
+  hosts:
+  - www.drupal.org
+  - drupal.org
+  - accounts.drupal.org
+  - api.drupal.org
+  - git.drupalcode.org
+  - updates.drupal.org
+  - packages.drupal.org
+  result: no agent card found on any host — every response was a 404 or an HTML shell, never a JSON AgentCard object
+  artifact_written: false
+  note: Per the pipeline rule, nothing is written to a2a/ and no AgentCard pointer is emitted.
+security_txt:
+  served: false
+  note: No RFC 9116 security.txt on any Drupal host, despite Drupal running one of the longest-standing coordinated
+    security teams in open source. The disclosure process is published as a web page instead — see security/drupal-vulnerability-disclosure.yml.
+    No SecurityTxt pointer is emitted.

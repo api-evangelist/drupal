@@ -1,0 +1,74 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/*.yml, https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview,
+  https://www.drupal.org/project/simple_oauth
+note: Evidence is taken from the contract where possible — media types, error-object shape and securitySchemes in
+  openapi/ — and from Drupal core documentation where the contract is silent.
+domain_standard:
+  id: jsonapi-1.0
+  name: JSON:API v1.0
+  conforms: true
+  market: content management / headless CMS
+  evidence: openapi/*.yml declares request and response content type application/vnd.api+json (43 occurrences across
+    5 specs); components.schemas.JsonApiErrorResponse carries jsonapi.version example "1.0"; resource objects use
+    the JSON:API type/id/attributes/relationships envelope and collection links self/first/prev/next/last.
+  docs: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  note: 'This is the load-bearing one: a client that already speaks JSON:API integrates with any Drupal site with
+    no bespoke connector, because the JSON:API module implements the spec rather than a house dialect.'
+conformance:
+- id: jsonapi
+  name: JSON:API v1.0
+  conforms: true
+  evidence: application/vnd.api+json throughout openapi/; jsonapi.version "1.0" in the error envelope
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749) authorization code
+  conforms: true
+  evidence: components.securitySchemes.oAuth2 with an authorizationCode flow in openapi/drupal-*-openapi.yml; supplied
+    by drupal/simple_oauth 6.1.1
+- id: oidc
+  name: OpenID Connect
+  conforms: true
+  evidence: drupal/simple_oauth is titled "Simple OAuth (OAuth2) & OpenID Connect" and ships an OIDC provider; note
+    that /.well-known/openid-configuration on drupal.org itself returns the bot-challenge shell, so no discovery
+    document was retrievable
+- id: http-basic
+  name: HTTP Basic auth (RFC 7617)
+  conforms: true
+  evidence: components.securitySchemes.basicAuth (type http, scheme basic) in openapi/
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: No application/problem+json response is declared anywhere in openapi/. Errors use the JSON:API errors[]
+    envelope (status/title/detail/source.pointer) instead, which is the correct choice for a JSON:API surface but
+    is not RFC 9457
+- id: pagination
+  name: Cursor/offset pagination
+  conforms: true
+  evidence: JsonApiCollectionLinks declares self/first/prev/next/last; JSON:API page[offset]/page[limit] query parameters
+- id: idempotency
+  name: Idempotency keys
+  conforms: false
+  evidence: No Idempotency-Key header appears in any openapi/ file and none is documented. See conventions/drupal-conventions.yml
+- id: graphql
+  name: GraphQL
+  conforms: true
+  evidence: drupal/graphql 5.1.0 (2026-09-15) exposes a schema and GraphiQL explorer at /graphql/explorer; see graphql/drupal-graphql.md
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  evidence: drupal/mcp_server 2.0.0-beta3 built on modelcontextprotocol/php-sdk, HTTP at /_mcp and stdio via drush
+    mcp:server; see mcp/drupal-mcp.yml
+- id: scim
+  name: SCIM
+  conforms: false
+  evidence: No SCIM schema URN appears in any spec and no core SCIM surface is documented
+- id: odata
+  name: OData
+  conforms: false
+  evidence: No $metadata surface; Drupal’s query layer is JSON:API filter[], not OData
+compliance_certifications:
+  published: false
+  note: Drupal is a project and a 501(c)(3) association, not a hosted service operator, so it publishes no SOC 2
+    / ISO 27001 / PCI attestation of its own — compliance belongs to whoever hosts a given Drupal site. What the
+    project does publish is a coordinated security team, a disclosure policy and a dated advisory feed (see security/
+    and lifecycle/). No Compliance pointer is emitted, because no certification exists to point at.

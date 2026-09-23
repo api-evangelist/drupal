@@ -1,0 +1,131 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/*.yml ($ref graph, relationship targets, id-reference fields)
+note: Drupal’s data model is configurable per installation — bundles, fields and vocabularies are site-defined.
+  What follows is the CORE entity graph that every Drupal site shares, derived from the schemas in openapi/. Site-specific
+  fields are deliberately not enumerated, because they do not exist until an operator creates them.
+identity:
+  primary_key: uuid (JSON:API `id`)
+  secondary_key: drupal_internal__<entity>id (the integer nid/uid/tid/cid used by the legacy REST surface)
+  resource_type_scheme: <entity_type>--<bundle>
+entities:
+- name: Node
+  resource_type: node--<bundle>
+  schema: Node / NodeArticleAttributes
+  description: A content item. The bundle (article, page, …) is site-defined.
+  operations:
+  - listNodeArticles
+  - createNodeArticle
+  - getNodeArticle
+  - updateNodeArticle
+  - deleteNodeArticle
+  - getNode
+  - createNode
+  - updateNode
+  - deleteNode
+  - listNodePages
+  - getNodePage
+- name: User
+  resource_type: user--user
+  schema: User / UserInput
+  description: 'An account. A config-adjacent entity: read is common, write is permission-heavy.'
+  operations:
+  - listUsers
+  - getUser
+  - updateUser
+  - deleteUser
+- name: Comment
+  resource_type: comment--<type>
+  schema: Comment / CommentInput
+  description: A comment attached to a content entity.
+  operations:
+  - createComment
+  - getComment
+  - updateComment
+  - deleteComment
+- name: TaxonomyTerm
+  resource_type: taxonomy_term--<vocabulary>
+  schema: TaxonomyTerm / TaxonomyTermInput
+  description: A classification term inside a vocabulary.
+  operations:
+  - listTaxonomyTerms
+  - getTaxonomyTerm
+  - createTaxonomyTerm
+  - updateTaxonomyTerm
+  - deleteTaxonomyTerm
+- name: TaxonomyVocabulary
+  resource_type: taxonomy_vocabulary--taxonomy_vocabulary
+  schema: TaxonomyVocabulary
+  description: The container that owns a set of terms. A CONFIG entity — read-only over JSON:API.
+  operations:
+  - getTaxonomyVocabulary
+- name: File
+  resource_type: file--file
+  schema: File
+  description: An uploaded file record. Binary upload uses a separate file-upload route, not a JSON:API POST.
+  operations:
+  - listFiles
+  - getFile
+  - deleteFile
+relationships:
+- from: Node
+  to: User
+  type: belongs_to
+  via: uid
+  cardinality: one
+  note: 'The node author. JSON:API exposes it as relationships.uid with data {type: user--user, id: <uuid>}.'
+- from: Node
+  to: TaxonomyTerm
+  type: has_many
+  via: field_tags (site-defined entity_reference field)
+  cardinality: many
+  note: Present on the default article bundle; not guaranteed on an arbitrary site.
+- from: Node
+  to: File
+  type: has_many
+  via: field_image / field_media (site-defined)
+  cardinality: many
+- from: Comment
+  to: Node
+  type: belongs_to
+  via: entity_id
+  cardinality: one
+  note: The commented-on entity; comments are polymorphic and can attach to any fieldable entity.
+- from: Comment
+  to: User
+  type: belongs_to
+  via: uid
+  cardinality: one
+- from: TaxonomyTerm
+  to: TaxonomyVocabulary
+  type: belongs_to
+  via: vid
+  cardinality: one
+- from: TaxonomyTerm
+  to: TaxonomyTerm
+  type: belongs_to
+  via: parent
+  cardinality: one
+  note: Self-referencing — vocabularies are hierarchical.
+- from: File
+  to: User
+  type: belongs_to
+  via: uid
+  cardinality: one
+  note: The uploading account.
+shared_value_objects:
+- JsonApiResourceObject
+- JsonApiSingleResponse
+- JsonApiCollection
+- JsonApiLinks
+- JsonApiCollectionLinks
+- JsonApiRelationshipData
+- JsonApiError
+- JsonApiErrorResponse
+- TextContent
+- StringValue
+- IntegerValue
+- BooleanValue
+- TargetId
+traversal_note: Use ?include=uid,field_tags to fetch related resources in one round trip rather than following relationship
+  links individually.

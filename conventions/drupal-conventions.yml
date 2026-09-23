@@ -1,0 +1,129 @@
+generated: '2026-09-17'
+method: searched
+source: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+derived_from: openapi/*.yml
+docs:
+- https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+- https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module
+- https://www.drupal.org/about/core/policies/core-change-policies/drupal-deprecation-policy
+description: Cross-cutting runtime semantics for the two HTTP surfaces Drupal core ships — the JSON:API module (/jsonapi)
+  and the RESTful Web Services module (/<entity>/{id}?_format=json). Both run on the operator’s own host; there
+  is no vendor-run base URL.
+base_url: https://{your-drupal-site}/jsonapi  (templated — Drupal is self-hosted)
+media_type: application/vnd.api+json (JSON:API) | application/json (core REST, via ?_format=json)
+api_style: JSON:API 1.0 over HTTPS
+auth:
+  style: HTTP Basic, session cookie, or OAuth 2.0 Bearer (drupal/simple_oauth)
+  detail: authentication/drupal-authentication.yml
+  note: Anonymous read is possible only where the site grants the anonymous role the relevant entity permission.
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  detail: No Idempotency-Key header, request-body idempotency field, or replay-protection mechanism appears in any
+    spec in openapi/ or in the JSON:API / REST module documentation. A retried POST to /jsonapi/node/article creates
+    a second node. HTTP-level idempotency holds for GET, PATCH by UUID and DELETE by UUID (the JSON:API verbs that
+    address an existing resource), but that is the protocol’s guarantee, not a Drupal mechanism.
+  safe_verbs:
+  - GET
+  - HEAD
+  - PATCH
+  - DELETE
+  unsafe_verbs:
+  - POST
+pagination:
+  style: offset
+  request_params:
+    page[offset]: zero-based record offset
+    page[limit]: page size; core JSON:API caps at 50
+  response_fields:
+    links.self: current page
+    links.first: first page
+    links.prev: previous page
+    links.next: next page
+    links.last: last page
+  source: components.schemas.JsonApiCollectionLinks in openapi/*.yml
+  note: Follow links.next rather than incrementing offsets; JSON:API omits access-denied entities from collections,
+    so page sizes vary.
+sparse_fieldsets:
+  supported: true
+  mechanism: fields[<resource-type>]=title,created
+  docs: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/fetching-resources-get
+includes:
+  supported: true
+  mechanism: include=field_author,field_tags — returns related resources in a top-level included[] array
+  note: The standard JSON:API mechanism for avoiding N+1 fetches against a Drupal site.
+filtering:
+  supported: true
+  mechanism: filter[<field>]=<value>, filter[<name>][condition][path|operator|value] for operators, and filter groups
+  docs: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/filtering
+sorting:
+  supported: true
+  mechanism: sort=created or sort=-created for descending; comma-separated for multiple keys
+resource_identity:
+  scheme: <entity_type>--<bundle> (e.g. node--article, user--user, taxonomy_term--tags)
+  id: UUID v4 — NOT the integer nid/uid. The integer ids appear as drupal_internal__nid / drupal_internal__uid attributes.
+  note: 'This is the single most common integration mistake against Drupal: addressing /jsonapi/node/article/{nid}
+    instead of {uuid}.'
+request_id_tracing:
+  supported: false
+  note: No correlation or request-id response header is documented or observed. Drupal exposes X-Drupal-Cache (HIT/MISS)
+    and X-Drupal-Dynamic-Cache on cached responses, which are cache diagnostics, not trace ids.
+versioning:
+  in_url: false
+  mechanism: The installed Drupal core version is the contract version; there is no /v1/ segment.
+  detail: lifecycle/drupal-lifecycle.yml
+error_envelope:
+  shape: JSON:API errors[] with status/title/detail/source.pointer
+  detail: errors/drupal-problem-types.yml
+rate_limit_signaling:
+  published: false
+  headers_observed: []
+  note: Drupal core ships no rate limiter and returns no RateLimit-* or Retry-After headers. Limits on a given installation
+    belong to the operator’s edge (reverse proxy, CDN, WAF). The one Drupal-operated API, https://www.drupal.org/api-d7,
+    publishes prose limits only — see rate-limits/drupal-rate-limits.yml.
+  detail: rate-limits/drupal-rate-limits.yml
+reversibility:
+  grade: none
+  reversal_path: false
+  window: false
+  summary: No reversal operation exists in any spec in openapi/. The write surface is POST/PATCH/DELETE on entities
+    and a DELETE is immediate and permanent in Drupal core — there is no trash, cancel, restore or undo operationId
+    to call.
+  write_surfaces:
+  - surface: POST /jsonapi/node/{bundle}, /jsonapi/comment, /taxonomy/term (createNode, createNodeArticle, createComment,
+      createTaxonomyTerm)
+    reversal: DELETE the created resource by UUID
+    reversal_operation_id: deleteNode / deleteNodeArticle / deleteComment / deleteTaxonomyTerm
+    window: null
+    note: A delete is a reversal of a create only in the sense that it removes the resource; it is not an undo and
+      it is itself irreversible.
+  - surface: PATCH /jsonapi/node/{bundle}/{uuid} (updateNode, updateNodeArticle, updateUser, updateComment, updateTaxonomyTerm)
+    reversal: Drupal revisions — a content type configured to create new revisions retains the prior values, and
+      an editor can revert in the UI
+    reversal_operation_id: null
+    window: null
+    note: Revision history is a real safety net, but it is NOT exposed as a reversal operation on the API. JSON:API
+      can READ a revision via the resourceVersion query parameter; it cannot revert to one. Whether revisions exist
+      at all is a per-content-type site setting, so an agent cannot assume them.
+  - surface: DELETE /jsonapi/... (deleteNode, deleteNodeArticle, deleteComment, deleteFile, deleteTaxonomyTerm,
+      deleteUser)
+    reversal: null
+    reversal_operation_id: null
+    window: null
+    note: Irreversible in core. The contributed Trash module adds soft delete with a configurable retention period,
+      but it is not core, is not in this contract, and publishes no stated window that applies to Drupal generally
+      — so no window is asserted here.
+  note: 'NOT graded `documented`: the pipeline reserves that for a contract carrying an actual reversal operation.
+    Drupal’s reversibility story is a UI/administrative one (revisions, unpublish instead of delete), not an API
+    one, and asserting otherwise would credit the contract with something a client cannot call.'
+dry_run_mode:
+  supported: false
+  note: No preview, validate-only or dry-run parameter is declared in any spec in openapi/.
+safe_alternative_to_delete:
+  mechanism: PATCH the node’s status attribute to false (unpublish) instead of DELETE
+  operation_ids:
+  - updateNode
+  - updateNodeArticle
+  note: 'The recommended agent-safe pattern against Drupal content: unpublishing is reversible, deleting is not.'

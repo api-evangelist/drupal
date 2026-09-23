@@ -1,0 +1,108 @@
+generated: '2026-09-17'
+method: searched
+source: https://www.drupal.org/project/mcp_server
+status: published
+name: Drupal MCP Server
+summary: Drupal publishes a first-party contributed module, drupal/mcp_server, that turns an installed Drupal site
+  into an MCP server. Because Drupal is self-hosted software the endpoint lives on the operator’s own domain, not
+  on a vendor-run host — there is no drupal.org-hosted MCP endpoint to call.
+deployment:
+  mode: both
+  endpoint: https://{your-drupal-site}/_mcp
+  endpoint_note: Templated, self-hosted. The path is fixed by the module; the host is whatever domain the operator
+    runs Drupal on. No probe is possible against drupal.org because drupal.org does not itself run the module as
+    a public MCP surface.
+  install: composer require drupal/mcp_server && drush en mcp_server
+  stdio_command: vendor/bin/drush mcp:server
+  package: https://www.drupal.org/project/mcp_server
+  auth: oauth
+  verified: searched
+  note: 'mode: both refers to the provider-authored mcp_server module. A second, platform-authored remote endpoint
+    exists at https://git.drupalcode.org/api/v4/mcp (GitLab, on a Drupal-operated host) and is probed in surfaces[].'
+version: 2.0.0-beta3
+published: '2026-09-17'
+maturity: beta
+transports:
+- transport: http
+  path: /_mcp
+  clients: web-based MCP clients
+- transport: stdio
+  command: drush mcp:server
+  clients: local MCP clients (Claude Desktop, Cline, editors)
+authentication:
+  model: OAuth 2.1 Bearer, per-tool
+  provider: drupal/simple_oauth (Simple OAuth 2.1)
+  modes:
+  - mode: required
+    detail: OAuth2 Bearer token with configured scopes is mandatory
+  - mode: disabled
+    detail: no auth check, intended for public read-only tools
+  cross_reference: authentication/drupal-authentication.yml, scopes/drupal-scopes.yml
+tools:
+  enumerable: false
+  count: null
+  note: The tool set is NOT fixed by the module. mcp_server exposes Tool API plugins selected by a site administrator
+    at /admin/config/services/mcp-server/tools, so two Drupal sites running the same module version can expose entirely
+    different tools. No canonical tools/list exists to harvest, and none is invented here. Live tools/list introspection
+    requires a running site and an OAuth token.
+  admin_path: /admin/config/services/mcp-server/tools
+mcp_features:
+- tools
+- resources
+- prompts
+- sampling
+- authentication
+sdk_basis: modelcontextprotocol/php-sdk (official PHP MCP SDK)
+related:
+- name: Model Context Protocol (mcp)
+  url: https://www.drupal.org/project/mcp
+  version: 1.2.3
+  published: '2025-11-14'
+  note: Earlier bounded MCP server module; last release 2025-11-14, superseded in practice by mcp_server 2.x.
+- name: MCP Client (mcp_client)
+  url: https://www.drupal.org/project/mcp_client
+  note: The inverse direction — lets Drupal consume external MCP servers and expose their tools to the AI module.
+third_party_servers:
+- name: Omedia/mcp-server-drupal
+  url: https://github.com/Omedia/mcp-server-drupal
+  first_party: false
+  note: TypeScript stdio companion for the mcp module.
+- name: Cleversoft-IT/drupal-modules-mcp
+  url: https://github.com/Cleversoft-IT/drupal-modules-mcp
+  first_party: false
+  note: Queries drupal.org module metadata; not an interface to a Drupal site.
+surfaces:
+- name: Drupal site as MCP server (drupal/mcp_server)
+  authorship: Drupal (contributed module)
+  mode: both
+  endpoint: https://{your-drupal-site}/_mcp
+  stdio: drush mcp:server
+  auth: oauth
+  verified: searched
+  probe: null
+  note: The provider-authored surface. Templated host — Drupal is self-hosted, so there is nothing to probe centrally.
+- name: Drupal GitLab MCP server (git.drupalcode.org)
+  authorship: GitLab (platform-authored), operated by the Drupal Association
+  mode: remote
+  endpoint: https://git.drupalcode.org/api/v4/mcp
+  auth: oauth
+  verified: probed
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    www_authenticate: Bearer realm="GitLab", resource_metadata="https://git.drupalcode.org/.well-known/oauth-protected-resource/api/v4/mcp"
+    checked: '2026-09-17'
+  discovery: https://git.drupalcode.org/.well-known/oauth-protected-resource (resource https://git.drupalcode.org/api/v4/mcp,
+    scopes_supported ["mcp"])
+  scopes:
+  - mcp
+  - mcp_orbit
+  tools:
+    enumerable: false
+    note: tools/list returned 401 with an RFC 9728 challenge. The live tool schemas require an authenticated GitLab
+      token; none is invented here.
+  note: A REAL, callable, live MCP endpoint on a host the Drupal Association operates — but the server is GitLab’s
+    built-in MCP surface over Drupal’s code repositories, not something the Drupal project authored. It is recorded
+    because it is genuinely reachable and genuinely Drupal-operated, and labelled platform-authored so it is never
+    mistaken for a Drupal-built agent surface.

@@ -1,0 +1,105 @@
+generated: '2026-09-17'
+method: searched
+source: https://repo.packagist.org/p2/ , https://packages.drupal.org/8/ , https://updates.drupal.org/release-history/
+note: Drupal ships no first-party HTTP CLIENT SDK for its own JSON:API/REST surface — consumers use generic JSON:API
+  clients or plain HTTP. What Drupal does publish, on two real registries, are the Composer packages that PROVIDE
+  those API surfaces on a site, plus the Drush CLI. Those are recorded here and no SDKs pointer is emitted, because
+  no client library exists to point at. Versions and dates are read from updates.drupal.org/release-history (the
+  dated, authoritative feed); packages.drupal.org p2 metadata carries no time field.
+sdk_count: 0
+package_count: 8
+packages:
+- name: drupal/core
+  registry: packagist
+  url: https://packagist.org/packages/drupal/core
+  language: PHP
+  official: true
+  kind: platform
+  sdk: false
+  version: 12.0.0-alpha1
+  published: '2026-09-02'
+  stable_version: 11.4.7
+  stable_published: '2026-09-16'
+  note: Drupal core itself. Ships the JSON:API and RESTful Web Services modules that expose the API surface in openapi/.
+- name: drupal/core-recommended
+  registry: packagist
+  url: https://packagist.org/packages/drupal/core-recommended
+  language: PHP
+  official: true
+  kind: platform
+  sdk: false
+  version: 12.0.0-alpha1
+  published: '2026-09-02'
+- name: drush/drush
+  registry: packagist
+  url: https://packagist.org/packages/drush/drush
+  language: PHP
+  official: true
+  kind: cli
+  sdk: false
+  version: 13.8.0
+  published: '2026-09-08'
+  note: Drush is the de-facto Drupal CLI, governed by drush-ops rather than the Drupal Association. See cli/drupal-cli.yml.
+- name: drupal/jsonapi_extras
+  registry: drupal.org
+  url: https://www.drupal.org/project/jsonapi_extras
+  language: PHP
+  official: true
+  kind: module
+  sdk: false
+  version: 8.x-3.28
+  published: '2025-12-19'
+  note: 'Configures the JSON:API surface: resource renaming, path aliasing, field enhancers, disabling resources.'
+- name: drupal/simple_oauth
+  registry: drupal.org
+  url: https://www.drupal.org/project/simple_oauth
+  language: PHP
+  official: true
+  kind: module
+  sdk: false
+  version: 6.1.1
+  published: '2026-05-22'
+  note: Supplies the OAuth 2.0 / OpenID Connect authorization server referenced by the oAuth2 securityScheme in
+    openapi/.
+- name: drupal/graphql
+  registry: drupal.org
+  url: https://www.drupal.org/project/graphql
+  language: PHP
+  official: true
+  kind: module
+  sdk: false
+  version: 5.1.0
+  published: '2026-09-15'
+  note: Backs the Drupal GraphQL API entry in apis.yml.
+- name: drupal/mcp_server
+  registry: drupal.org
+  url: https://www.drupal.org/project/mcp_server
+  language: PHP
+  official: true
+  kind: module
+  sdk: false
+  version: 2.0.0-beta3
+  published: '2026-09-17'
+  note: Turns a Drupal site into an MCP server. See mcp/drupal-mcp.yml.
+- name: drupal/openapi
+  registry: drupal.org
+  url: https://www.drupal.org/project/openapi
+  language: PHP
+  official: true
+  kind: module
+  sdk: false
+  version: 8.x-2.3
+  published: '2025-01-22'
+  note: Generates an OpenAPI document for the installed site’s JSON:API and REST resources. Its own last release
+    predates core 11.4 by nearly two years — the strongest decay signal in this record, and the reason the specs
+    in openapi/ are derived from documentation rather than harvested from a running site.
+- name: drupal/restui
+  registry: drupal.org
+  url: https://www.drupal.org/project/restui
+  language: PHP
+  official: true
+  kind: module
+  sdk: false
+  version: 8.x-1.22
+  published: '2024-07-16'
+  note: Admin UI for enabling/configuring core REST resources.

@@ -1,0 +1,209 @@
+generated: '2026-09-17'
+method: derived
+source: mcp/drupal-mcp.yml, graphql/drupal-graphql.md, openapi/*.yml
+status: unbound
+note: 'A crosswalk normally binds named MCP tools to backing OpenAPI operationIds. That binding CANNOT be made for
+  Drupal, and the reason is a property of the product rather than a gap in this pass: drupal/mcp_server exposes
+  whichever Tool API plugins a site administrator selects at /admin/config/services/mcp-server/tools, so there is
+  no canonical tool list to bind. No tool names are invented here. What is recorded is the REST surface a site operator
+  would be binding INTO, so the crosswalk can be completed against a specific installation.'
+surfaces:
+  openapi:
+    files:
+    - openapi/drupal-comments-api-openapi.yml
+    - openapi/drupal-files-api-openapi.yml
+    - openapi/drupal-node-articles-api-openapi.yml
+    - openapi/drupal-node-pages-api-openapi.yml
+    - openapi/drupal-nodes-api-openapi.yml
+    - openapi/drupal-taxonomy-terms-api-openapi.yml
+    - openapi/drupal-taxonomy-vocabularies-api-openapi.yml
+    - openapi/drupal-users-api-openapi.yml
+    operations: 33
+    gated: false
+    base: https://{site}/jsonapi and https://{site}/<entity>?_format=json (templated, self-hosted)
+  graphql:
+    endpoint: https://{site}/graphql
+    explorer: https://{site}/graphql/explorer
+    gated: true
+    note: Schema is site-defined by the GraphQL module’s schema plugins; introspection requires a running site and
+      permission.
+  mcp:
+    endpoint: https://{site}/_mcp
+    stdio: drush mcp:server
+    gated: true
+    note: OAuth 2.1 Bearer per tool; tools/list requires a running site and a token.
+crosswalk: []
+mcp_only: []
+rest_only:
+- tool: null
+  operationId: getComment
+  method: GET
+  path: /comment/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: updateComment
+  method: PATCH
+  path: /comment/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: deleteComment
+  method: DELETE
+  path: /comment/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: createComment
+  method: POST
+  path: /comment
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: listFiles
+  method: GET
+  path: /file/file
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getFile
+  method: GET
+  path: /file/file/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: deleteFile
+  method: DELETE
+  path: /file/file/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getFile
+  method: GET
+  path: /file/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: deleteFile
+  method: DELETE
+  path: /file/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: listNodeArticles
+  method: GET
+  path: /node/article
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: createNodeArticle
+  method: POST
+  path: /node/article
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getNodeArticle
+  method: GET
+  path: /node/article/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: updateNodeArticle
+  method: PATCH
+  path: /node/article/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: deleteNodeArticle
+  method: DELETE
+  path: /node/article/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: listNodePages
+  method: GET
+  path: /node/page
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getNodePage
+  method: GET
+  path: /node/page/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getNode
+  method: GET
+  path: /node/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: updateNode
+  method: PATCH
+  path: /node/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: deleteNode
+  method: DELETE
+  path: /node/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: createNode
+  method: POST
+  path: /node
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: listTaxonomyTerms
+  method: GET
+  path: /taxonomy_term/{vocabulary}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getTaxonomyTerm
+  method: GET
+  path: /taxonomy_term/{vocabulary}/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getTaxonomyTerm
+  method: GET
+  path: /taxonomy/term/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: updateTaxonomyTerm
+  method: PATCH
+  path: /taxonomy/term/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: deleteTaxonomyTerm
+  method: DELETE
+  path: /taxonomy/term/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: createTaxonomyTerm
+  method: POST
+  path: /taxonomy/term
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getTaxonomyVocabulary
+  method: GET
+  path: /taxonomy/vocabulary/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: listUsers
+  method: GET
+  path: /user/user
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getUser
+  method: GET
+  path: /user/user/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: updateUser
+  method: PATCH
+  path: /user/user/{uuid}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: getUser
+  method: GET
+  path: /user/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: updateUser
+  method: PATCH
+  path: /user/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+- tool: null
+  operationId: deleteUser
+  method: DELETE
+  path: /user/{id}
+  reason: No published MCP tool binds to it; the site administrator decides which Tool API plugins become tools.
+coverage:
+  mcp_tools_known: 0
+  rest_operations: 33
+  bound: 0
+  unbound_rest: 33
+  confidence: low
+  reason: site-configured tool set — nothing to bind against

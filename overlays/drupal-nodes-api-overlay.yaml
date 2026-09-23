@@ -1,0 +1,45 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Drupal REST Nodes API
+  version: 1.0.0
+extends: drupal-nodes-api-openapi.yml
+x-generated: '2026-09-17'
+x-method: generated
+x-source: apis.yml + conventions/drupal-conventions.yml + conformance/drupal-conformance.yml + errors/drupal-problem-types.yml
+actions:
+- target: $.info
+  description: Record that this contract is templated and self-hosted, and that the server host must be replaced
+    with the operator’s own Drupal installation.
+  update:
+    x-self-hosted: true
+    x-base-url-template: https://{your-drupal-site}
+    x-api-evangelist-note: Drupal is installed software. The example.com server is a placeholder for the operator’s
+      domain, not a callable host.
+- target: $.info
+  description: Declare the domain standard this contract implements.
+  update:
+    x-domain-standard:
+      id: jsonapi-1.0
+      name: JSON:API v1.0
+      evidence: application/vnd.api+json request/response media type and the JSON:API errors[] envelope
+      artifact: conformance/drupal-conformance.yml
+- target: $.info
+  description: Surface the runtime semantics an agent needs that OpenAPI cannot express.
+  update:
+    x-conventions:
+      idempotency: none — no Idempotency-Key, a retried POST duplicates
+      reversibility: none — DELETE is permanent in core; PATCH status=false to unpublish instead
+      rate_limits: none published by core; the operator’s edge decides
+      pagination: page[offset] / page[limit], cap 50; follow links.next
+      resource_id: UUID, not the integer drupal_internal__ id
+      artifact: conventions/drupal-conventions.yml
+- target: $.info
+  description: Point at the derived error catalog for the JSON:API errors[] envelope.
+  update:
+    x-error-catalog: errors/drupal-problem-types.yml
+- target: $.paths['/node/{id}'].delete
+  description: Mark deleteNode irreversible — Drupal core has no trash or restore.
+  update:
+    x-irreversible: true
+    x-reversal-operation: null
+    x-safe-alternative: PATCH the resource’s status attribute to false (unpublish) where the entity supports it
