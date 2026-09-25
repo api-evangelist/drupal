@@ -9,6 +9,12 @@ artifacts:
   authentication/drupal-authentication.yml:
     method: derived
     evidence: declared in the artifact
+  changelog/drupal-changelog.yml:
+    method: unknown
+    evidence: no authorship recorded
+  cli/drupal-cli.yml:
+    method: searched
+    evidence: declared in the artifact
   collections/drupal-comments-api.opencollection.json:
     method: derived
     evidence: openapi/drupal-comments-api
@@ -69,9 +75,24 @@ artifacts:
   collections/drupal-users-api.postman_collection.json:
     method: derived
     evidence: openapi/drupal-users-api
-  finops/drupal-finops.yml:
-    method: generated
+  conformance/drupal-conformance.yml:
+    method: derived
     evidence: declared in the artifact
+  conventions/drupal-conventions.yml:
+    method: searched
+    evidence: declared in the artifact
+  data-model/drupal-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
+  errors/drupal-problem-types.yml:
+    method: derived
+    evidence: declared in the artifact
+  finops/drupal-finops.yml:
+    method: searched
+    evidence: declared in the artifact
+  front-door-ai/2026-09-17.yml:
+    method: unknown
+    evidence: no authorship recorded
   graphql/drupal-graphql.md:
     method: unknown
     evidence: no authorship recorded
@@ -84,55 +105,7 @@ artifacts:
   json-schema/drupal-node-schema.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-06T210741.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-07T135032.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T093022.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T111628.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-11T211707.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-12T193225.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-17T064519.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T080027.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T082702.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T114122.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T165047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T191845.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T205517.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-21T110057.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T064859.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T171257.yml:
+  kin/checks-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-25T125852.yml:
@@ -219,12 +192,143 @@ artifacts:
   kin/score-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T144739.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T195450.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T211839.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T011047.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T224210.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T200636.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T213054.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T214843.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T232836.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T204815.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T222408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T062655.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T080032.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T204651.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T221936.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-13T214537.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T064754.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T210656.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T225847.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T211329.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T230249.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T210549.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T225339.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T211151.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T233623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T205255.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T231945.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T165737.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T193153.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T205903.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T232958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T211425.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T233935.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-22T213221.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-23T000603.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T064009.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T090406.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  lifecycle/drupal-lifecycle.yml:
+    method: searched
+    evidence: declared in the artifact
+  llms/drupal-llms.txt:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
+  mcp/drupal-mcp.yml:
+    method: searched
+    evidence: declared in the artifact
+  mcp/drupal-tool-crosswalk.yml:
+    method: derived
+    evidence: declared in the artifact
   openapi/_original/drupal-jsonapi-openapi.yml:
     method: harvested
-    evidence: fetched from the provider as-is; byte-identical to the source
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/drupal-rest-api-openapi.yml:
     method: harvested
-    evidence: fetched from the provider as-is; byte-identical to the source
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/drupal-comments-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -249,11 +353,38 @@ artifacts:
   openapi/drupal-users-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  plans/drupal-plans-pricing.yml:
+  overlays/drupal-comments-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
-  rate-limits/drupal-rate-limits.yml:
+  overlays/drupal-files-api-overlay.yaml:
     method: generated
+    evidence: declared in the artifact
+  overlays/drupal-node-articles-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/drupal-node-pages-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/drupal-nodes-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/drupal-taxonomy-terms-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/drupal-taxonomy-vocabularies-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/drupal-users-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  packages/drupal-packages.yml:
+    method: searched
+    evidence: declared in the artifact
+  plans/drupal-plans-pricing.yml:
+    method: searched
+    evidence: declared in the artifact
+  rate-limits/drupal-rate-limits.yml:
+    method: searched
     evidence: declared in the artifact
   rules/drupal-jsonschema-spectral-rules.yml:
     method: generated
@@ -267,3 +398,33 @@ artifacts:
   security/drupal-vulnerability-disclosure.yml:
     method: searched
     evidence: declared in the artifact
+  skills/_index.yml:
+    method: generated
+    evidence: declared in the artifact
+  skills/drupal-moderate-comments.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/drupal-publish-article.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/drupal-retire-content-safely.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/drupal-tag-content.md:
+    method: generated
+    evidence: declared in the artifact
+  well-known/drupal-accounts-openid-configuration.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/drupal-drupalcode-oauth-authorization-server.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/drupal-drupalcode-oauth-protected-resource.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/drupal-drupalcode-openid-configuration.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/drupal-well-known.yml:
+    method: unknown
+    evidence: no authorship recorded
