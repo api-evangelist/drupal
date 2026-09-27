@@ -118,7 +118,7 @@ paths:
       description: Drupal JSON:API Base (replace with your Drupal installation base URL)
   /user/{id}:
     get:
-      operationId: getUser
+      operationId: getUserById
       summary: Get a user
       description: Retrieves a single user entity by its numeric ID. Returns the user's account fields and profile data. Anonymous users can retrieve basic information; additional fields require appropriate permissions.
       tags:
@@ -142,8 +142,10 @@ paths:
       security:
       - basicAuth: []
       - cookieAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getUser
     patch:
-      operationId: updateUser
+      operationId: patchUserById
       summary: Update a user
       description: Updates an existing user entity by its numeric ID. Only the fields included in the request body are modified. Users can update their own accounts; administrators can update any account. Requires authentication.
       tags:
@@ -175,6 +177,8 @@ paths:
       security:
       - basicAuth: []
       - cookieAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: updateUser
     delete:
       operationId: deleteUser
       summary: Delete a user
@@ -200,31 +204,6 @@ paths:
       description: Drupal Site (replace with your Drupal installation base URL)
 components:
   parameters:
-    SortParam:
-      name: sort
-      in: query
-      required: false
-      description: Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date.
-      schema:
-        type: string
-        example: -created
-    PageOffset:
-      name: page[offset]
-      in: query
-      required: false
-      description: The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    FilterValue:
-      name: filter[name][value]
-      in: query
-      required: false
-      description: The value to filter against.
-      schema:
-        type: string
-        example: '1'
     EntityUuid:
       name: uuid
       in: path
@@ -234,14 +213,14 @@ components:
         type: string
         format: uuid
         example: 550e8400-e29b-41d4-a716-446655440000
-    FieldsParam:
-      name: fields[node--article]
+    FilterValue:
+      name: filter[name][value]
       in: query
       required: false
-      description: Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names.
+      description: The value to filter against.
       schema:
         type: string
-        example: title,body,created
+        example: '1'
     JsonApiContentType:
       name: Content-Type
       in: header
@@ -250,6 +229,14 @@ components:
       schema:
         type: string
         default: application/vnd.api+json
+    FieldsParam:
+      name: fields[node--article]
+      in: query
+      required: false
+      description: Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names.
+      schema:
+        type: string
+        example: title,body,created
     IncludeParam:
       name: include
       in: query
@@ -258,16 +245,6 @@ components:
       schema:
         type: string
         example: uid,field_tags
-    PageLimit:
-      name: page[limit]
-      in: query
-      required: false
-      description: The maximum number of resources to return in a single page. Used for cursor-based pagination.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 50
     JsonApiAccept:
       name: Accept
       in: header
@@ -284,6 +261,33 @@ components:
       schema:
         type: string
         example: status
+    PageOffset:
+      name: page[offset]
+      in: query
+      required: false
+      description: The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      description: Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date.
+      schema:
+        type: string
+        example: -created
+    PageLimit:
+      name: page[limit]
+      in: query
+      required: false
+      description: The maximum number of resources to return in a single page. Used for cursor-based pagination.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
     ContentTypeFormat:
       name: Content-Type
       in: header
@@ -295,14 +299,6 @@ components:
         - application/json
         - application/hal+json
         default: application/json
-    EntityId:
-      name: id
-      in: path
-      required: true
-      description: The numeric ID of the entity.
-      schema:
-        type: integer
-        minimum: 1
     AcceptFormat:
       name: Accept
       in: header
@@ -315,93 +311,64 @@ components:
         - application/hal+json
         - application/xml
         default: application/json
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+  responses:
+    NotFound:
+      description: The requested resource does not exist or is inaccessible.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
+    BadRequest:
+      description: The request body or query parameters are invalid.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
+    Forbidden:
+      description: The authenticated user lacks permission to perform this operation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
+    NotFound_2:
+      description: The requested entity does not exist or is not accessible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_2:
+      description: The request body or parameters are invalid or malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden_2:
+      description: The authenticated user does not have permission to perform this operation on this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    JsonApiUpdateRequest:
-      type: object
-      description: Generic JSON:API update request body.
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - type
-          - id
-          properties:
-            type:
-              type: string
-              description: The JSON:API resource type.
-            id:
-              type: string
-              format: uuid
-              description: The UUID of the resource being updated.
-            attributes:
-              type: object
-              description: Attributes to update.
-            relationships:
-              type: object
-              description: Relationships to update.
-    JsonApiResourceObject:
-      type: object
-      description: A JSON:API resource object representing a single Drupal entity.
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          description: The JSON:API resource type in the format {entity_type}--{bundle}, e.g. node--article, taxonomy_term--tags.
-          example: node--article
-        id:
-          type: string
-          format: uuid
-          description: The UUID of the resource.
-        attributes:
-          type: object
-          description: The resource's field values excluding entity references. Keys are field machine names.
-        relationships:
-          type: object
-          description: The resource's entity reference fields expressed as relationship objects with data containing type and id.
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    JsonApiErrorResponse:
-      type: object
-      description: A JSON:API error response containing one or more error objects.
-      properties:
-        errors:
-          type: array
-          description: Array of error objects describing the problems encountered.
-          items:
-            $ref: '#/components/schemas/JsonApiError'
-        jsonapi:
-          type: object
-          properties:
-            version:
-              type: string
-              example: '1.0'
-    JsonApiError:
-      type: object
-      description: A single JSON:API error object.
-      properties:
-        status:
-          type: string
-          description: The HTTP status code for this error.
-        title:
-          type: string
-          description: A short, human-readable summary of the problem type.
-        detail:
-          type: string
-          description: A human-readable explanation specific to this error occurrence.
-        source:
-          type: object
-          description: An object containing a reference to the source of the error.
-          properties:
-            pointer:
-              type: string
-              description: A JSON Pointer to the associated entity in the request body.
-            parameter:
-              type: string
-              description: The query parameter that caused the error.
     JsonApiCollectionLinks:
       type: object
       description: Pagination links for collection responses.
@@ -461,27 +428,31 @@ components:
               type: string
               format: uri
               description: The URL of the related resource.
-    JsonApiSingleResponse:
+    JsonApiUpdateRequest:
       type: object
-      description: A JSON:API response containing a single resource object.
+      description: Generic JSON:API update request body.
+      required:
+      - data
       properties:
-        jsonapi:
-          type: object
-          description: JSON:API version metadata.
-          properties:
-            version:
-              type: string
-              description: The JSON:API specification version.
-              example: '1.0'
         data:
-          $ref: '#/components/schemas/JsonApiResourceObject'
-        included:
-          type: array
-          description: Array of included related resources when using the include parameter.
-          items:
-            $ref: '#/components/schemas/JsonApiResourceObject'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
+          type: object
+          required:
+          - type
+          - id
+          properties:
+            type:
+              type: string
+              description: The JSON:API resource type.
+            id:
+              type: string
+              format: uuid
+              description: The UUID of the resource being updated.
+            attributes:
+              type: object
+              description: Attributes to update.
+            relationships:
+              type: object
+              description: Relationships to update.
     JsonApiCollection:
       type: object
       description: A JSON:API collection response containing multiple resource objects.
@@ -513,13 +484,107 @@ components:
             count:
               type: integer
               description: Total number of matching resources across all pages.
-    ErrorResponse:
+    JsonApiError:
       type: object
-      description: Standard error response returned for 4xx HTTP error codes.
+      description: A single JSON:API error object.
       properties:
-        message:
+        status:
           type: string
-          description: Human-readable description of the error.
+          description: The HTTP status code for this error.
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this error occurrence.
+        source:
+          type: object
+          description: An object containing a reference to the source of the error.
+          properties:
+            pointer:
+              type: string
+              description: A JSON Pointer to the associated entity in the request body.
+            parameter:
+              type: string
+              description: The query parameter that caused the error.
+    JsonApiErrorResponse:
+      type: object
+      description: A JSON:API error response containing one or more error objects.
+      properties:
+        errors:
+          type: array
+          description: Array of error objects describing the problems encountered.
+          items:
+            $ref: '#/components/schemas/JsonApiError'
+        jsonapi:
+          type: object
+          properties:
+            version:
+              type: string
+              example: '1.0'
+    JsonApiSingleResponse:
+      type: object
+      description: A JSON:API response containing a single resource object.
+      properties:
+        jsonapi:
+          type: object
+          description: JSON:API version metadata.
+          properties:
+            version:
+              type: string
+              description: The JSON:API specification version.
+              example: '1.0'
+        data:
+          $ref: '#/components/schemas/JsonApiResourceObject'
+        included:
+          type: array
+          description: Array of included related resources when using the include parameter.
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiResourceObject:
+      type: object
+      description: A JSON:API resource object representing a single Drupal entity.
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          description: The JSON:API resource type in the format {entity_type}--{bundle}, e.g. node--article, taxonomy_term--tags.
+          example: node--article
+        id:
+          type: string
+          format: uuid
+          description: The UUID of the resource.
+        attributes:
+          type: object
+          description: The resource's field values excluding entity references. Keys are field machine names.
+        relationships:
+          type: object
+          description: The resource's entity reference fields expressed as relationship objects with data containing type and id.
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    UserInput:
+      type: object
+      description: Request body for updating a Drupal user account. Include only fields to modify.
+      properties:
+        name:
+          type: array
+          description: The unique username.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        mail:
+          type: array
+          description: The user's email address.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Account status. 1 for active, 0 for blocked.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
     IntegerValue:
       type: object
       description: Drupal field value wrapper for an integer value.
@@ -527,6 +592,30 @@ components:
         value:
           type: integer
           description: The integer value.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
+    BooleanValue:
+      type: object
+      description: Drupal field value wrapper for a boolean value.
+      properties:
+        value:
+          type: integer
+          description: Boolean represented as integer. 1 for true, 0 for false.
+          enum:
+          - 0
+          - 1
     User:
       type: object
       description: A Drupal user account entity with profile and authentication information.
@@ -571,16 +660,6 @@ components:
           description: List of role references assigned to this user.
           items:
             $ref: '#/components/schemas/TargetId'
-    BooleanValue:
-      type: object
-      description: Drupal field value wrapper for a boolean value.
-      properties:
-        value:
-          type: integer
-          description: Boolean represented as integer. 1 for true, 0 for false.
-          enum:
-          - 0
-          - 1
     TargetId:
       type: object
       description: Drupal entity reference value wrapper pointing to a related entity.
@@ -588,81 +667,6 @@ components:
         target_id:
           type: integer
           description: The numeric ID of the referenced entity.
-    StringValue:
-      type: object
-      description: Drupal field value wrapper for a string value.
-      properties:
-        value:
-          type: string
-          description: The string value.
-    UserInput:
-      type: object
-      description: Request body for updating a Drupal user account. Include only fields to modify.
-      properties:
-        name:
-          type: array
-          description: The unique username.
-          items:
-            $ref: '#/components/schemas/StringValue'
-        mail:
-          type: array
-          description: The user's email address.
-          items:
-            $ref: '#/components/schemas/StringValue'
-        status:
-          type: array
-          description: Account status. 1 for active, 0 for blocked.
-          items:
-            $ref: '#/components/schemas/BooleanValue'
-  responses:
-    BadRequest:
-      description: The request body or query parameters are invalid.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
-    Forbidden:
-      description: The authenticated user lacks permission to perform this operation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
-    NotFound:
-      description: The requested resource does not exist or is inaccessible.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
-    Unauthorized:
-      description: Authentication is required to access this resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
-    Forbidden_2:
-      description: The authenticated user does not have permission to perform this operation on this resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest_2:
-      description: The request body or parameters are invalid or malformed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: The requested entity does not exist or is not accessible.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized_2:
-      description: Authentication is required to access this resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

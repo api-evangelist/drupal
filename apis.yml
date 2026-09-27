@@ -43,7 +43,7 @@ apis:
   humanURL: https://www.drupal.org/drupalorg/docs/api
   baseURL: https://www.drupal.org/api-d7
   tags:
-  - Open-Source
+  - Open Source
   - Content Management
   - Community
   - Read Only
@@ -54,6 +54,7 @@ apis:
   - Community
   - Read Only
   - Project Metadata
+  - Open-Source
   properties:
   - type: Documentation
     url: https://www.drupal.org/drupalorg/docs/api
@@ -356,7 +357,7 @@ created: '2026-05-04'
 tags:
 - Content Management
 - CMS
-- Open-Source
+- Open Source
 - JSON:API
 - GraphQL
 - Headless
@@ -375,6 +376,7 @@ tags_raw:
 - Self-Hosted
 - Publishing
 - Digital Experience
+- Open-Source
 maintainers:
 - FN: Kin Lane
   email: info@apievangelist.com

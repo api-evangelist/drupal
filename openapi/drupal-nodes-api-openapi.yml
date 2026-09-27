@@ -125,45 +125,71 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  parameters:
+    ContentTypeFormat:
+      name: Content-Type
+      in: header
+      required: true
+      description: The serialization format of the request body. Must match the format of the data being sent.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        default: application/json
+    AcceptFormat:
+      name: Accept
+      in: header
+      required: false
+      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        - application/xml
+        default: application/json
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+  responses:
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request body or parameters are invalid or malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this operation on this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
+    TargetId:
       type: object
-      description: Standard error response returned for 4xx HTTP error codes.
+      description: Drupal entity reference value wrapper pointing to a related entity.
       properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-    IntegerValue:
-      type: object
-      description: Drupal field value wrapper for an integer value.
-      properties:
-        value:
+        target_id:
           type: integer
-          description: The integer value.
-    NodeInput:
-      type: object
-      description: Request body for creating or updating a Drupal content node. Only include the fields that should be set or modified.
-      properties:
-        type:
-          type: array
-          description: The target node bundle (content type) machine name.
-          items:
-            $ref: '#/components/schemas/TargetId'
-        title:
-          type: array
-          description: The node title.
-          items:
-            $ref: '#/components/schemas/StringValue'
-        status:
-          type: array
-          description: Publication status. 1 for published, 0 for unpublished.
-          items:
-            $ref: '#/components/schemas/BooleanValue'
-        body:
-          type: array
-          description: The body text content with optional summary and format.
-          items:
-            $ref: '#/components/schemas/TextContent'
+          description: The numeric ID of the referenced entity.
     Node:
       type: object
       description: A Drupal content node entity representing structured content of a specific type (bundle) such as article or page.
@@ -223,16 +249,44 @@ components:
           description: The main body field containing the node's primary text content.
           items:
             $ref: '#/components/schemas/TextContent'
-    BooleanValue:
+    NodeInput:
       type: object
-      description: Drupal field value wrapper for a boolean value.
+      description: Request body for creating or updating a Drupal content node. Only include the fields that should be set or modified.
+      properties:
+        type:
+          type: array
+          description: The target node bundle (content type) machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        title:
+          type: array
+          description: The node title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        status:
+          type: array
+          description: Publication status. 1 for published, 0 for unpublished.
+          items:
+            $ref: '#/components/schemas/BooleanValue'
+        body:
+          type: array
+          description: The body text content with optional summary and format.
+          items:
+            $ref: '#/components/schemas/TextContent'
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
       properties:
         value:
           type: integer
-          description: Boolean represented as integer. 1 for true, 0 for false.
-          enum:
-          - 0
-          - 1
+          description: The integer value.
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
     TextContent:
       type: object
       description: Drupal text field value with optional summary and text format.
@@ -246,77 +300,23 @@ components:
         format:
           type: string
           description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
-    TargetId:
+    BooleanValue:
       type: object
-      description: Drupal entity reference value wrapper pointing to a related entity.
-      properties:
-        target_id:
-          type: integer
-          description: The numeric ID of the referenced entity.
-    StringValue:
-      type: object
-      description: Drupal field value wrapper for a string value.
+      description: Drupal field value wrapper for a boolean value.
       properties:
         value:
+          type: integer
+          description: Boolean represented as integer. 1 for true, 0 for false.
+          enum:
+          - 0
+          - 1
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
           type: string
-          description: The string value.
-  responses:
-    Forbidden:
-      description: The authenticated user does not have permission to perform this operation on this resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request body or parameters are invalid or malformed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested entity does not exist or is not accessible.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication is required to access this resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    ContentTypeFormat:
-      name: Content-Type
-      in: header
-      required: true
-      description: The serialization format of the request body. Must match the format of the data being sent.
-      schema:
-        type: string
-        enum:
-        - application/json
-        - application/hal+json
-        default: application/json
-    EntityId:
-      name: id
-      in: path
-      required: true
-      description: The numeric ID of the entity.
-      schema:
-        type: integer
-        minimum: 1
-    AcceptFormat:
-      name: Accept
-      in: header
-      required: false
-      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
-      schema:
-        type: string
-        enum:
-        - application/json
-        - application/hal+json
-        - application/xml
-        default: application/json
+          description: Human-readable description of the error.
   securitySchemes:
     basicAuth:
       type: http
