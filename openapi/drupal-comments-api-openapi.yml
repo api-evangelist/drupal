@@ -114,64 +114,80 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  parameters:
-    ContentTypeFormat:
-      name: Content-Type
-      in: header
-      required: true
-      description: The serialization format of the request body. Must match the format of the data being sent.
-      schema:
-        type: string
-        enum:
-        - application/json
-        - application/hal+json
-        default: application/json
-    AcceptFormat:
-      name: Accept
-      in: header
-      required: false
-      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
-      schema:
-        type: string
-        enum:
-        - application/json
-        - application/hal+json
-        - application/xml
-        default: application/json
-    EntityId:
-      name: id
-      in: path
-      required: true
-      description: The numeric ID of the entity.
-      schema:
-        type: integer
-        minimum: 1
-  responses:
-    NotFound:
-      description: The requested entity does not exist or is not accessible.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request body or parameters are invalid or malformed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication is required to access this resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this operation on this resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+    TextContent:
+      type: object
+      description: Drupal text field value with optional summary and text format.
+      properties:
+        value:
+          type: string
+          description: The full text content, may include HTML markup depending on format.
+        summary:
+          type: string
+          description: Optional trimmed summary of the text content.
+        format:
+          type: string
+          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
+    CommentInput:
+      type: object
+      description: Request body for creating or updating a comment entity.
+      required:
+      - comment_type
+      - entity_id
+      - entity_type
+      - field_name
+      properties:
+        comment_type:
+          type: array
+          description: The comment type bundle machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        subject:
+          type: array
+          description: The comment subject/title.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        entity_id:
+          type: array
+          description: The parent entity this comment should be attached to.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        entity_type:
+          type: array
+          description: The entity type of the parent entity.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        field_name:
+          type: array
+          description: The field name on the parent entity for this comment.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        comment_body:
+          type: array
+          description: The comment body text.
+          items:
+            $ref: '#/components/schemas/TextContent'
     Comment:
       type: object
       description: A Drupal comment entity attached to a content entity such as a node, containing user-submitted text and metadata.
@@ -236,33 +252,6 @@ components:
           description: The main body text of the comment.
           items:
             $ref: '#/components/schemas/TextContent'
-    IntegerValue:
-      type: object
-      description: Drupal field value wrapper for an integer value.
-      properties:
-        value:
-          type: integer
-          description: The integer value.
-    StringValue:
-      type: object
-      description: Drupal field value wrapper for a string value.
-      properties:
-        value:
-          type: string
-          description: The string value.
-    TextContent:
-      type: object
-      description: Drupal text field value with optional summary and text format.
-      properties:
-        value:
-          type: string
-          description: The full text content, may include HTML markup depending on format.
-        summary:
-          type: string
-          description: Optional trimmed summary of the text content.
-        format:
-          type: string
-          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
     BooleanValue:
       type: object
       description: Drupal field value wrapper for a boolean value.
@@ -273,13 +262,6 @@ components:
           enum:
           - 0
           - 1
-    ErrorResponse:
-      type: object
-      description: Standard error response returned for 4xx HTTP error codes.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
     TargetId:
       type: object
       description: Drupal entity reference value wrapper pointing to a related entity.
@@ -287,45 +269,63 @@ components:
         target_id:
           type: integer
           description: The numeric ID of the referenced entity.
-    CommentInput:
-      type: object
-      description: Request body for creating or updating a comment entity.
-      required:
-      - comment_type
-      - entity_id
-      - entity_type
-      - field_name
-      properties:
-        comment_type:
-          type: array
-          description: The comment type bundle machine name.
-          items:
-            $ref: '#/components/schemas/TargetId'
-        subject:
-          type: array
-          description: The comment subject/title.
-          items:
-            $ref: '#/components/schemas/StringValue'
-        entity_id:
-          type: array
-          description: The parent entity this comment should be attached to.
-          items:
-            $ref: '#/components/schemas/TargetId'
-        entity_type:
-          type: array
-          description: The entity type of the parent entity.
-          items:
-            $ref: '#/components/schemas/StringValue'
-        field_name:
-          type: array
-          description: The field name on the parent entity for this comment.
-          items:
-            $ref: '#/components/schemas/StringValue'
-        comment_body:
-          type: array
-          description: The comment body text.
-          items:
-            $ref: '#/components/schemas/TextContent'
+  parameters:
+    AcceptFormat:
+      name: Accept
+      in: header
+      required: false
+      description: The desired response serialization format. Defaults to application/json. Use application/hal+json for HAL+JSON hypermedia format.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        - application/xml
+        default: application/json
+    ContentTypeFormat:
+      name: Content-Type
+      in: header
+      required: true
+      description: The serialization format of the request body. Must match the format of the data being sent.
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/hal+json
+        default: application/json
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
+  responses:
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this operation on this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request body or parameters are invalid or malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
