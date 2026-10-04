@@ -126,26 +126,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response returned for 4xx HTTP error codes.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-    TextContent:
-      type: object
-      description: Drupal text field value with optional summary and text format.
-      properties:
-        value:
-          type: string
-          description: The full text content, may include HTML markup depending on format.
-        summary:
-          type: string
-          description: Optional trimmed summary of the text content.
-        format:
-          type: string
-          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
     IntegerValue:
       type: object
       description: Drupal field value wrapper for an integer value.
@@ -153,13 +133,6 @@ components:
         value:
           type: integer
           description: The integer value.
-    StringValue:
-      type: object
-      description: Drupal field value wrapper for a string value.
-      properties:
-        value:
-          type: string
-          description: The string value.
     NodeInput:
       type: object
       description: Request body for creating or updating a Drupal content node. Only include the fields that should be set or modified.
@@ -253,6 +226,19 @@ components:
           enum:
           - 0
           - 1
+    TextContent:
+      type: object
+      description: Drupal text field value with optional summary and text format.
+      properties:
+        value:
+          type: string
+          description: The full text content, may include HTML markup depending on format.
+        summary:
+          type: string
+          description: Optional trimmed summary of the text content.
+        format:
+          type: string
+          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
     TargetId:
       type: object
       description: Drupal entity reference value wrapper pointing to a related entity.
@@ -260,7 +246,29 @@ components:
         target_id:
           type: integer
           description: The numeric ID of the referenced entity.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
+      properties:
+        value:
+          type: string
+          description: The string value.
   parameters:
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
     AcceptFormat:
       name: Accept
       in: header
@@ -284,17 +292,9 @@ components:
         - application/json
         - application/hal+json
         default: application/json
-    EntityId:
-      name: id
-      in: path
-      required: true
-      description: The numeric ID of the entity.
-      schema:
-        type: integer
-        minimum: 1
   responses:
-    NotFound:
-      description: The requested entity does not exist or is not accessible.
+    BadRequest:
+      description: The request body or parameters are invalid or malformed.
       content:
         application/json:
           schema:
@@ -311,8 +311,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request body or parameters are invalid or malformed.
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
       content:
         application/json:
           schema:

@@ -40,6 +40,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
     ErrorResponse:
       type: object
       description: Standard error response returned for 4xx HTTP error codes.
@@ -76,13 +83,6 @@ components:
           description: Hierarchy setting. 0 for no hierarchy, 1 for single hierarchy, 2 for multiple hierarchy.
           items:
             $ref: '#/components/schemas/IntegerValue'
-    IntegerValue:
-      type: object
-      description: Drupal field value wrapper for an integer value.
-      properties:
-        value:
-          type: integer
-          description: The integer value.
     StringValue:
       type: object
       description: Drupal field value wrapper for a string value.
@@ -91,6 +91,14 @@ components:
           type: string
           description: The string value.
   parameters:
+    EntityId:
+      name: id
+      in: path
+      required: true
+      description: The numeric ID of the entity.
+      schema:
+        type: integer
+        minimum: 1
     AcceptFormat:
       name: Accept
       in: header
@@ -103,23 +111,15 @@ components:
         - application/hal+json
         - application/xml
         default: application/json
-    EntityId:
-      name: id
-      in: path
-      required: true
-      description: The numeric ID of the entity.
-      schema:
-        type: integer
-        minimum: 1
   responses:
-    NotFound:
-      description: The requested entity does not exist or is not accessible.
+    Unauthorized:
+      description: Authentication is required to access this resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication is required to access this resource.
+    NotFound:
+      description: The requested entity does not exist or is not accessible.
       content:
         application/json:
           schema:

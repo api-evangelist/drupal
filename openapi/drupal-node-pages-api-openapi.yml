@@ -70,6 +70,44 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    JsonApiError:
+      type: object
+      description: A single JSON:API error object.
+      properties:
+        status:
+          type: string
+          description: The HTTP status code for this error.
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this error occurrence.
+        source:
+          type: object
+          description: An object containing a reference to the source of the error.
+          properties:
+            pointer:
+              type: string
+              description: A JSON Pointer to the associated entity in the request body.
+            parameter:
+              type: string
+              description: The query parameter that caused the error.
+    JsonApiErrorResponse:
+      type: object
+      description: A JSON:API error response containing one or more error objects.
+      properties:
+        errors:
+          type: array
+          description: Array of error objects describing the problems encountered.
+          items:
+            $ref: '#/components/schemas/JsonApiError'
+        jsonapi:
+          type: object
+          properties:
+            version:
+              type: string
+              example: '1.0'
     JsonApiCollection:
       type: object
       description: A JSON:API collection response containing multiple resource objects.
@@ -101,49 +139,6 @@ components:
             count:
               type: integer
               description: Total number of matching resources across all pages.
-    JsonApiLinks:
-      type: object
-      description: Navigation links included in JSON:API responses.
-      properties:
-        self:
-          type: object
-          description: Link to the current resource or collection.
-          properties:
-            href:
-              type: string
-              format: uri
-              description: The URL of the current resource.
-        related:
-          type: object
-          description: Link to a related resource.
-          properties:
-            href:
-              type: string
-              format: uri
-              description: The URL of the related resource.
-    JsonApiError:
-      type: object
-      description: A single JSON:API error object.
-      properties:
-        status:
-          type: string
-          description: The HTTP status code for this error.
-        title:
-          type: string
-          description: A short, human-readable summary of the problem type.
-        detail:
-          type: string
-          description: A human-readable explanation specific to this error occurrence.
-        source:
-          type: object
-          description: An object containing a reference to the source of the error.
-          properties:
-            pointer:
-              type: string
-              description: A JSON Pointer to the associated entity in the request body.
-            parameter:
-              type: string
-              description: The query parameter that caused the error.
     JsonApiCollectionLinks:
       type: object
       description: Pagination links for collection responses.
@@ -183,6 +178,26 @@ components:
               type: string
               format: uri
               description: Link to the last page of results.
+    JsonApiLinks:
+      type: object
+      description: Navigation links included in JSON:API responses.
+      properties:
+        self:
+          type: object
+          description: Link to the current resource or collection.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: The URL of the current resource.
+        related:
+          type: object
+          description: Link to a related resource.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: The URL of the related resource.
     JsonApiSingleResponse:
       type: object
       description: A JSON:API response containing a single resource object.
@@ -227,30 +242,7 @@ components:
           description: The resource's entity reference fields expressed as relationship objects with data containing type and id.
         links:
           $ref: '#/components/schemas/JsonApiLinks'
-    JsonApiErrorResponse:
-      type: object
-      description: A JSON:API error response containing one or more error objects.
-      properties:
-        errors:
-          type: array
-          description: Array of error objects describing the problems encountered.
-          items:
-            $ref: '#/components/schemas/JsonApiError'
-        jsonapi:
-          type: object
-          properties:
-            version:
-              type: string
-              example: '1.0'
   parameters:
-    IncludeParam:
-      name: include
-      in: query
-      required: false
-      description: A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline.
-      schema:
-        type: string
-        example: uid,field_tags
     PageOffset:
       name: page[offset]
       in: query
@@ -260,14 +252,14 @@ components:
         type: integer
         minimum: 0
         default: 0
-    JsonApiAccept:
-      name: Accept
-      in: header
+    FieldsParam:
+      name: fields[node--article]
+      in: query
       required: false
-      description: The JSON:API media type. Include this header to receive a properly formatted JSON:API response.
+      description: Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names.
       schema:
         type: string
-        default: application/vnd.api+json
+        example: title,body,created
     PageLimit:
       name: page[limit]
       in: query
@@ -278,30 +270,22 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-    FieldsParam:
-      name: fields[node--article]
-      in: query
+    JsonApiAccept:
+      name: Accept
+      in: header
       required: false
-      description: Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names.
+      description: The JSON:API media type. Include this header to receive a properly formatted JSON:API response.
       schema:
         type: string
-        example: title,body,created
-    SortParam:
-      name: sort
+        default: application/vnd.api+json
+    IncludeParam:
+      name: include
       in: query
       required: false
-      description: Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date.
+      description: A comma-separated list of relationship paths to include in the response. For example, include=uid resolves the author relationship, and include=field_tags includes related taxonomy terms inline.
       schema:
         type: string
-        example: -created
-    FilterPath:
-      name: filter[name][path]
-      in: query
-      required: false
-      description: The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields.
-      schema:
-        type: string
-        example: status
+        example: uid,field_tags
     FilterValue:
       name: filter[name][value]
       in: query
@@ -310,6 +294,22 @@ components:
       schema:
         type: string
         example: '1'
+    FilterPath:
+      name: filter[name][path]
+      in: query
+      required: false
+      description: The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields.
+      schema:
+        type: string
+        example: status
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      description: Sort the results by the given field. Prefix with - for descending order. For example, sort=title for ascending by title or sort=-created for descending by creation date.
+      schema:
+        type: string
+        example: -created
     EntityUuid:
       name: uuid
       in: path
@@ -320,12 +320,6 @@ components:
         format: uuid
         example: 550e8400-e29b-41d4-a716-446655440000
   responses:
-    Forbidden:
-      description: The authenticated user lacks permission to perform this operation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiErrorResponse'
     NotFound:
       description: The requested resource does not exist or is inaccessible.
       content:
@@ -334,6 +328,12 @@ components:
             $ref: '#/components/schemas/JsonApiErrorResponse'
     BadRequest:
       description: The request body or query parameters are invalid.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrorResponse'
+    Forbidden:
+      description: The authenticated user lacks permission to perform this operation.
       content:
         application/vnd.api+json:
           schema:
