@@ -260,6 +260,10 @@ apis:
   - type: Overlay
     url: overlays/drupal-users-api-overlay.yaml
 common:
+- url: https://www.drupal.org/blog
+  type: Blog
+- url: https://www.drupal.org/section-blog/2603760/feed
+  type: BlogRSS
 - type: Website
   url: https://drupal.org
 - type: AgenticAccess
@@ -341,7 +345,7 @@ common:
   url: https://www.drupal.org/about/licensing
   note: 'Drupal.org states: "licensed under the GNU General Public License, version 2 or later" (SPDX GPL-2.0-or-later).
     Recorded with the catalog’s short SPDX form.'
-modified: '2026-09-17'
+modified: '2026-10-06'
 description: 'Drupal is an open-source content management system written in PHP, used to build websites, applications
   and digital experiences for individuals, organizations, governments and enterprises worldwide. It is self-hosted
   software rather than a hosted service: Drupal core ships a JSON:API v1.0 surface and a RESTful Web Services surface
