@@ -260,6 +260,8 @@ apis:
   - type: Overlay
     url: overlays/drupal-users-api-overlay.yaml
 common:
+- type: Plans
+  url: plans/drupal-plans-pricing.yml
 - url: https://www.drupal.org/blog
   type: Blog
 - url: https://www.drupal.org/section-blog/2603760/feed
