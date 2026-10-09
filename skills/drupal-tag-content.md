@@ -2,7 +2,7 @@
 name: drupal-tag-content
 description: Classify Drupal content with taxonomy terms — discover the vocabulary, find or create the term, and attach it to a node without duplicating terms.
 api: drupal:drupal-taxonomy-terms-api
-operations: [getTaxonomyVocabulary, listTaxonomyTerms, getTaxonomyTerm, createTaxonomyTerm, updateNodeArticle]
+operations: [getTaxonomyVocabulary, listTaxonomyTerms, getTaxonomyTermById, createTaxonomyTerm, updateNodeArticle]
 generated: '2026-09-17'
 method: generated
 source: openapi/drupal-taxonomy-terms-api-openapi.yml, openapi/drupal-taxonomy-vocabularies-api-openapi.yml, data-model/drupal-data-model.yml
