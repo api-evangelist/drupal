@@ -202,75 +202,6 @@ paths:
       description: Drupal Site (replace with your Drupal installation base URL)
 components:
   schemas:
-    JsonApiError:
-      type: object
-      description: A single JSON:API error object.
-      properties:
-        status:
-          type: string
-          description: The HTTP status code for this error.
-        title:
-          type: string
-          description: A short, human-readable summary of the problem type.
-        detail:
-          type: string
-          description: A human-readable explanation specific to this error occurrence.
-        source:
-          type: object
-          description: An object containing a reference to the source of the error.
-          properties:
-            pointer:
-              type: string
-              description: A JSON Pointer to the associated entity in the request body.
-            parameter:
-              type: string
-              description: The query parameter that caused the error.
-    JsonApiErrorResponse:
-      type: object
-      description: A JSON:API error response containing one or more error objects.
-      properties:
-        errors:
-          type: array
-          description: Array of error objects describing the problems encountered.
-          items:
-            $ref: '#/components/schemas/JsonApiError'
-        jsonapi:
-          type: object
-          properties:
-            version:
-              type: string
-              example: '1.0'
-    JsonApiCollection:
-      type: object
-      description: A JSON:API collection response containing multiple resource objects.
-      properties:
-        jsonapi:
-          type: object
-          description: JSON:API version metadata.
-          properties:
-            version:
-              type: string
-              description: The JSON:API specification version.
-              example: '1.0'
-        data:
-          type: array
-          description: Array of resource objects.
-          items:
-            $ref: '#/components/schemas/JsonApiResourceObject'
-        included:
-          type: array
-          description: Array of included related resources when using the include parameter.
-          items:
-            $ref: '#/components/schemas/JsonApiResourceObject'
-        links:
-          $ref: '#/components/schemas/JsonApiCollectionLinks'
-        meta:
-          type: object
-          description: Non-standard meta-information about the response, such as total result count.
-          properties:
-            count:
-              type: integer
-              description: Total number of matching resources across all pages.
     JsonApiCollectionLinks:
       type: object
       description: Pagination links for collection responses.
@@ -310,26 +241,37 @@ components:
               type: string
               format: uri
               description: Link to the last page of results.
-    JsonApiLinks:
+    JsonApiCollection:
       type: object
-      description: Navigation links included in JSON:API responses.
+      description: A JSON:API collection response containing multiple resource objects.
       properties:
-        self:
+        jsonapi:
           type: object
-          description: Link to the current resource or collection.
+          description: JSON:API version metadata.
           properties:
-            href:
+            version:
               type: string
-              format: uri
-              description: The URL of the current resource.
-        related:
+              description: The JSON:API specification version.
+              example: '1.0'
+        data:
+          type: array
+          description: Array of resource objects.
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        included:
+          type: array
+          description: Array of included related resources when using the include parameter.
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        links:
+          $ref: '#/components/schemas/JsonApiCollectionLinks'
+        meta:
           type: object
-          description: Link to a related resource.
+          description: Non-standard meta-information about the response, such as total result count.
           properties:
-            href:
-              type: string
-              format: uri
-              description: The URL of the related resource.
+            count:
+              type: integer
+              description: Total number of matching resources across all pages.
     JsonApiSingleResponse:
       type: object
       description: A JSON:API response containing a single resource object.
@@ -351,6 +293,44 @@ components:
             $ref: '#/components/schemas/JsonApiResourceObject'
         links:
           $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiErrorResponse:
+      type: object
+      description: A JSON:API error response containing one or more error objects.
+      properties:
+        errors:
+          type: array
+          description: Array of error objects describing the problems encountered.
+          items:
+            $ref: '#/components/schemas/JsonApiError'
+        jsonapi:
+          type: object
+          properties:
+            version:
+              type: string
+              example: '1.0'
+    JsonApiError:
+      type: object
+      description: A single JSON:API error object.
+      properties:
+        status:
+          type: string
+          description: The HTTP status code for this error.
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this error occurrence.
+        source:
+          type: object
+          description: An object containing a reference to the source of the error.
+          properties:
+            pointer:
+              type: string
+              description: A JSON Pointer to the associated entity in the request body.
+            parameter:
+              type: string
+              description: The query parameter that caused the error.
     JsonApiResourceObject:
       type: object
       description: A JSON:API resource object representing a single Drupal entity.
@@ -374,13 +354,33 @@ components:
           description: The resource's entity reference fields expressed as relationship objects with data containing type and id.
         links:
           $ref: '#/components/schemas/JsonApiLinks'
-    IntegerValue:
+    JsonApiLinks:
       type: object
-      description: Drupal field value wrapper for an integer value.
+      description: Navigation links included in JSON:API responses.
+      properties:
+        self:
+          type: object
+          description: Link to the current resource or collection.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: The URL of the current resource.
+        related:
+          type: object
+          description: Link to a related resource.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: The URL of the related resource.
+    StringValue:
+      type: object
+      description: Drupal field value wrapper for a string value.
       properties:
         value:
-          type: integer
-          description: The integer value.
+          type: string
+          description: The string value.
     TextContent:
       type: object
       description: Drupal text field value with optional summary and text format.
@@ -394,6 +394,47 @@ components:
         format:
           type: string
           description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
+    TargetId:
+      type: object
+      description: Drupal entity reference value wrapper pointing to a related entity.
+      properties:
+        target_id:
+          type: integer
+          description: The numeric ID of the referenced entity.
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+    TaxonomyTermInput:
+      type: object
+      description: Request body for creating or updating a taxonomy term.
+      required:
+      - name
+      - vid
+      properties:
+        vid:
+          type: array
+          description: The target vocabulary machine name.
+          items:
+            $ref: '#/components/schemas/TargetId'
+        name:
+          type: array
+          description: The display name of the taxonomy term.
+          items:
+            $ref: '#/components/schemas/StringValue'
+        description:
+          type: array
+          description: Optional description for the term.
+          items:
+            $ref: '#/components/schemas/TextContent'
+        parent:
+          type: array
+          description: Optional parent term reference for hierarchical vocabularies.
+          items:
+            $ref: '#/components/schemas/TargetId'
     TaxonomyTerm:
       type: object
       description: A Drupal taxonomy term entity used for categorizing and tagging content within a vocabulary.
@@ -433,13 +474,6 @@ components:
           description: Reference to parent term(s) for hierarchical vocabularies.
           items:
             $ref: '#/components/schemas/TargetId'
-    TargetId:
-      type: object
-      description: Drupal entity reference value wrapper pointing to a related entity.
-      properties:
-        target_id:
-          type: integer
-          description: The numeric ID of the referenced entity.
     ErrorResponse:
       type: object
       description: Standard error response returned for 4xx HTTP error codes.
@@ -447,58 +481,7 @@ components:
         message:
           type: string
           description: Human-readable description of the error.
-    StringValue:
-      type: object
-      description: Drupal field value wrapper for a string value.
-      properties:
-        value:
-          type: string
-          description: The string value.
-    TaxonomyTermInput:
-      type: object
-      description: Request body for creating or updating a taxonomy term.
-      required:
-      - name
-      - vid
-      properties:
-        vid:
-          type: array
-          description: The target vocabulary machine name.
-          items:
-            $ref: '#/components/schemas/TargetId'
-        name:
-          type: array
-          description: The display name of the taxonomy term.
-          items:
-            $ref: '#/components/schemas/StringValue'
-        description:
-          type: array
-          description: Optional description for the term.
-          items:
-            $ref: '#/components/schemas/TextContent'
-        parent:
-          type: array
-          description: Optional parent term reference for hierarchical vocabularies.
-          items:
-            $ref: '#/components/schemas/TargetId'
   parameters:
-    PageOffset:
-      name: page[offset]
-      in: query
-      required: false
-      description: The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    FieldsParam:
-      name: fields[node--article]
-      in: query
-      required: false
-      description: Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names.
-      schema:
-        type: string
-        example: title,body,created
     PageLimit:
       name: page[limit]
       in: query
@@ -509,14 +492,15 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-    JsonApiAccept:
-      name: Accept
-      in: header
+    PageOffset:
+      name: page[offset]
+      in: query
       required: false
-      description: The JSON:API media type. Include this header to receive a properly formatted JSON:API response.
+      description: The number of resources to skip before beginning to return results. Used in combination with page[limit] for pagination.
       schema:
-        type: string
-        default: application/vnd.api+json
+        type: integer
+        minimum: 0
+        default: 0
     IncludeParam:
       name: include
       in: query
@@ -525,30 +509,6 @@ components:
       schema:
         type: string
         example: uid,field_tags
-    FilterValue:
-      name: filter[name][value]
-      in: query
-      required: false
-      description: The value to filter against.
-      schema:
-        type: string
-        example: '1'
-    VocabularyBundle:
-      name: vocabulary
-      in: path
-      required: true
-      description: The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics).
-      schema:
-        type: string
-        example: tags
-    FilterPath:
-      name: filter[name][path]
-      in: query
-      required: false
-      description: The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields.
-      schema:
-        type: string
-        example: status
     SortParam:
       name: sort
       in: query
@@ -566,6 +526,46 @@ components:
         type: string
         format: uuid
         example: 550e8400-e29b-41d4-a716-446655440000
+    FilterValue:
+      name: filter[name][value]
+      in: query
+      required: false
+      description: The value to filter against.
+      schema:
+        type: string
+        example: '1'
+    VocabularyBundle:
+      name: vocabulary
+      in: path
+      required: true
+      description: The machine name of the taxonomy vocabulary bundle (e.g., tags, categories, topics).
+      schema:
+        type: string
+        example: tags
+    FieldsParam:
+      name: fields[node--article]
+      in: query
+      required: false
+      description: Sparse fieldset parameter to limit which attributes are returned, reducing response payload size. Replace node--article with the relevant resource type. Value is a comma-separated list of field names.
+      schema:
+        type: string
+        example: title,body,created
+    FilterPath:
+      name: filter[name][path]
+      in: query
+      required: false
+      description: The dotted field path to filter on, e.g. title, status, uid.name, or field_tags.name for nested relationship fields.
+      schema:
+        type: string
+        example: status
+    JsonApiAccept:
+      name: Accept
+      in: header
+      required: false
+      description: The JSON:API media type. Include this header to receive a properly formatted JSON:API response.
+      schema:
+        type: string
+        default: application/vnd.api+json
     EntityId:
       name: id
       in: path
@@ -598,14 +598,14 @@ components:
         - application/hal+json
         default: application/json
   responses:
-    NotFound:
-      description: The requested resource does not exist or is inaccessible.
+    BadRequest:
+      description: The request body or query parameters are invalid.
       content:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/JsonApiErrorResponse'
-    BadRequest:
-      description: The request body or query parameters are invalid.
+    NotFound:
+      description: The requested resource does not exist or is inaccessible.
       content:
         application/vnd.api+json:
           schema:
@@ -616,14 +616,14 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/JsonApiErrorResponse'
-    BadRequest_2:
-      description: The request body or parameters are invalid or malformed.
+    Forbidden_2:
+      description: The authenticated user does not have permission to perform this operation on this resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Forbidden_2:
-      description: The authenticated user does not have permission to perform this operation on this resource.
+    BadRequest_2:
+      description: The request body or parameters are invalid or malformed.
       content:
         application/json:
           schema:

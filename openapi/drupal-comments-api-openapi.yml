@@ -115,23 +115,26 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   schemas:
-    IntegerValue:
+    StringValue:
       type: object
-      description: Drupal field value wrapper for an integer value.
+      description: Drupal field value wrapper for a string value.
       properties:
         value:
-          type: integer
-          description: The integer value.
-    BooleanValue:
+          type: string
+          description: The string value.
+    TextContent:
       type: object
-      description: Drupal field value wrapper for a boolean value.
+      description: Drupal text field value with optional summary and text format.
       properties:
         value:
-          type: integer
-          description: Boolean represented as integer. 1 for true, 0 for false.
-          enum:
-          - 0
-          - 1
+          type: string
+          description: The full text content, may include HTML markup depending on format.
+        summary:
+          type: string
+          description: Optional trimmed summary of the text content.
+        format:
+          type: string
+          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
     CommentInput:
       type: object
       description: Request body for creating or updating a comment entity.
@@ -171,19 +174,6 @@ components:
           description: The comment body text.
           items:
             $ref: '#/components/schemas/TextContent'
-    TextContent:
-      type: object
-      description: Drupal text field value with optional summary and text format.
-      properties:
-        value:
-          type: string
-          description: The full text content, may include HTML markup depending on format.
-        summary:
-          type: string
-          description: Optional trimmed summary of the text content.
-        format:
-          type: string
-          description: The text format machine name applied to this field (e.g., basic_html, full_html, plain_text).
     TargetId:
       type: object
       description: Drupal entity reference value wrapper pointing to a related entity.
@@ -191,6 +181,23 @@ components:
         target_id:
           type: integer
           description: The numeric ID of the referenced entity.
+    IntegerValue:
+      type: object
+      description: Drupal field value wrapper for an integer value.
+      properties:
+        value:
+          type: integer
+          description: The integer value.
+    BooleanValue:
+      type: object
+      description: Drupal field value wrapper for a boolean value.
+      properties:
+        value:
+          type: integer
+          description: Boolean represented as integer. 1 for true, 0 for false.
+          enum:
+          - 0
+          - 1
     ErrorResponse:
       type: object
       description: Standard error response returned for 4xx HTTP error codes.
@@ -198,13 +205,6 @@ components:
         message:
           type: string
           description: Human-readable description of the error.
-    StringValue:
-      type: object
-      description: Drupal field value wrapper for a string value.
-      properties:
-        value:
-          type: string
-          description: The string value.
     Comment:
       type: object
       description: A Drupal comment entity attached to a content entity such as a node, containing user-submitted text and metadata.
@@ -302,12 +302,6 @@ components:
         - application/hal+json
         default: application/json
   responses:
-    BadRequest:
-      description: The request body or parameters are invalid or malformed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Forbidden:
       description: The authenticated user does not have permission to perform this operation on this resource.
       content:
@@ -316,6 +310,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication is required to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request body or parameters are invalid or malformed.
       content:
         application/json:
           schema:

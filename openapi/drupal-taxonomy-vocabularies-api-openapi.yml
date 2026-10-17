@@ -40,20 +40,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    IntegerValue:
+    StringValue:
       type: object
-      description: Drupal field value wrapper for an integer value.
+      description: Drupal field value wrapper for a string value.
       properties:
         value:
-          type: integer
-          description: The integer value.
-    ErrorResponse:
-      type: object
-      description: Standard error response returned for 4xx HTTP error codes.
-      properties:
-        message:
           type: string
-          description: Human-readable description of the error.
+          description: The string value.
     TaxonomyVocabulary:
       type: object
       description: A Drupal taxonomy vocabulary configuration entity that defines a grouping container for taxonomy terms.
@@ -83,13 +76,20 @@ components:
           description: Hierarchy setting. 0 for no hierarchy, 1 for single hierarchy, 2 for multiple hierarchy.
           items:
             $ref: '#/components/schemas/IntegerValue'
-    StringValue:
+    IntegerValue:
       type: object
-      description: Drupal field value wrapper for a string value.
+      description: Drupal field value wrapper for an integer value.
       properties:
         value:
+          type: integer
+          description: The integer value.
+    ErrorResponse:
+      type: object
+      description: Standard error response returned for 4xx HTTP error codes.
+      properties:
+        message:
           type: string
-          description: The string value.
+          description: Human-readable description of the error.
   parameters:
     EntityId:
       name: id
