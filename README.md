@@ -1,4 +1,4 @@
-# drupal (drupal)
+# Drupal
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,87 +64,195 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Drupal is an open-source content management system written in PHP and used to build websites, applications, and digital experiences for individuals, organizations, and enterprises worldwide.
+Drupal is an open-source content management system written in PHP, used to build websites, applications and digital experiences for individuals, organizations, governments and enterprises worldwide. It is self-hosted software rather than a hosted service: Drupal core ships a JSON:API v1.0 surface and a RESTful Web Services surface that run on the operator’s own domain, and contributed modules add GraphQL and an MCP server. The Drupal Association itself operates one public read-only API, the Drupal.org REST API at https://www.drupal.org/api-d7, alongside a machine-readable release-history feed and a Composer package repository.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/drupal/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/drupal/refs/heads/main/apis.yml)
+**Areas:** Content Management · CMS · Open Source · JSON:API · GraphQL · Headless · PHP · Self-Hosted · Publishing · Digital Experience · Headless CMS
 
-## Timestamps
+## Drupal on APIs.io
 
-- **Modified:** 2026-05-19
+Everything profiled for Drupal is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/drupal/](https://apis.io/providers/drupal/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (10)
 
-### Drupal REST API
+- [Drupal.org REST API](https://apis.io/apis/drupal/drupalorg-api/) — The read-only REST API the Drupal Association operates on drupal.org itself, exposing Drupal.org’s own nodes, users, comments and taxonomy terms as JSON or…
+- [Drupal GraphQL API](https://apis.io/apis/drupal/graphql/) — The Drupal GraphQL module is a contributed module that enables developers to craft and expose a GraphQL schema for Drupal 10 and 11, allowing client…
+- [drupal Comments API](https://apis.io/apis/drupal/drupal-comments-api/) — Comment resources for reading and managing comments attached to content entities in Drupal.
+- [drupal Files API](https://apis.io/apis/drupal/drupal-files-api/) — JSON:API endpoints for file entities and file upload operations.
+- [drupal Node Articles API](https://apis.io/apis/drupal/drupal-node-articles-api/) — JSON:API endpoints for article content nodes. The bundle slug varies by Drupal installation; article is shown as an example bundle name.
+- [drupal Node Pages API](https://apis.io/apis/drupal/drupal-node-pages-api/) — JSON:API endpoints for basic page content nodes. The bundle slug varies by Drupal installation.
+- [drupal Nodes API](https://apis.io/apis/drupal/drupal-nodes-api/) — Content node resources representing structured content items of any type (article, page, etc.) stored in Drupal's content management system.
+- [drupal Taxonomy Terms API](https://apis.io/apis/drupal/drupal-taxonomy-terms-api/) — JSON:API endpoints for taxonomy term entities across all configured vocabularies.
+- [drupal Taxonomy Vocabularies API](https://apis.io/apis/drupal/drupal-taxonomy-vocabularies-api/) — Taxonomy vocabulary resources representing the container configurations that organize sets of taxonomy terms.
+- [drupal Users API](https://apis.io/apis/drupal/drupal-users-api/) — JSON:API endpoints for Drupal user entities. Config entities are read-only via JSON:API and require authentication.
 
-The Drupal RESTful Web Services API is a core module that exposes Drupal entities and data as REST resources over HTTP. It supports multiple serialization formats and HTTP methods including GET, POST, PATCH, and DELETE, and is highly configurable in terms of which resources, formats, and authentication methods are enabled. Unlike the JSON:API module, it allows developers to define custom REST endpoints for non-entity data and complex business logic operations.
+### Published properties
 
-- **Human URL:** [https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module](https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module)
-- **Base URL:** `https://example.com`
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-#### Tags
+#### GraphQL (1)
 
-- CMS
-- Content Management
-- REST
-- Web Services
+GraphQL schemas.
 
-#### Properties
+- [drupal GraphQL API](https://apis.io/graphqls/drupal/drupal-graphql/)
 
-- [Documentation](https://www.drupal.org/docs/core-modules-and-themes/core-modules/restful-web-services-module)
-- [OpenAPI](openapi/drupal-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/drupal-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/drupal-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### MCP servers (1)
 
-### Drupal JSON:API
+Model Context Protocol servers that expose the API to agents.
 
-The Drupal JSON:API module is a core component that exposes all Drupal entity types and bundles as a standards-compliant JSON:API interface, requiring no configuration to enable. Each entity bundle receives a unique URL path following the pattern /jsonapi/{entity_type}/{bundle}, and the module supports GET, POST, PATCH, and DELETE operations for full CRUD access.
+- [Drupal MCP Server](https://apis.io/servers/drupal/drupal-mcp-server/)
 
-- **Human URL:** [https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview)
-- **Base URL:** `https://example.com/jsonapi`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- CMS
-- Content Management
-- Headless
-- JSON:API
-- REST
+- [Drupal Agentic Access](https://apis.io/agentic-access/drupal/drupal-agentic-access/)
 
-#### Properties
+#### JSON Schema (2)
 
-- [Documentation](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview)
-- [OpenAPI](openapi/drupal-jsonapi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/drupal-jsonapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/drupal-jsonapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/drupal-jsonapi-resource-schema.json) — [JSON Schema](https://json-schema.org/specification)
+The data models the API reads and writes.
 
-### Drupal GraphQL API
+- [Drupal JSON:API Resource](https://apis.io/schemas/drupal/drupal-jsonapi-resource/)
+- [Drupal Node](https://apis.io/schemas/drupal/drupal-node/)
 
-The Drupal GraphQL module is a contributed module that enables developers to craft and expose a GraphQL schema for Drupal 10 and 11, allowing client applications to query Drupal content and entities using GraphQL syntax. It supports both queries and mutations for reading and writing data, and includes a built-in GraphiQL Explorer interface at /graphql/explorer for interactive schema browsing and query development.
+#### JSON-LD (1)
 
-- **Human URL:** [https://www.drupal.org/docs/contributed-modules/graphql](https://www.drupal.org/docs/contributed-modules/graphql)
-- **Base URL:** `https://example.com/graphql`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Drupal Context](https://apis.io/jsonld/drupal/drupal-context/)
 
-- CMS
-- Content Management
-- GraphQL
-- Headless
-- Query Language
+#### Collections (10)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://www.drupal.org/docs/contributed-modules/graphql)
-- [Documentation](https://drupal-graphql.gitbook.io/graphql/)
-- [Postman Collection](collections/drupal-jsonapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/drupal-jsonapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/drupal-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/drupal-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Drupal JSON: Comments API](https://apis.io/collections/drupal/open-drupal-comments-api/)
+- [Drupal JSON: Comments Files API](https://apis.io/collections/drupal/open-drupal-files-api/)
+- [Drupal JSON:API](https://apis.io/collections/drupal/open-drupal-jsonapi/)
+- [Drupal JSON: Comments Node Articles API](https://apis.io/collections/drupal/open-drupal-node-articles-api/)
+- [Drupal JSON: Comments Node Pages API](https://apis.io/collections/drupal/open-drupal-node-pages-api/)
+- [Drupal JSON: Comments Nodes API](https://apis.io/collections/drupal/open-drupal-nodes-api/)
+- [Drupal REST API](https://apis.io/collections/drupal/open-drupal-rest-api/)
+- [Drupal JSON: Comments Taxonomy Terms API](https://apis.io/collections/drupal/open-drupal-taxonomy-terms-api/)
+- [Drupal JSON: Comments Taxonomy Vocabularies API](https://apis.io/collections/drupal/open-drupal-taxonomy-vocabularies-api/)
+- [Drupal JSON: Comments Users API](https://apis.io/collections/drupal/open-drupal-users-api/)
 
-## Common Properties
+#### Overlays (8)
 
-- [GitHub Organization](https://github.com/drupal)
-- [LinkedIn](https://www.linkedin.com/company/drupal-project)
-- [JSON-LD](json-ld/drupal-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/drupal-node-schema.json) — [JSON Schema](https://json-schema.org/specification)
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Drupal Comments Api Overlay](https://apis.io/overlays/drupal/drupal-comments-api-overlay/)
+- [Drupal Files Api Overlay](https://apis.io/overlays/drupal/drupal-files-api-overlay/)
+- [Drupal Node Articles Api Overlay](https://apis.io/overlays/drupal/drupal-node-articles-api-overlay/)
+- [Drupal Node Pages Api Overlay](https://apis.io/overlays/drupal/drupal-node-pages-api-overlay/)
+- [Drupal Nodes Api Overlay](https://apis.io/overlays/drupal/drupal-nodes-api-overlay/)
+- [Drupal Taxonomy Terms Api Overlay](https://apis.io/overlays/drupal/drupal-taxonomy-terms-api-overlay/)
+- [Drupal Taxonomy Vocabularies Api Overlay](https://apis.io/overlays/drupal/drupal-taxonomy-vocabularies-api-overlay/)
+- [Drupal Users Api Overlay](https://apis.io/overlays/drupal/drupal-users-api-overlay/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Drupal — jsonschema rules](https://apis.io/rules/drupal/drupal-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Drupal Authentication](https://apis.io/security/drupal/drupal-authentication/)
+- [Drupal Domain Security](https://apis.io/security/drupal/drupal-domain-security/)
+- [Drupal Vulnerability Disclosure](https://apis.io/security/drupal/drupal-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Drupal Scopes](https://apis.io/scopes/drupal/drupal-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Drupal Plans Pricing](https://apis.io/plans/drupal/drupal-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Drupal Rate Limits](https://apis.io/rate-limits/drupal/drupal-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Drupal Finops](https://apis.io/finops/drupal/drupal-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://drupal.org)
+- [Documentation](https://www.drupal.org/docs)
+- [Getting started](https://www.drupal.org/docs/getting-started)
+- [API reference](https://www.drupal.org/docs/develop/drupal-apis)
+- [Sign up](https://www.drupal.org/user/register)
+- [Support](https://www.drupal.org/community)
+- [Blog](https://www.drupal.org/blog)
+- [Security](https://www.drupal.org/security)
+- [Terms of service](https://www.drupal.org/terms)
+- [Privacy policy](https://www.drupal.org/privacy)
+- [GitHub](https://github.com/drupal)
+
+## API Evangelist rating
+
+**Kin Score 54.3** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 60.5 |
+| Contract governance | 14.4 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 34.2 |
+
+**Agent readiness 43.8** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | templated |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 40.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/drupal/](https://apis.io/providers/drupal/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Drupal: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/drupal/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
